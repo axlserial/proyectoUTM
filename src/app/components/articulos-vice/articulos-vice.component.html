@@ -1,0 +1,13 @@
+<div class="contenedor-principal">
+	<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
+	<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
+	<table>
+		<tr *ngFor="let articulo of articulos; let i = index;">
+			<td>{{articulo.titulo}}</td>
+			<td><b>Autor(es)</b></td>
+			<p *ngFor="let autor of autores[i];">
+				{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
+			</p>
+		</tr>
+	</table>
+</div>
