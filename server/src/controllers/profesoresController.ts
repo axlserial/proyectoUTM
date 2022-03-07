@@ -50,7 +50,7 @@ class ProfesoresController {
 				if (resEncriptar == true){
 					token = jwt.sign(correo, process.env.TOKEN_SECRET || 'prueba');
 					console.log(process.env.TOKEN_SECRET);
-					res.json(token);
+					res.json({"token": token, "idProfesor": respuesta[0].idProfesor});
 					// res.json(respuesta[0].idProfesor);
 				} else {
 					res.json(-1);

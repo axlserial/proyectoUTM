@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -11,15 +12,12 @@ export class NavigationComponent implements OnInit {
 
 	idProfesor: number = 10;
 
-	constructor() {
+	constructor(private router: Router) {
 
 	}
 
 	ngOnInit(): void {
-
 		this.idProfesor = Number(localStorage.getItem('idProfesor'));
-
-		console.log(this.idProfesor);
 
 		$(document).ready(function () {
 			$('.sidenav').sidenav();
@@ -28,4 +26,11 @@ export class NavigationComponent implements OnInit {
 
 	}
 
+	logout() {
+		console.log("logout");
+		localStorage.removeItem("correo");
+		localStorage.removeItem("token");
+		localStorage.removeItem("idProfesor");
+		this.router.navigateByUrl('/');
+	}
 }

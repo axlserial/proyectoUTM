@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf src/build/ && tsc -w",
-    "dev": "nodemon src/build/index.js"
+    "dev": "nodemon src/build/index.js",
+    "correo": "nodemon src/build/app.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,8 @@
     "morgan": "^1.10.0",
     "promise-mysql": "^3.3.1",
     "swagger-express": "^1.0.5",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "emailjs": "^2.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
