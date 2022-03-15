@@ -1,2 +1,96 @@
 <app-navigation></app-navigation>
 <router-outlet></router-outlet>
+
+<div class="fixed-action-btn">
+	<a class="btn-floating btn-large red">
+		<i class="large material-icons">add</i>
+	</a>
+	<ul>
+		<li><a (click)="agregarArticulo()" class="btn-floating black"><i class="material-icons">insert_chart</i></a>
+		</li>
+		<li><a class="btn-floating black"><i class="material-icons">format_quote</i></a></li>
+		<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+	</ul>
+</div>
+
+<div class="container">
+	<div id="agregarArticulo" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Ingresa Articulo</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre Articulo</label>
+								<input [(ngModel)]="articulito.titulo" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Tipo CLR</label>
+								<select class="browser-default">
+									<ng-container *ngFor="let item of tipoCLR;">
+										<option [value]="item">{{item}}</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Institutos</label>
+								<select (change)="cambioInstituto($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of institutos;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+											{{item.nombreInstituto}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row" *ngIf="numCarrerasActual != 0">
+							<div class="col s12">
+								<label>Carreras</label>
+								<select class="browser-default">
+									<ng-container *ngFor="let item of carreras;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.nombreCarrera">
+											{{item.nombreCarrera}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Profesores</label>
+								<select class="browser-default">
+									<ng-container *ngFor="let item of profesores;">
+										<option [value]="item.idProfesor">
+											{{item.nombres + " " + item.apellidoPaterno 
+												+ " " + item.apellidoMaterno}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6 center">
+								<a 	(click)="darAltaArticulo()" 
+									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+							</div>
+							<div class="col s6 center">
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

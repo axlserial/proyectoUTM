@@ -12,4 +12,8 @@ export class CorreoService {
 	enviarCorreoRecuperacion(correo: any) {
 		return this.http.post(`${environment.API_URI_CORREOS}/enviarCorreoRecuperarContrasenya/`, correo);
 	}
+
+	decodificaEmail(token: any){
+		return this.http.post(`${environment.API_URI_CORREOS}/decodificarMail/`, token);
+	}
 }

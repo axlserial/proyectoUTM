@@ -34,13 +34,14 @@ export class LoginComponent implements OnInit {
 
 	logueo(): void {
 		if (!(this.usuario.correo === '') && !(this.usuario.password === '')) {
-			this.usuarioService.existe(this.usuario.correo, this.usuario.password).subscribe((resUsuario: any) => {
+			let contra = {"password": this.usuario.password};
+			this.usuarioService.existe(this.usuario.correo, contra).subscribe((resUsuario: any) => {
 				if (resUsuario != -1) {
-					// console.log(resUsuario);
 					this.idProfesor = Number(resUsuario.idProfesor);
 					localStorage.setItem('token', resUsuario.token);
 					localStorage.setItem('correo', this.usuario.correo);
 					localStorage.setItem('idProfesor', this.idProfesor + '');
+					console.log('Contraseña:', this.usuario.password);
 					this.router.navigateByUrl(`/home/generales/${this.idProfesor}`);
 				} else {
 					Swal.fire({
@@ -49,6 +50,12 @@ export class LoginComponent implements OnInit {
 						title: `Datos incorrectos`,
 					});
 				}
+			});
+		} else {
+			Swal.fire({
+				position: "center",
+				icon: "error",
+				title: "Ingresa tus datos"
 			});
 		}
 	}
@@ -61,7 +68,7 @@ export class LoginComponent implements OnInit {
 
 	cambiaContraBase(){
 		console.log("cambioBase");
-		this.correoService.enviarCorreoRecuperacion(this.usuario.correo).subscribe({
+		this.correoService.enviarCorreoRecuperacion(this.usuario).subscribe({
 			next: (resUsuario: any) => console.log(resUsuario),
 			error: (err) => console.error(err)
 		});

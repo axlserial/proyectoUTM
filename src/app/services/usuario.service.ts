@@ -3,15 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient){
+	constructor(private http: HttpClient) {
 
-  }
+	}
 
-  existe(correo: string, password: string){
-	  return this.http.get(`${environment.API_URL}/profesores/existe/${correo}/${password}`);
-  }
+	existe(correo: string, password: any) {
+		return this.http.post(`${environment.API_URL}/profesores/existe/${correo}`, password);
+	}
+
+	actualizaContra(idProfesor: number, password: any) {
+		return this.http.put(`${environment.API_URL}/profesores/actualiza-password/${idProfesor}`, password);
+	}
 }

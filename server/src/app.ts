@@ -29,14 +29,18 @@ class Server {
 	}
 	
 	routes(): void {
+
 		this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
 			console.log(req.body);
 			correoAcceso(req.body);
 		});
+
 		this.app.post('/decodificarMail', async (req, res) => {
 			let decodificado;
+			console.log("body:", req.body);
 			try {
 				decodificado = jwt.verify(req.body.token, process.env.TOKEN_SECRET || 'prueba');
+				console.log("decodificado:", decodificado);
 				const result1 = await this.queryProfesor(decodificado) as any;
 				if (result1.length == 0)
 					res.json(0);
@@ -45,6 +49,7 @@ class Server {
 			}
 			catch (err) { res.json(0); }
 		});
+		
 	}
 	
 	queryProfesor = (decodificado: any) => {

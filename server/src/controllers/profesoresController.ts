@@ -41,7 +41,8 @@ class ProfesoresController {
 	}
 
 	public async existe(req: Request, res: Response): Promise<void> {
-		const {correo, password} = req.params;
+		const {correo} = req.params;
+		let password = req.body.password as any;
 		let token: string;
 		let consulta =  `SELECT idProfesor, password FROM profesores WHERE correoProfesor = '${correo}'`;
 		const respuesta = await pool.query(consulta);
@@ -51,7 +52,6 @@ class ProfesoresController {
 					token = jwt.sign(correo, process.env.TOKEN_SECRET || 'prueba');
 					console.log(process.env.TOKEN_SECRET);
 					res.json({"token": token, "idProfesor": respuesta[0].idProfesor});
-					// res.json(respuesta[0].idProfesor);
 				} else {
 					res.json(-1);
 				}
@@ -83,6 +83,13 @@ class ProfesoresController {
 		res.json(respuesta);
 	}
 
+	public async listProfesoresByInstituto(req: Request, res: Response): Promise<void> {
+		const {idInstituto} = req.params;
+		console.log("idInstituto:", idInstituto);
+		const respuesta = await pool.query(`SELECT nombres, apellidoPaterno, apellidoMaterno FROM profesores WHERE idInstituto = ${idInstituto}`);
+		res.json(respuesta);
+	}
+
 	public async listProfesoresByArticulo(req: Request, res: Response): Promise<void> {
 		const {idArticulo} = req.params;
 		console.log(idArticulo);
@@ -92,6 +99,18 @@ class ProfesoresController {
 			 WHERE articuloYprofesor.idArticulo = ${idArticulo}
 			   AND articuloYprofesor.idProfesor = profesores.idProfesor`);
 		res.json(respuesta);
+	}
+
+	public async actualizaPassword(req: Request, res: Response): Promise<void> {
+		const {idProfesor} = req.params;
+		let password = req.body.password as any;
+		let salt = bcrypt.genSaltSync(10);
+		console.log("idprofesor:", idProfesor, "\tpassword:", password);
+		bcrypt.hash(password, salt).then((nuevoPassword) => {
+			let consulta = `UPDATE profesores SET password = '${nuevoPassword}' WHERE idProfesor = ${idProfesor}`;
+			const respuesta = pool.query(consulta);
+			res.json(respuesta);
+		});
 	}
 }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Articulo } from '../models/articulo.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,5 +16,9 @@ export class ArticuloService {
 
 	listArticulosByPeriodo(ini: string, fin: string){
 		return this.http.get(`${environment.API_URL}/articulos/articulos-by-periodo/${ini}/${fin}`);
+	}
+
+	crearArticulo(articulo: Articulo){
+		
 	}
 }

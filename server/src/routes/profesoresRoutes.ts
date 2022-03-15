@@ -15,7 +15,9 @@ class ProfesoresRoutes {
 		this.router.put('/update/:idProfesor', profesoresController.update);
 		this.router.get('/profesores-by-carrera/:idCarrera', profesoresController.listProfesoresByCarrera);
 		this.router.get('/profesores-by-articulo/:idArticulo', profesoresController.listProfesoresByArticulo);
-		this.router.get('/existe/:correo/:password', profesoresController.existe);
+		this.router.get('/profesores-by-instituto/:idInstituto', profesoresController.listProfesoresByInstituto);
+		this.router.post('/existe/:correo', profesoresController.existe);
+		this.router.put('/actualiza-password/:idProfesor', profesoresController.actualizaPassword);
 	}
 }
 

@@ -40,4 +40,15 @@ export class ProfesorService {
 		return this.http.get(`${environment.API_URL}/profesores/profesores-by-articulo/${idArticulo}`);
 	}
 
+	listInstitutos(){
+		return this.http.get(`${environment.API_URL}/institutos/`);
+	}
+
+	listCarrerasbyInstituto(idInstituto: number){
+		return this.http.get(`${environment.API_URL}/carreras/carreras-by-instituto/${idInstituto}`);
+	}
+
+	listProfesoresByInstituto(idInstituto: number){
+		return this.http.get(`${environment.API_URL}/profesores/profesores-by-instituto/${idInstituto}`);
+	}
 }

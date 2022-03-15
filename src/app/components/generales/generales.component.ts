@@ -13,7 +13,7 @@ export class GeneralesComponent implements OnInit {
 	profesor: Profesor;
 	idProfesor: number;
 
-	constructor(private router: ActivatedRoute, private profesorService: ProfesorService){
+	constructor(private router: ActivatedRoute, private profesorService: ProfesorService) {
 		this.profesor = new Profesor();
 		this.idProfesor = 0;
 	}
@@ -23,9 +23,8 @@ export class GeneralesComponent implements OnInit {
 			this.idProfesor = Number(params.get('idProfesor'));
 			this.profesorService.listOne(this.idProfesor).subscribe((resProfesor: any) => {
 				this.profesor = resProfesor as Profesor;
-				console.log(this.profesor);
-			}, 
-			err => console.error(err));
+			},
+				err => console.error(err));
 			// this.profesorService.listOne(this.idProfesor).subscribe({
 			// 	next: (resProfesor: any) => {
 			// 		this.profesor = resProfesor as Profesor;

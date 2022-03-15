@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 
+
+
 @Component({
 	selector: 'app-articulos-vice',
 	templateUrl: './articulos-vice.component.html',
@@ -27,6 +29,13 @@ export class ArticulosViceComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
+		// $(document).ready(function () {
+		// 	$('.modal').modal({
+		// 		dismissible: true
+		// 	});
+		// });
+
 		this.router.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'));
 			this.articuloService.listArticulosByProfesor(this.idProfesor).subscribe({

@@ -12,6 +12,9 @@ import { GeneralesComponent } from './components/generales/generales.component';
 import { HomeComponent } from './components/home/home.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
+import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
+import { MateriasComponent } from './components/materias/materias.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { ArticulosViceComponent } from './components/articulos-vice/articulos-vi
     GeneralesComponent,
     HomeComponent,
     ArticulosComponent,
-    ArticulosViceComponent
+    ArticulosViceComponent,
+    RecuperarContraComponent,
+    MateriasComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
