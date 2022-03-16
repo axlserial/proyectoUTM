@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
 	institutoActual: any;
 	numCarrerasActual: any;
 	carreras: any[] = [];
+	carreraActual: any;
 	profesores: any[] = [];
 
 	constructor(private profesorService: ProfesorService) {
@@ -43,9 +44,10 @@ export class HomeComponent implements OnInit {
 				this.profesorService.listCarrerasbyInstituto(this.institutoActual)
 				.subscribe({
 					next: (resCarreras: any) => {
+						this.carreraActual = resCarreras[0].idCarrera;
 						this.numCarrerasActual = resCarreras.length;
 						this.carreras = resCarreras;
-						this.profesorService.listProfesoresByInstituto(this.institutoActual)
+						this.profesorService.listProfesoresByCarrera(this.carreraActual)
 						.subscribe({
 							next: (resProfesores: any) => {
 								this.profesores = resProfesores;
@@ -75,17 +77,28 @@ export class HomeComponent implements OnInit {
 		this.profesorService.listCarrerasbyInstituto(this.institutoActual)
 		.subscribe({
 			next: (resCarreras: any) => {
+				console.log(resCarreras);
 				this.numCarrerasActual = resCarreras.length;
-				this.carreras = resCarreras;
-				this.profesorService.listProfesoresByInstituto(this.institutoActual)
-				.subscribe({
-					next: (resProfesores: any) => {
-						this.profesores = resProfesores;
-					},
-					error: err => console.log(err)
-				});
+				if (this.numCarrerasActual == 0){
+					this.carreraActual = 0;
+				} else {
+					this.carreras = resCarreras;
+					this.carreraActual = resCarreras[0].idCarrera;
+					this.cambioCarrera({"value": this.carreraActual});
+					this.profesorService.listProfesoresByInstituto(this.carreraActual)
+					.subscribe({
+						next: (resProfesores: any) => {
+							this.profesores = resProfesores;
+						},
+						error: err => console.log(err)
+					});
+				}
 			},
 			error: err => console.log(err)
 		});
+	}
+
+	cambioCarrera(op: any){
+		console.log("op carrera:", op.value);
 	}
 }

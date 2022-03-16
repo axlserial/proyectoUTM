@@ -57,9 +57,9 @@
 						<div class="row" *ngIf="numCarrerasActual != 0">
 							<div class="col s12">
 								<label>Carreras</label>
-								<select class="browser-default">
+								<select (change)="cambioCarrera($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of carreras;">
-										<option *ngIf="item.idIsntituto != 0" [value]="item.nombreCarrera">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
 											{{item.nombreCarrera}}
 										</option>
 									</ng-container>
