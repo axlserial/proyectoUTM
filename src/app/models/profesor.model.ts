@@ -1,5 +1,6 @@
 export class Profesor {
 
+	idProfesor: number;
 	nombres: string;
 	apellidoMaterno: string;
 	apellidoPaterno: string;
@@ -11,14 +12,15 @@ export class Profesor {
 	idTipoProfesor: number;
 
 	constructor(){
-		this.nombres = '';
-		this.apellidoMaterno = '';
-		this.apellidoPaterno = '';
-		this.correoProfesor = '';
-		this.password = '';
+		this.idProfesor = 0;
+		this.nombres = 'Axel Isaac';
+		this.apellidoMaterno = 'Garcia';
+		this.apellidoPaterno = 'Gonzalez';
+		this.correoProfesor = 'a@gmail.com';
+		this.password = '12345';
 		this.nivel = 0;
 		this.idCarrera = 0;
-		this.grado = '';
+		this.grado = 'Dr';
 		this.idTipoProfesor = 0;
 	}
 

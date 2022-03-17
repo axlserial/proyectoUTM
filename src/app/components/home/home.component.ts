@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from '../../models/articulo.model';
+import { Profesor } from 'src/app/models/profesor.model';
 
 import {ProfesorService} from 'src/app/services/profesor.service';
 
@@ -21,8 +22,12 @@ export class HomeComponent implements OnInit {
 	carreraActual: any;
 	profesores: any[] = [];
 
+	// Para modal profesor
+	registroProfesor: Profesor;
+
 	constructor(private profesorService: ProfesorService) {
 		this.articulito = new Articulo();
+		this.registroProfesor = new Profesor();
 	}
 
 	ngOnInit(): void {
@@ -70,6 +75,16 @@ export class HomeComponent implements OnInit {
 
 	darAltaArticulo(){
 		console.log(this.articulito);
+	}
+
+	agregarProfesor(){
+		console.log("agregar profesor");
+		$('#agregarProfesor').modal();
+		$('#agregarProfesor').modal('open');
+	}
+
+	darAltaProfesor(){
+		// this.registroProfesor.idInstituto = this.institutoActual;
 	}
 
 	cambioInstituto(op: any){
