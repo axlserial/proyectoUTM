@@ -7,6 +7,7 @@ export class Profesor {
 	correoProfesor: string;
 	password: string;
 	nivel: number;
+	idInstituto: number;
 	idCarrera: number;
 	grado: string;
 	idTipoProfesor: number;
@@ -18,7 +19,8 @@ export class Profesor {
 		this.apellidoPaterno = 'Gonzalez';
 		this.correoProfesor = 'a@gmail.com';
 		this.password = '12345';
-		this.nivel = 0;
+		this.nivel = 4;
+		this.idInstituto = 0;
 		this.idCarrera = 0;
 		this.grado = 'Dr';
 		this.idTipoProfesor = 0;

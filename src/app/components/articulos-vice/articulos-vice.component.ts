@@ -4,6 +4,10 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 
 
+//profesores-vice
+import { Profesor } from 'src/app/models/profesor.model';
+declare var $: any;
+
 
 @Component({
 	selector: 'app-articulos-vice',
@@ -15,8 +19,17 @@ export class ArticulosViceComponent implements OnInit {
 	idProfesor: number = 0;
 	articulos: any;
 	autores: any[] = [];
+	profesores: any[] = [];
 	ini: string;
 	fin: any;
+
+	// profesores-vice
+	editaProf: Profesor = new Profesor();
+	institutos: any;
+	institutoActual: any;
+	numCarrerasActual: any;
+	carreras: any[] = [];
+	carreraActual: any;
 
 	constructor(private router: ActivatedRoute, private articuloService: ArticuloService, 
 		private profesorService: ProfesorService) {
@@ -35,6 +48,16 @@ export class ArticulosViceComponent implements OnInit {
 		// 		dismissible: true
 		// 	});
 		// });
+		$(document).ready(function () {
+			$('.fixed-action-btn').floatingActionButton({
+				direction: 'left',
+				hoverEnabled: false
+			});
+			$('.modal').modal({
+				dismissible: true
+			});
+			$('select').formSelect();
+		});
 
 		this.router.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'));
@@ -45,6 +68,33 @@ export class ArticulosViceComponent implements OnInit {
 						this.profesorService.listAutoresByArticulo(articulo.idArticulo).subscribe({
 							next: (resAutor: any) => {
 								this.autores.push(resAutor);
+								this.profesorService.list().subscribe({
+									next: (resProfesores: any) => {
+										this.profesores = resProfesores;
+										// console.log(this.profesores);
+
+
+										this.profesorService.listInstitutos().subscribe({
+											next: (resInstitutos: any) => {
+												this.institutos = resInstitutos;
+												this.institutoActual = this.institutos[0].idInstituto;
+												this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+												.subscribe({
+													next: (resCarreras: any) => {
+														this.carreraActual = resCarreras[0].idCarrera;
+														this.numCarrerasActual = resCarreras.length;
+														this.carreras = resCarreras;
+													},
+													error: err => console.log(err)
+												});
+											},
+											error: (err) => console.log(err)
+										});
+
+
+
+									}
+								});
 							},
 							error: (err) => console.error(err)
 						});						
@@ -68,4 +118,39 @@ export class ArticulosViceComponent implements OnInit {
 		console.log("FechaFin: ", this.ini);
 	}
 
+
+	// profesores-vice
+	modificarProfesor(index: any){
+		console.log("edit: ", this.profesores[index]);
+		this.editaProf = this.profesores[index];
+		$('#editarProfesor').modal();
+		$('#editarProfesor').modal('open');
+	}
+
+	cambioInstituto(op: any){
+		this.institutoActual = op.value;
+		this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+		.subscribe({
+			next: (resCarreras: any) => {
+				// console.log(resCarreras);
+				this.numCarrerasActual = resCarreras.length;
+				if (this.numCarrerasActual == 0){
+					this.carreraActual = 0;
+				} else {
+					this.carreras = resCarreras;
+					this.carreraActual = resCarreras[0].idCarrera;
+					this.cambioCarrera({"value": this.carreraActual});
+				}
+			},
+			error: err => console.log(err)
+		});
+	}
+
+	cambioCarrera(op: any){
+		console.log("op carrera:", op.value);
+	}
+
+	cambiarDatosProf(){
+
+	}
 }

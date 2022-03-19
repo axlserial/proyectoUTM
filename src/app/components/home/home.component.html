@@ -96,19 +96,108 @@
 </div>
 
 
-<!-- obtener nombre profesor -->
 <div class="container">
 	<div id="agregarProfesor" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Ingresa Profesor</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre(s)</label>
+								<input [(ngModel)]="registroProfesor.nombres" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido paterno</label>
+								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido materno</label>
+								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Correo</label>
+								<input [(ngModel)]="registroProfesor.correoProfesor" required type="password"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Institutos</label>
+								<select (change)="cambioInstituto($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of institutos;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+											{{item.nombreInstituto}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row" *ngIf="numCarrerasActual != 0">
+							<div class="col s12">
+								<label>Carreras</label>
+								<select class="browser-default">
+									<ng-container *ngFor="let item of carreras;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
+											{{item.nombreCarrera}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Grado</label>
+								<input [(ngModel)]="registroProfesor.grado" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6 center">
+								<a 	(click)="darAltaProfesor()" 
+									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+							</div>
+							<div class="col s6 center">
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- obtener nombre profesor -->
+<!-- <div class="container">
+	<div class="modal">
 		<div>
 			<br>
 			<h5 class="center">Ingresa Profesor</h5>
 		</div>
 		<div class="modal-content">
 			<div style="border: .5px solid #78909c; padding: 30px;">
-				<form class="col s12 offset-s3">
-					<div class="input-field col s6">
-						<input [(ngModel)]="registroProfesor.nombres" name="input_nombres" type="text">
-						<label for="input_nombres">Nombre(s)</label>
+				<div class="col s12 offset-s3">
+					<div class="row">
+						<div class="input-field">
+							<input [(ngModel)]="registroProfesor.nombres" name="input_nombres" type="text">
+							<label for="input_nombres">Nombre(s)</label>
+						</div>
 					</div>
 					<br>
 					<div class="input-field col s6">
@@ -136,14 +225,34 @@
 						<label for="input_nivel">nivel</label>
 					</div>
 					<br>
-					<div class="input-field col s6">
-						<select id="select_carrera">
-							<option value="" disabled selected>Elije una carrera</option>
-							<option value="1">Ingeniería en Computación</option>
-							<option value="6">Ingeniería en Mecatrónica</option>
-							<option value="7">Ingeniería en Electrónica</option>
-						</select>
-						<label for="select_carrera">Carrera</label>
+					<div class="row">
+						<div class="input-field col s6">
+							<label>Instituto</label>
+							<select (change)="cambioInstituto($event.target)" id="select_instituto" class="browser-default">
+								<option value="" disabled selected>Elije un instituto</option>
+								<ng-container *ngFor="let item of institutos;">
+									<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+										{{item.nombreInstituto}}
+									</option>
+								</ng-container>
+							</select>
+							<label for="select_instituto">Instituto</label>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="input-field col s6">
+							<label>Carrera</label>
+							<select id="select_carrera" class="browser-default">
+								<option value="" disabled selected>Elije una carrera</option>
+								<ng-container *ngFor="let item of carreras;">
+									<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
+										{{item.nombreCarrera}}
+									</option>
+								</ng-container>
+							</select>
+							<label for="select_carrera">Carrera</label>
+						</div>
 					</div>
 					<br>
 					<div class="input-field col s6">
@@ -151,18 +260,9 @@
 						<label for="input_grado">Grado</label>
 					</div>
 					<br>
-					<div class="input-field col s6">
-						<select id="select_tipoprof">
-							<option value="" disabled selected>Elije un tipo de profesor</option>
-							<option value="1">Tipo 1</option>
-							<option value="2">Tipo 2</option>
-							<option value="3">Tipo 3</option>
-						</select>
-						<label for="select_tipoprof">Tipo de profesor</label>
-					</div>
-					<br>
 					<div class="center-align">
 						<button 
+							(click)="darAltaProfesor()"
 							class="modal-action modal-close btn waves-effect waves-light"
 							style="margin-right: 10px;" 
 							type="submit" 
@@ -175,8 +275,8 @@
 						>Cancelar<i class="material-icons right">cancel</i>
 						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->

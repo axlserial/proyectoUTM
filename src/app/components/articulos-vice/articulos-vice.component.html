@@ -2,12 +2,112 @@
 	<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
 	<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
 	<table>
-		<tr *ngFor="let articulo of articulos; let i = index;">
-			<td>{{articulo.titulo}}</td>
-			<td><b>Autor(es)</b></td>
-			<p *ngFor="let autor of autores[i];">
-				{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
-			</p>
+		<tr *ngFor="let profesor of profesores; let i = index;">
+			<td>{{i}}: {{profesor.nombres}}</td>
+			<td>
+				<a 
+					href="javascript:void(0);" 
+					(click)="modificarProfesor(i)"
+					class="material-icons"
+				>edit</a>
+			</td>
 		</tr>
 	</table>
 </div>
+
+
+<div class="container">
+	<div id="editarProfesor" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Editar Profesor</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre(s)</label>
+								<input [(ngModel)]="editaProf.nombres" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido paterno</label>
+								<input [(ngModel)]="editaProf.apellidoPaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido materno</label>
+								<input [(ngModel)]="editaProf.apellidoMaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Correo</label>
+								<input [(ngModel)]="editaProf.correoProfesor" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Institutos</label>
+								<select (change)="cambioInstituto($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of institutos;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+											{{item.nombreInstituto}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row" *ngIf="numCarrerasActual != 0">
+							<div class="col s12">
+								<label>Carreras</label>
+								<select class="browser-default">
+									<ng-container *ngFor="let item of carreras;">
+										<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
+											{{item.nombreCarrera}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Grado</label>
+								<input [(ngModel)]="editaProf.grado" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6 center">
+								<a 	(click)="cambiarDatosProf()" 
+									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+							</div>
+							<div class="col s6 center">
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Se movio temporalmente -->
+<!-- <tr *ngFor="let articulo of articulos; let i = index;">
+	<td>{{articulo.titulo}}</td>
+	<td><b>Autor(es)</b></td>
+	<p *ngFor="let autor of autores[i];">
+		{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
+	</p>
+</tr> -->

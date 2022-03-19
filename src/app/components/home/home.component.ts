@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Articulo } from '../../models/articulo.model';
 import { Profesor } from 'src/app/models/profesor.model';
 
-import {ProfesorService} from 'src/app/services/profesor.service';
+import { ProfesorService } from 'src/app/services/profesor.service';
 
 declare var $: any;
 
@@ -85,6 +85,9 @@ export class HomeComponent implements OnInit {
 
 	darAltaProfesor(){
 		// this.registroProfesor.idInstituto = this.institutoActual;
+		this.registroProfesor.idInstituto = Number(this.institutoActual);
+		this.registroProfesor.idCarrera = Number(this.carreraActual);
+		console.log(this.registroProfesor);
 	}
 
 	cambioInstituto(op: any){
