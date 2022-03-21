@@ -4,6 +4,7 @@ export class Profesor {
 	nombres: string;
 	apellidoMaterno: string;
 	apellidoPaterno: string;
+	nombreApa: string;
 	correoProfesor: string;
 	password: string;
 	nivel: number;
@@ -17,13 +18,14 @@ export class Profesor {
 		this.nombres = 'Axel Isaac';
 		this.apellidoMaterno = 'Garcia';
 		this.apellidoPaterno = 'Gonzalez';
+		this.nombreApa = "García González, A. I.";
 		this.correoProfesor = 'a@gmail.com';
 		this.password = '12345';
 		this.nivel = 4;
 		this.idInstituto = 0;
 		this.idCarrera = 0;
 		this.grado = 'Dr';
-		this.idTipoProfesor = 0;
+		this.idTipoProfesor = 1;
 	}
 
 }

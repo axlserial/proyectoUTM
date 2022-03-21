@@ -47,7 +47,7 @@
 								<label>Institutos</label>
 								<select (change)="cambioInstituto($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of institutos;">
-										<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+										<option *ngIf="item.idIsntituto !== 9" [value]="item.idInstituto">
 											{{item.nombreInstituto}}
 										</option>
 									</ng-container>
@@ -59,7 +59,7 @@
 								<label>Carreras</label>
 								<select (change)="cambioCarrera($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of carreras;">
-										<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
+										<option *ngIf="item.idIsntituto !== 9" [value]="item.idCarrera">
 											{{item.nombreCarrera}}
 										</option>
 									</ng-container>
@@ -116,13 +116,6 @@
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Apellido paterno</label>
-								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
 								<label>Apellido materno</label>
 								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
 										autocomplete="off">
@@ -130,8 +123,15 @@
 						</div>
 						<div class="row">
 							<div class="col s12">
+								<label>Apellido paterno</label>
+								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
 								<label>Correo</label>
-								<input [(ngModel)]="registroProfesor.correoProfesor" required type="password"
+								<input [(ngModel)]="registroProfesor.correoProfesor" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
@@ -140,7 +140,7 @@
 								<label>Institutos</label>
 								<select (change)="cambioInstituto($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of institutos;">
-										<option *ngIf="item.idIsntituto != 0" [value]="item.idInstituto">
+										<option [value]="item.idInstituto">
 											{{item.nombreInstituto}}
 										</option>
 									</ng-container>
@@ -152,7 +152,7 @@
 								<label>Carreras</label>
 								<select class="browser-default">
 									<ng-container *ngFor="let item of carreras;">
-										<option *ngIf="item.idIsntituto != 0" [value]="item.idCarrera">
+										<option [value]="item.idCarrera">
 											{{item.nombreCarrera}}
 										</option>
 									</ng-container>

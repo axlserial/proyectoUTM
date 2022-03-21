@@ -77,6 +77,7 @@ export class ArticulosViceComponent implements OnInit {
 										this.profesorService.listInstitutos().subscribe({
 											next: (resInstitutos: any) => {
 												this.institutos = resInstitutos;
+												this.institutos = this.institutos.filter((item: any) => item.idInstituto != 9);
 												this.institutoActual = this.institutos[0].idInstituto;
 												this.profesorService.listCarrerasbyInstituto(this.institutoActual)
 												.subscribe({
@@ -123,8 +124,22 @@ export class ArticulosViceComponent implements OnInit {
 	modificarProfesor(index: any){
 		console.log("edit: ", this.profesores[index]);
 		this.editaProf = this.profesores[index];
-		$('#editarProfesor').modal();
-		$('#editarProfesor').modal('open');
+		this.institutoActual = this.editaProf.idInstituto;
+		this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+		.subscribe({
+			next: (resCarreras: any) => {
+				this.numCarrerasActual = resCarreras.length;
+				if (this.numCarrerasActual == 0){
+					this.carreraActual = 0;
+				} else {
+					this.carreras = resCarreras;
+					this.carreraActual = this.editaProf.idCarrera;
+				}
+				$('#editarProfesor').modal();
+				$('#editarProfesor').modal('open');
+			},
+			error: err => console.log(err)
+		});
 	}
 
 	cambioInstituto(op: any){
@@ -139,7 +154,6 @@ export class ArticulosViceComponent implements OnInit {
 				} else {
 					this.carreras = resCarreras;
 					this.carreraActual = resCarreras[0].idCarrera;
-					this.cambioCarrera({"value": this.carreraActual});
 				}
 			},
 			error: err => console.log(err)
@@ -148,9 +162,15 @@ export class ArticulosViceComponent implements OnInit {
 
 	cambioCarrera(op: any){
 		console.log("op carrera:", op.value);
+		this.carreraActual = op.value;
 	}
 
 	cambiarDatosProf(){
-
+		this.editaProf.idInstituto = Number(this.institutoActual);
+		this.editaProf.idCarrera = Number(this.carreraActual);
+		console.log("edit prof:", this.editaProf);
+		
+		this.profesorService.actualizarProfesor(this.editaProf.idProfesor, this.editaProf)
+			.subscribe(resEdita => console.log(resEdita));
 	}
 }

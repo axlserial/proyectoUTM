@@ -45,6 +45,8 @@ export class HomeComponent implements OnInit {
 		this.profesorService.listInstitutos().subscribe({
 			next: (resInstitutos: any) => {
 				this.institutos = resInstitutos;
+				console.log("Institutos:", this.institutos);
+				this.institutos = this.institutos.filter((item: any) => item.idInstituto != 9);
 				this.institutoActual = this.institutos[0].idInstituto;
 				this.profesorService.listCarrerasbyInstituto(this.institutoActual)
 				.subscribe({
@@ -88,6 +90,10 @@ export class HomeComponent implements OnInit {
 		this.registroProfesor.idInstituto = Number(this.institutoActual);
 		this.registroProfesor.idCarrera = Number(this.carreraActual);
 		console.log(this.registroProfesor);
+
+		this.profesorService.guardarProfesor(this.registroProfesor).subscribe({
+			next: (resNuevo) => console.log(resNuevo)
+		});
 	}
 
 	cambioInstituto(op: any){
