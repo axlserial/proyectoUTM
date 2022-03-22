@@ -55,4 +55,8 @@ export class ProfesorService {
 	listProfesoresByCarrera(idCarrera: number){
 		return this.http.get(`${environment.API_URL}/profesores/profesores-by-carrera/${idCarrera}`);
 	}
+
+	listTipoProfesor(){
+		return this.http.get(`${environment.API_URL}/profesores/tipo-profesor/listar`);
+	}
 }

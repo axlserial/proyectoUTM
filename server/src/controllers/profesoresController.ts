@@ -17,6 +17,7 @@ class ProfesoresController {
 	}
 
 	public async listOne(req: Request, res: Response): Promise<void> {
+		console.log("Entro list one:", req.params);
 		const {idProfesor} = req.params;
 		let consulta = `SELECT * FROM profesores WHERE idProfesor = ${idProfesor}`;
 		const respuesta = await pool.query(consulta);
@@ -98,6 +99,12 @@ class ProfesoresController {
 			 FROM articuloYprofesor, profesores
 			 WHERE articuloYprofesor.idArticulo = ${idArticulo}
 			   AND articuloYprofesor.idProfesor = profesores.idProfesor`);
+		res.json(respuesta);
+	}
+
+	public async listTipoProfesor(req: Request, res: Response): Promise<void> {
+		console.log("Entro tipo");
+		const respuesta = await pool.query("SELECT * FROM `tipoProfesor` ORDER BY idTipoProfesor");
 		res.json(respuesta);
 	}
 

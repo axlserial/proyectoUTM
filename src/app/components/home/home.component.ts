@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
 
 	// Para modal profesor
 	registroProfesor: Profesor;
+	tipoProf: any[] = [];
+	tprofActual: any;
 
 	constructor(private profesorService: ProfesorService) {
 		this.articulito = new Articulo();
@@ -58,6 +60,14 @@ export class HomeComponent implements OnInit {
 						.subscribe({
 							next: (resProfesores: any) => {
 								this.profesores = resProfesores;
+								this.profesorService.listTipoProfesor().subscribe({
+									next: (resTipoProf: any) => {
+										this.tipoProf = resTipoProf;
+										this.tprofActual = this.tipoProf[0].idTipoProfesor;
+										console.log("Tipo:", this.tipoProf, " Actual:", this.tprofActual);
+									},
+									error: err => console.log(err)
+								});
 							},
 							error: err => console.log(err)
 						});
@@ -89,6 +99,7 @@ export class HomeComponent implements OnInit {
 		// this.registroProfesor.idInstituto = this.institutoActual;
 		this.registroProfesor.idInstituto = Number(this.institutoActual);
 		this.registroProfesor.idCarrera = Number(this.carreraActual);
+		this.registroProfesor.idTipoProfesor = Number(this.tprofActual);
 		console.log(this.registroProfesor);
 
 		this.profesorService.guardarProfesor(this.registroProfesor).subscribe({
@@ -108,7 +119,6 @@ export class HomeComponent implements OnInit {
 				} else {
 					this.carreras = resCarreras;
 					this.carreraActual = resCarreras[0].idCarrera;
-					this.cambioCarrera({"value": this.carreraActual});
 					this.profesorService.listProfesoresByInstituto(this.carreraActual)
 					.subscribe({
 						next: (resProfesores: any) => {
@@ -124,5 +134,12 @@ export class HomeComponent implements OnInit {
 
 	cambioCarrera(op: any){
 		console.log("op carrera:", op.value);
+		this.carreraActual = op.value;
 	}
+
+	cambioTipoProf(op: any){
+		console.log("cambio tprof:", op.value);
+		this.tprofActual = op.value;
+	}
+	
 }

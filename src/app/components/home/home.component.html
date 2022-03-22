@@ -137,10 +137,17 @@
 						</div>
 						<div class="row">
 							<div class="col s12">
+								<label>Nombre APA</label>
+								<input [(ngModel)]="registroProfesor.nombreApa" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
 								<label>Institutos</label>
 								<select (change)="cambioInstituto($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of institutos;">
-										<option [value]="item.idInstituto">
+										<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
 											{{item.nombreInstituto}}
 										</option>
 									</ng-container>
@@ -150,9 +157,9 @@
 						<div class="row" *ngIf="numCarrerasActual != 0">
 							<div class="col s12">
 								<label>Carreras</label>
-								<select class="browser-default">
+								<select (change)="cambioCarrera($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of carreras;">
-										<option [value]="item.idCarrera">
+										<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
 											{{item.nombreCarrera}}
 										</option>
 									</ng-container>
@@ -160,10 +167,20 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col s12">
+							<div class="col s6">
 								<label>Grado</label>
 								<input [(ngModel)]="registroProfesor.grado" required type="text"
 										autocomplete="off">
+							</div>
+							<div class="col s6">
+								<label>Tipo de profesor</label>
+								<select (change)="cambioTipoProf($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of tipoProf;">
+										<option [value]="item.idTipoProfesor" [selected]="item == tprofActual">
+											{{item.nombreTipo}}
+										</option>
+									</ng-container>
+								</select>
 							</div>
 						</div>
 						<div class="row">

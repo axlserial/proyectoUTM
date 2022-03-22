@@ -25,7 +25,7 @@ export class Profesor {
 		this.idInstituto = 0;
 		this.idCarrera = 0;
 		this.grado = 'Dr';
-		this.idTipoProfesor = 1;
+		this.idTipoProfesor = 0;
 	}
 
 }

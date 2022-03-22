@@ -30,6 +30,8 @@ export class ArticulosViceComponent implements OnInit {
 	numCarrerasActual: any;
 	carreras: any[] = [];
 	carreraActual: any;
+	tipoProf: any[] = [];
+	tprofActual: any;
 
 	constructor(private router: ActivatedRoute, private articuloService: ArticuloService, 
 		private profesorService: ProfesorService) {
@@ -85,6 +87,14 @@ export class ArticulosViceComponent implements OnInit {
 														this.carreraActual = resCarreras[0].idCarrera;
 														this.numCarrerasActual = resCarreras.length;
 														this.carreras = resCarreras;
+														this.profesorService.listTipoProfesor().subscribe({
+															next: (resTipoProf: any) => {
+																this.tipoProf = resTipoProf;
+																this.tprofActual = this.tipoProf[0].idTipoProfesor;
+																console.log("Tipo:", this.tipoProf, " Actual:", this.tprofActual);
+															},
+															error: err => console.log(err)
+														});
 													},
 													error: err => console.log(err)
 												});
@@ -168,9 +178,15 @@ export class ArticulosViceComponent implements OnInit {
 	cambiarDatosProf(){
 		this.editaProf.idInstituto = Number(this.institutoActual);
 		this.editaProf.idCarrera = Number(this.carreraActual);
+		this.editaProf.idTipoProfesor = Number(this.tprofActual);
 		console.log("edit prof:", this.editaProf);
 		
 		this.profesorService.actualizarProfesor(this.editaProf.idProfesor, this.editaProf)
 			.subscribe(resEdita => console.log(resEdita));
+	}
+
+	cambioTipoProf(op: any){
+		console.log("cambio tprof:", op.value);
+		this.tprofActual = op.value;
 	}
 }
