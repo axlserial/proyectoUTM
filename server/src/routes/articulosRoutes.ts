@@ -11,7 +11,7 @@ class ArticulosRoutes {
 	config(): void {
 		this.router.get('/', articulosController.list);
 		this.router.get('/:idArticulo', articulosController.listOne);
-		this.router.post('/create', articulosController.create);
+		this.router.post('/create/:idProfesor', articulosController.create);
 		this.router.delete('/delete/:idArticulo', articulosController.delete);
 		this.router.put('/update/:idArticulo', articulosController.update);
 		this.router.get('/articulos-by-carrera/:idCarrera', articulosController.listArticulosByCarrera);

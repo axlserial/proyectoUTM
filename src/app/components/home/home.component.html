@@ -27,7 +27,7 @@
 					<div style="border: .5px solid #78909c; padding: 10px;">
 						<div class="row">
 							<div class="col s12">
-								<label>Nombre Articulo</label>
+								<label>Titulo</label>
 								<input [(ngModel)]="articulito.titulo" required type="text"
 										autocomplete="off">
 							</div>
@@ -43,6 +43,106 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="col s12">
+								<label>Nombre CRL</label>
+								<input [(ngModel)]="articulito.nombreCRL" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Estado</label>
+								<input [(ngModel)]="articulito.estado" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<!-- Fecha edición -->
+						<div class="row">
+							<div class="col s12">
+								<label>Tipo NI</label>
+								<input [(ngModel)]="articulito.tipoNI" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Volumen</label>
+								<input [(ngModel)]="articulito.volumen" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Páginas</label>
+								<input [(ngModel)]="articulito.paginas" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<!-- Año -->
+						<div class="row">
+							<div class="col s12">
+								<label>ISSNISBN</label>
+								<input [(ngModel)]="articulito.issnisbn" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>DOI</label>
+								<input [(ngModel)]="articulito.doi" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Comprobante</label>
+								<input [(ngModel)]="articulito.comprobante" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Indexada</label>
+								<input [(ngModel)]="articulito.indexada" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Issue</label>
+								<input [(ngModel)]="articulito.issue" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Editores</label>
+								<input [(ngModel)]="articulito.editores" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Ciudad</label>
+								<input [(ngModel)]="articulito.ciudad" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>País</label>
+								<input [(ngModel)]="articulito.pais" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Editorial</label>
+								<input [(ngModel)]="articulito.editorial" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<!-- <div class="row">
 							<div class="col s12">
 								<label>Institutos</label>
 								<select (change)="cambioInstituto($event.target)" class="browser-default">
@@ -78,7 +178,7 @@
 									</ng-container>
 								</select>
 							</div>
-						</div>
+						</div> -->
 						<div class="row">
 							<div class="col s6 center">
 								<a 	(click)="darAltaArticulo()" 

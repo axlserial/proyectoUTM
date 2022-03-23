@@ -23,8 +23,17 @@ class ArticulosController {
 	}
 
 	public async create(req: Request, res: Response): Promise<void> {
+		const {idProfesor} = req.params;
 		const respuesta = await pool.query('INSERT INTO articulos SET ?', [req.body]);
-		res.json(respuesta);
+		let dato = {
+			"idProfesor": idProfesor,
+			"idArticulo": respuesta.insertId,
+			"posicion": 1,
+			"validado": 1
+		};
+		const resArticulo = await pool.query("INSERT INTO articuloYprofesor SET ?", [dato]);
+		console.log(resArticulo);
+		res.json(resArticulo);
 	}
 
 	public async delete(req: Request, res: Response): Promise<void> {

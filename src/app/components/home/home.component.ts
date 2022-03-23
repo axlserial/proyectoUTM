@@ -3,6 +3,7 @@ import { Articulo } from '../../models/articulo.model';
 import { Profesor } from 'src/app/models/profesor.model';
 
 import { ProfesorService } from 'src/app/services/profesor.service';
+import { ArticuloService } from 'src/app/services/articulo.service';
 
 declare var $: any;
 
@@ -12,6 +13,8 @@ declare var $: any;
 	styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+	idProfesor: number;
 
 	articulito: Articulo;
 	tipoCLR: string[] = ['Revista', 'Congreso', 'Libro'];
@@ -27,9 +30,13 @@ export class HomeComponent implements OnInit {
 	tipoProf: any[] = [];
 	tprofActual: any;
 
-	constructor(private profesorService: ProfesorService) {
+	constructor(private profesorService: ProfesorService,
+				private articuloService: ArticuloService) {
 		this.articulito = new Articulo();
 		this.registroProfesor = new Profesor();
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
+
+		console.log("idprofesor:", this.idProfesor);
 	}
 
 	ngOnInit(): void {
@@ -87,6 +94,10 @@ export class HomeComponent implements OnInit {
 
 	darAltaArticulo(){
 		console.log(this.articulito);
+		this.articuloService.crearArticulo(this.idProfesor, this.articulito)
+			.subscribe({
+				next: (resArticulo: any) => console.log(resArticulo)
+			});	
 	}
 
 	agregarProfesor(){

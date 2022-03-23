@@ -11,7 +11,7 @@ export class Articulo {
 	anyo: string = '2012';
 	issnisbn: string = '55554';
 	doi: string = 'https://example.com';
-	comprobante: string = '';
+	comprobante: string = 'si';
 	indexada: string = 'si';
 	issue: string = '211';
 	editores: string = 'Varios';
