@@ -2,15 +2,15 @@
 <router-outlet></router-outlet>
 
 <div class="fixed-action-btn">
-	<a class="btn-floating btn-large red">
+	<a class="btn-floating btn-large black">
 		<i class="large material-icons">add</i>
 	</a>
 	<ul>
-		<li><a (click)="agregarArticulo()" class="btn-floating black"><i class="material-icons">insert_chart</i></a>
+		<li>
+			<a (click)="agregarArticulo()" class="btn-floating center-icon black">
+				<i class="material-icons">assignment</i>
+			</a>
 		</li>
-		<li><a (click)="agregarProfesor()" class="btn-floating black"><i class="material-icons">format_quote</i></a></li>
-		<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	</ul>
 </div>
 
@@ -35,9 +35,9 @@
 						<div class="row">
 							<div class="col s12">
 								<label>Tipo CLR</label>
-								<select class="browser-default">
+								<select (change)="cambioCLR($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of tipoCLR;">
-										<option [value]="item">{{item}}</option>
+										<option [value]="item" [selected]="item == clrActual">{{item}}</option>
 									</ng-container>
 								</select>
 							</div>
@@ -56,10 +56,15 @@
 										autocomplete="off">
 							</div>
 						</div>
-						<!-- Fecha edición -->
 						<div class="row">
 							<div class="col s12">
-								<label>Tipo NI</label>
+								<label>Fecha Edición</label>
+								<input id="fecha" type="date" value="{{articulito.fechaedicion}}" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Nacional/Internacional</label>
 								<input [(ngModel)]="articulito.tipoNI" required type="text"
 										autocomplete="off">
 							</div>
@@ -142,151 +147,9 @@
 										autocomplete="off">
 							</div>
 						</div>
-						<!-- <div class="row">
-							<div class="col s12">
-								<label>Institutos</label>
-								<select (change)="cambioInstituto($event.target)" class="browser-default">
-									<ng-container *ngFor="let item of institutos;">
-										<option *ngIf="item.idIsntituto !== 9" [value]="item.idInstituto">
-											{{item.nombreInstituto}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div>
-						<div class="row" *ngIf="numCarrerasActual != 0">
-							<div class="col s12">
-								<label>Carreras</label>
-								<select (change)="cambioCarrera($event.target)" class="browser-default">
-									<ng-container *ngFor="let item of carreras;">
-										<option *ngIf="item.idIsntituto !== 9" [value]="item.idCarrera">
-											{{item.nombreCarrera}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Profesores</label>
-								<select class="browser-default">
-									<ng-container *ngFor="let item of profesores;">
-										<option [value]="item.idProfesor">
-											{{item.nombres + " " + item.apellidoPaterno 
-												+ " " + item.apellidoMaterno}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div> -->
 						<div class="row">
 							<div class="col s6 center">
 								<a 	(click)="darAltaArticulo()" 
-									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
-							</div>
-							<div class="col s6 center">
-								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Agregar profesor  -->
-<div class="container">
-	<div id="agregarProfesor" class="modal">
-		<div class="modal-content">
-			<div class="col s12 m12 l8 offset-12 loginDiv">
-				<div class="row loginContainer">
-					<div class="row" style="margin-bottom: 0px !important;">
-						<div class="col s12">
-							<h5 class="center">Ingresa Profesor</h5>
-						</div>
-					</div>
-					<div style="border: .5px solid #78909c; padding: 10px;">
-						<div class="row">
-							<div class="col s12">
-								<label>Nombre(s)</label>
-								<input [(ngModel)]="registroProfesor.nombres" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Apellido materno</label>
-								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Apellido paterno</label>
-								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Correo</label>
-								<input [(ngModel)]="registroProfesor.correoProfesor" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Nombre APA</label>
-								<input [(ngModel)]="registroProfesor.nombreApa" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Institutos</label>
-								<select (change)="cambioInstituto($event.target)" class="browser-default">
-									<ng-container *ngFor="let item of institutos;">
-										<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
-											{{item.nombreInstituto}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div>
-						<div class="row" *ngIf="numCarrerasActual != 0">
-							<div class="col s12">
-								<label>Carreras</label>
-								<select (change)="cambioCarrera($event.target)" class="browser-default">
-									<ng-container *ngFor="let item of carreras;">
-										<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
-											{{item.nombreCarrera}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s6">
-								<label>Grado</label>
-								<input [(ngModel)]="registroProfesor.grado" required type="text"
-										autocomplete="off">
-							</div>
-							<div class="col s6">
-								<label>Tipo de profesor</label>
-								<select (change)="cambioTipoProf($event.target)" class="browser-default">
-									<ng-container *ngFor="let item of tipoProf;">
-										<option [value]="item.idTipoProfesor" [selected]="item == tprofActual">
-											{{item.nombreTipo}}
-										</option>
-									</ng-container>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s6 center">
-								<a 	(click)="darAltaProfesor()" 
 									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
 							</div>
 							<div class="col s6 center">

@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import { institutosController } from '../controllers/institutosController';
+import { validarToken } from '../middleware/auth';
 
 class InstitutosRoutes {
 	public router: Router = Router();
@@ -9,6 +10,7 @@ class InstitutosRoutes {
 	}
 
 	config(): void {
+		// this.router.get('/', validarToken, institutosController.list);
 		this.router.get('/', institutosController.list);
 		this.router.get('/:idInstituto', institutosController.listOne);
 		this.router.post('/create', institutosController.create);

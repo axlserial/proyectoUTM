@@ -15,6 +15,7 @@ import { ArticulosViceComponent } from './components/articulos-vice/articulos-vi
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
 import { MateriasComponent } from './components/materias/materias.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ArticulosViceComponent,
     RecuperarContraComponent,
     MateriasComponent,
-    FooterComponent
+    FooterComponent,
+    ProfesoresViceComponent
   ],
   imports: [
     BrowserModule,

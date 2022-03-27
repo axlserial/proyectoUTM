@@ -1,45 +1,70 @@
-<nav>
+<nav class="white">
 	<div class="nav-wrapper">
-		<a href="#!" class="brand-logo">Logo</a>
-		<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-		<ul class="right hide-on-med-and-down">
-			<li>
-				<a class="dropdown-trigger" data-target="dropdown-ver" href="#">
-					Ver<i class="material-icons right">arrow_drop_down</i>
+		<div class="row">
+			<div class="col s2">
+				<a href="/home/generales/{{idProfesor}}" class="brand-logo black-text">
+					<img src="../../../assets/img/utm_ova.gif" class="logo" alt="utm-logo">
 				</a>
-			</li>
-			<li>
-				<a class="dropdown-trigger" data-target="dropdown-mostrar" href="#">
-					Mostrar<i class="material-icons right">arrow_drop_down</i>
-				</a>
-			</li>
-			<li>
-				<a class="right black-text" (click)="logout()"><i class="material-icons right
-				vertical-align-middle">exit_to_app</i></a>
-			</li>
-		</ul>
-		<ul id="dropdown-mostrar" class="dropdown-content">
-			<li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
-			<li><a href="/home/articulos/{{idProfesor}}">Publicaciones</a></li>
-			<li><a href="#">Comisiones</a></li>
-		</ul>
-		<ul id="dropdown-ver" class="dropdown-content">
-			<li><a href="#">Articulos</a></li>
-			<li><a href="/home/materias">Materias</a></li>
-			<li><a href="#">Comisiones</a></li>
-		</ul>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons center-icon">menu</i></a>
+			</div>
+			<div class="col s8">
+				<ul class="left hide-on-med-and-down">
+					<li>
+						<a class="dropdown-trigger black-text" data-target="dropdown-ver" href="#">
+							Ver<i class="material-icons right center-icon">arrow_drop_down</i>
+						</a>
+					</li>
+					<li>
+						<!-- <li *ngIf="nivel != undefined && nivel == 1"> -->
+						<a class="dropdown-trigger black-text" data-target="dropdown-agregar" href="javascript:void(0);">
+							Agregar<i class="material-icons right center-icon">arrow_drop_down</i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col s2">
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<a class="right black-text" (click)="logout()"><i class="material-icons right center-icon
+						vertical-align-middle">exit_to_app</i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </nav>
+
+<!-- Contenido de los desplegables (Ver) -->
+<ul id="dropdown-ver" class="dropdown-content">
+	<li><a class="black-text" href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Materias</a></li>
+	<li><a class="black-text" href="/home/articulos/{{idProfesor}}">Articulos</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Proyectos</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Comisiones</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Eventos</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Tesistas</a></li>
+</ul>
+
+<!-- Contenido de los desplegables (Agregar) -->
+<ul id="dropdown-agregar" class="dropdown-content">
+	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar" class="dropdown-content"> -->
+	<li><a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a></li>
+	<li><a class="black-text" href="javascript:void(0);">Comisión</a></li>
+</ul>
+
+<!-- <li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li> -->
+
+<!-- Para el menú hamburguesa -->
 <div>
 	<ul class="sidenav" id="mobile-demo">
 		<li>
-			<a class="dropdown-trigger" data-target="dropdown-ver-m" href="#">
+			<a class="dropdown-trigger black-text" data-target="dropdown-ver-m" href="#">
 				Ver<i class="material-icons right">arrow_drop_down</i>
 			</a>
 		</li>
-		<li>
-			<a class="dropdown-trigger" data-target="dropdown-mostrar-m" href="#">
-				Mostrar<i class="material-icons right">arrow_drop_down</i>
+		<li *ngIf="nivel != undefined && nivel == 1">
+			<a class="dropdown-trigger black-text" data-target="dropdown-agregar-m" href="javascript:void(0);">
+				Agregar<i class="material-icons right">arrow_drop_down</i>
 			</a>
 		</li>
 		<li>
@@ -47,33 +72,123 @@
 			vertical-align-middle">exit_to_app</i></a>
 		</li>
 	</ul>
-	<ul id="dropdown-mostrar-m" class="dropdown-content">
-		<li><a href="#">Articulos</a></li>
-		<li><a href="/home/materias">Materias</a></li>
-		<li><a href="#">Comisiones</a></li>
-	</ul>
 	<ul id="dropdown-ver-m" class="dropdown-content">
-		<li><a href="#">Articulos</a></li>
-		<li><a href="/home/materias">Materias</a></li>
-		<li><a href="#">Comisiones</a></li>
+		<li><a class="black-text" href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Materias</a></li>
+		<li><a class="black-text" href="/home/articulos/{{idProfesor}}">Articulos</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Proyectos</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Comisiones</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Eventos</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Tesistas</a></li>
+	</ul>
+	<ul id="dropdown-agregar-m" class="dropdown-content">
+	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar-m" class="dropdown-content"> -->
+		<li><a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a></li>
+		<!-- <li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li> -->
+		<li><a class="black-text" href="javascript:void(0);">Comisión</a></li>
 	</ul>
 </div>
-<!-- <div class="contenedor-principal">
-	<div class="container">
-		<div class="row">
-			<div class="col s12 m4 l3">
-				<h2>Erik Ramos</h2>
-			</div>
-			<div class="col s12 m8 l9">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-					ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-					velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-					cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-					est laborum.
-				</p>
+
+<!-- Agregar profesor  -->
+<div class="container">
+	<div id="agregarProfesor" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Ingresa Profesor</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre(s)</label>
+								<input [(ngModel)]="registroProfesor.nombres" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido materno</label>
+								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Apellido paterno</label>
+								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Correo</label>
+								<input [(ngModel)]="registroProfesor.correoProfesor" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre APA</label>
+								<input [(ngModel)]="registroProfesor.nombreApa" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Institutos</label>
+								<select (change)="cambioInstituto($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of institutos;">
+										<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
+											{{item.nombreInstituto}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row" *ngIf="numCarrerasActual != 0">
+							<div class="col s12">
+								<label>Carreras</label>
+								<select (change)="cambioCarrera($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of carreras;">
+										<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
+											{{item.nombreCarrera}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6">
+								<label>Grado</label>
+								<input [(ngModel)]="registroProfesor.grado" required type="text"
+										autocomplete="off">
+							</div>
+							<div class="col s6">
+								<label>Tipo de profesor</label>
+								<select (change)="cambioTipoProf($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of tipoProf;">
+										<option [value]="item.idTipoProfesor" [selected]="item == tprofActual">
+											{{item.nombreTipo}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6 center">
+								<a 	(click)="darAltaProfesor()" 
+									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+							</div>
+							<div class="col s6 center">
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>

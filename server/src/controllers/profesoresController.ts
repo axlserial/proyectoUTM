@@ -45,14 +45,18 @@ class ProfesoresController {
 		const {correo} = req.params;
 		let password = req.body.password as any;
 		let token: string;
-		let consulta =  `SELECT idProfesor, password FROM profesores WHERE correoProfesor = '${correo}'`;
+		let consulta =  `SELECT idProfesor, password, nivel FROM profesores WHERE correoProfesor = '${correo}'`;
 		const respuesta = await pool.query(consulta);
 		if (respuesta.length > 0){
 			bcrypt.compare(password, respuesta[0].password, (err, resEncriptar) => {
 				if (resEncriptar == true){
 					token = jwt.sign(correo, process.env.TOKEN_SECRET || 'prueba');
 					console.log(process.env.TOKEN_SECRET);
-					res.json({"token": token, "idProfesor": respuesta[0].idProfesor});
+					res.json({
+						"token": token, 
+						"idProfesor": respuesta[0].idProfesor,
+						"nivel": respuesta[0].nivel
+					});
 				} else {
 					res.json(-1);
 				}
@@ -80,14 +84,14 @@ class ProfesoresController {
 	public async listProfesoresByCarrera(req: Request, res: Response): Promise<void> {
 		const {idCarrera} = req.params;
 		console.log(idCarrera);
-		const respuesta = await pool.query(`SELECT nombres, apellidoPaterno, apellidoMaterno FROM profesores WHERE idCarrera = ${idCarrera}`);
+		const respuesta = await pool.query(`SELECT * FROM profesores WHERE idCarrera = ${idCarrera}`);
 		res.json(respuesta);
 	}
 
 	public async listProfesoresByInstituto(req: Request, res: Response): Promise<void> {
 		const {idInstituto} = req.params;
 		console.log("idInstituto:", idInstituto);
-		const respuesta = await pool.query(`SELECT nombres, apellidoPaterno, apellidoMaterno FROM profesores WHERE idInstituto = ${idInstituto}`);
+		const respuesta = await pool.query(`SELECT * FROM profesores WHERE idInstituto = ${idInstituto}`);
 		res.json(respuesta);
 	}
 

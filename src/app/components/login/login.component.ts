@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 					localStorage.setItem('token', resUsuario.token);
 					localStorage.setItem('correo', this.usuario.correo);
 					localStorage.setItem('idProfesor', this.idProfesor + '');
-					console.log('Contraseña:', this.usuario.password);
+					localStorage.setItem('nivel', resUsuario.nivel);
 					this.router.navigateByUrl(`/home/generales/${this.idProfesor}`);
 				} else {
 					Swal.fire({

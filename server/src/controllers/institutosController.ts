@@ -4,7 +4,7 @@ import pool from '../database';
 class InstitutosController {
 	public async list(req: Request, res: Response): Promise<void> {
 		const respuesta = await pool.query('SELECT * FROM institutos order by codigoInstituto');
-		console.log(respuesta);
+		// console.log(respuesta);
 		res.json(respuesta);
 	}
 

@@ -7,6 +7,7 @@ import { GeneralesComponent } from './components/generales/generales.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { HomeComponent } from './components/home/home.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
+import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
 import { MateriasComponent } from './components/materias/materias.component';
 
@@ -37,9 +38,13 @@ const routes: Routes = [
 				component: ArticulosViceComponent
 			},
 			{
-				path: 'materias',
-				component: MateriasComponent
-			}
+				path: 'profesores-vice/:idProfesor',
+				component: ProfesoresViceComponent
+			},
+			// {
+			// 	path: 'materias',
+			// 	component: MateriasComponent
+			// }
 		]
 	},
 	{

@@ -30,10 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `articulos` (
   `idArticulo` bigint NOT NULL,
   `tipoCRL` text NOT NULL,
-  `titulo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `titulo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nombreCRL` text NOT NULL,
   `estado` text NOT NULL,
-  `fechaedicion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `fechaedicion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tipoNI` text NOT NULL,
   `volumen` text NOT NULL,
   `paginas` text NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `articulos` (
   `ciudad` text NOT NULL,
   `pais` text NOT NULL,
   `editorial` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `articulos`
@@ -71,7 +71,7 @@ CREATE TABLE `articuloYprofesor` (
   `idArticulo` bigint NOT NULL,
   `posicion` int NOT NULL,
   `validado` tinyint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `articuloYprofesor`
@@ -91,10 +91,10 @@ INSERT INTO `articuloYprofesor` (`idAyP`, `idProfesor`, `idArticulo`, `posicion`
 CREATE TABLE `carreras` (
   `idCarrera` bigint NOT NULL,
   `codigoCarrera` text NOT NULL,
-  `nombreCarrera` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nombreCarrera` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `idInstituto` bigint NOT NULL,
   `siglas` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `carreras`
@@ -139,9 +139,9 @@ INSERT INTO `carreras` (`idCarrera`, `codigoCarrera`, `nombreCarrera`, `idInstit
 
 CREATE TABLE `institutos` (
   `idInstituto` bigint NOT NULL,
-  `nombreInstituto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `codigoInstituto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nombreInstituto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `codigoInstituto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `institutos`
@@ -173,7 +173,7 @@ CREATE TABLE `materias` (
   `idPlan` bigint NOT NULL,
   `semestre` int NOT NULL,
   `nombreMateria` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -201,7 +201,7 @@ CREATE TABLE `periodos` (
   `avance2` text NOT NULL,
   `avance3` text NOT NULL,
   `avanceFinal` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `periodos`
@@ -221,7 +221,7 @@ CREATE TABLE `planes` (
   `idPlan` bigint NOT NULL,
   `idCarrera` bigint NOT NULL,
   `nombrePlan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `planes`
@@ -253,7 +253,7 @@ CREATE TABLE `profesores` (
   `idCarrera` bigint NOT NULL,
   `grado` text NOT NULL,
   `idTipoProfesor` bigint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `profesores`
@@ -282,7 +282,7 @@ CREATE TABLE `profesorYmateria` (
   `grupo` text NOT NULL,
   `anyo` int NOT NULL,
   `idPeriodo` bigint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `profesorYmateria`
@@ -301,7 +301,7 @@ INSERT INTO `profesorYmateria` (`idProfesorYMateria`, `idProfesor`, `idMateria`,
 CREATE TABLE `tipoProfesor` (
   `idTipoProfesor` bigint NOT NULL,
   `nombreTipo` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipoProfesor`

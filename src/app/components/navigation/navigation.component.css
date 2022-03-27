@@ -4,6 +4,16 @@ nav {
 	top: 0;
 }
 
+.logo {
+	max-width: 30%;
+	max-height: 30%;
+	margin-top: 2%;
+}
+
+.center-icon {
+	display: flex;
+	align-items: center;
+}
 /* .contenedor-principal {
 	margin-top: 10em;	
 } */

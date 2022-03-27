@@ -53,7 +53,14 @@
 					"403":{
 						"description": "Prohibido"
 					}
-				}
+				},
+				"parameters":[{
+					"description": "apiKey",
+					"type": "string",
+					"in": "header",
+					"name": "Authorization",
+					"default": "TOKEN Bearer"
+				}]
 			}
 		},
 		"/api/institutos/{idInstituto}":{
