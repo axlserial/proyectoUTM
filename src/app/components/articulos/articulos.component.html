@@ -15,20 +15,19 @@
 				<td><b>Autor(es)</b></td>
 				<p *ngFor="let autor of item.autores">
 					{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
+					<a 
+						href="javascript:void(0);"
+						(click)="eliminarProf(item.articulo.idArticulo, autor.idProfesor)"
+						class="material-icons"
+					>delete</a>
 				</p>
+				<td>
+					<a 
+						href="javascript:void(0);"
+						(click)="agregarUTM(item.articulo.idArticulo)"
+					>+UTM</a>
+				</td>
 			</ng-container>
 		</tr>
 	</table>
 </div>
-
-
-		<!-- <tr *ngFor="let articulo of articulos; let i = index;">
-			<ng-container *ngIf="articulo.fechaedicion >= ini && articulo.fechaedicion <= fin">
-				<td>{{articulo.fechaedicion}}</td>
-				<td><strong>{{articulo.titulo}}</strong></td>
-				<td><b>Autor(es)</b></td>
-				<p *ngFor="let autor of autores[i];">
-					{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
-				</p>
-			</ng-container>
-		</tr> -->

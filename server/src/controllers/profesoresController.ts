@@ -99,7 +99,7 @@ class ProfesoresController {
 		const {idArticulo} = req.params;
 		console.log(idArticulo);
 		const respuesta = await pool.query(
-			`SELECT profesores.nombres, profesores.apellidoPaterno, profesores.apellidoMaterno
+			`SELECT profesores.idProfesor, profesores.nombres, profesores.apellidoPaterno, profesores.apellidoMaterno
 			 FROM articuloYprofesor, profesores
 			 WHERE articuloYprofesor.idArticulo = ${idArticulo}
 			   AND articuloYprofesor.idProfesor = profesores.idProfesor`);

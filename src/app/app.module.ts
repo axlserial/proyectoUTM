@@ -16,6 +16,7 @@ import { RecuperarContraComponent } from './components/recuperar-contra/recupera
 import { MateriasComponent } from './components/materias/materias.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
+import { CambioInfoService } from './services/cambio-info.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ProfesoresViceComponent } from './components/profesores-vice/profesores
 	HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CambioInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

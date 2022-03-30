@@ -18,7 +18,7 @@ export class NavigationComponent implements OnInit {
 	tipoProf: any[] = [];
 	tprofActual: any;
 	idProfesor: number = 0;
-	nivel: number = 0;
+	nivel: any;
 
 	// Institutos
 	institutos: any;

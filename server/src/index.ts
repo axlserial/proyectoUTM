@@ -20,6 +20,7 @@ class Server {
 		this.config();
 		this.routes();
 		this.app.use('/documentation', swagger_ui_express.serve, swagger_ui_express.setup(swaggerDocument));
+		this.app.use(express.static(__dirname + "/img"));
 	}
 
 	config(): void {
@@ -45,6 +46,7 @@ class Server {
 		// '10.10.2.227',
 		this.app.listen(this.app.get('port'), () => {
 			console.log('Servidor ejecutándose en el puerto ', this.app.get('port'));
+			console.log(__dirname);
 		});
 	}
 }

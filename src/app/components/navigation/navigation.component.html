@@ -15,7 +15,7 @@
 						</a>
 					</li>
 					<li>
-						<!-- <li *ngIf="nivel != undefined && nivel == 1"> -->
+					<!-- <li *ngIf="nivel != undefined && nivel === 1"> -->
 						<a class="dropdown-trigger black-text" data-target="dropdown-agregar" href="javascript:void(0);">
 							Agregar<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
@@ -47,12 +47,11 @@
 
 <!-- Contenido de los desplegables (Agregar) -->
 <ul id="dropdown-agregar" class="dropdown-content">
-	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar" class="dropdown-content"> -->
+<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar" class="dropdown-content"> -->
+	<li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li>
 	<li><a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a></li>
 	<li><a class="black-text" href="javascript:void(0);">Comisión</a></li>
 </ul>
-
-<!-- <li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li> -->
 
 <!-- Para el menú hamburguesa -->
 <div>

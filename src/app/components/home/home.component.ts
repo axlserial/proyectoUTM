@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Articulo } from '../../models/articulo.model';
 import { ArticuloService } from 'src/app/services/articulo.service';
+import { CambioInfoService } from '../../services/cambio-info.service';
 
 declare var $: any;
 
@@ -19,6 +21,7 @@ export class HomeComponent implements OnInit {
 	clrActual: string = '';
 
 	constructor(private router: Router,
+				private cambioInfoService: CambioInfoService,
 				private articuloService: ArticuloService) {
 		this.articulito = new Articulo();
 		this.idProfesor = Number(localStorage.getItem("idProfesor"));
@@ -56,15 +59,28 @@ export class HomeComponent implements OnInit {
 		.subscribe({
 			next: (resArticulo: any) => {
 				console.log(resArticulo);
-				let rutaArticulo = "/home/articulos/" + this.idProfesor;
-				if (this.router.url == rutaArticulo){
-					console.log("Recarga");
-					this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-					this.router.onSameUrlNavigation = 'reload';
-					this.router.navigate([this.router.url]);
-				}
+				
+				Swal.fire({
+					position: "center",
+					icon: "success",
+					title: `Artículo creado exitosamente`,
+					showConfirmButton: true,
+				});
+
+				this.enviarMensajeArticulo();
+				// let rutaArticulo = "/home/articulos/" + this.idProfesor;
+				// if (this.router.url == rutaArticulo){
+				// 	console.log("Recarga");
+				// 	this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+				// 	this.router.onSameUrlNavigation = 'reload';
+				// 	this.router.navigate([this.router.url]);
+				// }
 			}
 		});	
+	}
+
+	enviarMensajeArticulo() {
+		this.cambioInfoService.enviar();
 	}
 
 	cambioCLR(op: any){
