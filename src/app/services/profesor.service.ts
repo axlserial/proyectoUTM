@@ -33,20 +33,20 @@ export class ProfesorService {
 	}
 	
 	eliminarProfesor(idProfesor: number) {
-		return this.http.delete(`${environment.API_URL}/profesor/delete/${idProfesor}`);
+		return this.http.delete(`${environment.API_URL}/profesores/delete/${idProfesor}`);
 	}
 
 	listAutoresByArticulo(idArticulo: number) {
 		return this.http.get(`${environment.API_URL}/profesores/profesores-by-articulo/${idArticulo}`);
 	}
 
-	listInstitutos(){
-		return this.http.get(`${environment.API_URL}/institutos/`);
-	}
+	// listInstitutos(){
+	// 	return this.http.get(`${environment.API_URL}/institutos/`);
+	// }
 
-	listCarrerasbyInstituto(idInstituto: number){
-		return this.http.get(`${environment.API_URL}/carreras/carreras-by-instituto/${idInstituto}`);
-	}
+	// listCarrerasbyInstituto(idInstituto: number){
+	// 	return this.http.get(`${environment.API_URL}/carreras/carreras-by-instituto/${idInstituto}`);
+	// }
 
 	listProfesoresByInstituto(idInstituto: number){
 		return this.http.get(`${environment.API_URL}/profesores/profesores-by-instituto/${idInstituto}`);

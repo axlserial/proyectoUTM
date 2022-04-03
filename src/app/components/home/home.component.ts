@@ -68,13 +68,6 @@ export class HomeComponent implements OnInit {
 				});
 
 				this.enviarMensajeArticulo();
-				// let rutaArticulo = "/home/articulos/" + this.idProfesor;
-				// if (this.router.url == rutaArticulo){
-				// 	console.log("Recarga");
-				// 	this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-				// 	this.router.onSameUrlNavigation = 'reload';
-				// 	this.router.navigate([this.router.url]);
-				// }
 			}
 		});	
 	}

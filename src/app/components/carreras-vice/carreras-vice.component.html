@@ -1,0 +1,104 @@
+<div class="contenedor-principal">
+	<table>
+		<tr>
+			<td colspan="8">
+				<div class="row">
+					<div class="col s5">
+						<label>Institutos</label>
+						<select (change)="cambioInstituto($event.target)" class="browser-default">
+							<ng-container *ngFor="let item of institutos;">
+								<option [value]="item.idInstituto">
+									{{item.nombreInstituto}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr><br><b>Carreras</b></tr>
+		<tr *ngFor="let carrera of carreras; let i = index;">
+			<td style="width: 10%;">{{i + 1}}</td>
+			<td style="width: 40%;"><b>{{carrera.nombreCarrera}}</b></td>
+			<td style="width: 7%;"><strong>Código</strong></td>
+			<td style="width: 15%;">{{carrera.codigoCarrera}}</td>
+			<td style="width: 7%;"><strong>Siglas</strong></td>
+			<td style="width: 15%;">{{carrera.siglas}}</td>
+			<td style="width: 5%;">
+				<a 
+					href="javascript:void(0);" 
+					(click)="modificarCarrera(i)"
+					class="material-icons"
+				>edit</a>
+			</td>
+			<td>
+				<a 
+					href="javascript:void(0);"
+					(click)="eliminarCarrera(i, carrera.idCarrera)"
+					class="material-icons"
+				>delete</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="container">
+	<div id="editarCarrera" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Editar Carrera</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<label>Nombre de la carrera</label>
+								<input [(ngModel)]="carreraActual.nombreCarrera" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Código de la carrera</label>
+								<input [(ngModel)]="carreraActual.codigoCarrera" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Siglas</label>
+								<input [(ngModel)]="carreraActual.siglas" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>Instituto</label>
+								<select (change)="cambioInstitutoEdit($event.target)" class="browser-default">
+									<ng-container *ngFor="let item of institutosEdit;">
+										<option [value]="item.idInstituto" [selected]="item.idInstituto == instActualEdit">
+											{{item.nombreInstituto}}
+										</option>
+									</ng-container>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6 center">
+								<a 	(click)="cambiarDatosCarr()" 
+									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+							</div>
+							<div class="col s6 center">
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

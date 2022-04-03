@@ -1,41 +1,52 @@
 <div class="contenedor-principal">
 	<table>
 		<tr>
-			<div class="row">
-				<div class="col s12">
-					<label>Institutos</label>
-					<select (change)="cambioInstituto($event.target)" class="browser-default">
-						<ng-container *ngFor="let item of institutos;">
-							<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
-								{{item.nombreInstituto}}
-							</option>
-						</ng-container>
-					</select>
+			<td colspan="5">
+				<div class="row">
+					<div class="col s5">
+						<label>Institutos</label>
+						<select (change)="cambioInstituto($event.target)" class="browser-default">
+							<ng-container *ngFor="let item of institutos;">
+								<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
+									{{item.nombreInstituto}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="row" *ngIf="numCarrerasActual != 0">
-				<div class="col s12">
-					<label>Carreras</label>
-					<select (change)="cambioCarrera($event.target)" class="browser-default">
-						<ng-container *ngFor="let item of carreras;">
-							<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
-								{{item.nombreCarrera}}
-							</option>
-						</ng-container>
-					</select>
+				<div class="row" *ngIf="numCarrerasActual != 0">
+					<div class="col s5">
+						<label>Carreras</label>
+						<select (change)="cambioCarrera($event.target)" class="browser-default">
+							<ng-container *ngFor="let item of carreras;">
+								<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
+									{{item.nombreCarrera}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
 				</div>
-			</div>
+			</td>
 		</tr>
 		<tr><br><b>Profesores</b></tr>
 		<tr *ngFor="let profesor of profesores; let i = index;">
-			<td>{{i + 1}}: {{	profesor.nombres + " " + profesor.apellidoPaterno + 
-							" " + profesor.apellidoMaterno	}}</td>
-			<td>
+			<td style="width: 10%;">{{i + 1}}</td>
+			<td><img src="http://localhost:3000/img/{{profesor.idProfesor}}.jpg"></td>
+			<td><strong>{{	profesor.grado + " " + profesor.nombres + " " + profesor.apellidoPaterno + 
+				" " + profesor.apellidoMaterno	}}</strong></td>
+			<td style="width: 5%;">
 				<a 
 					href="javascript:void(0);" 
 					(click)="modificarProfesor(i)"
 					class="material-icons"
 				>edit</a>
+			</td>
+			<td>
+				<a 
+					href="javascript:void(0);"
+					(click)="eliminarProfesor(i, profesor.idProfesor)"
+					class="material-icons"
+				>delete</a>
 			</td>
 		</tr>
 	</table>

@@ -14,6 +14,7 @@ class ArticulosRoutes {
 		this.router.post('/create/:idProfesor', articulosController.create);
 		this.router.delete('/delete/:idArticulo', articulosController.delete);
 		this.router.put('/update/:idArticulo', articulosController.update);
+		this.router.get('/articulos-by-instituto/:idInstituto', articulosController.listArticulosByInstituto);
 		this.router.get('/articulos-by-carrera/:idCarrera', articulosController.listArticulosByCarrera);
 		this.router.get('/articulos-by-profesor/:idProfesor', articulosController.listArticulosByProfesor);
 		this.router.get('/articulos-by-periodo/:ini/:fin', articulosController.listArticulosByPeriodo);

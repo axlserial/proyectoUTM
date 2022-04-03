@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { InstitutoService } from 'src/app/services/instituto.service';
+import { CarreraService } from 'src/app/services/carrera.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { Profesor } from 'src/app/models/profesor.model';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -30,7 +33,9 @@ export class ProfesoresViceComponent implements OnInit {
 	tipoProf: any[] = [];
 	tprofActual: any;
 
-	constructor(private profesorService: ProfesorService) { }
+	constructor(private institutoService: InstitutoService,
+				private carreraService: CarreraService,
+				private profesorService: ProfesorService) { }
 
 	ngOnInit(): void {
 		$(document).ready(function () {
@@ -48,7 +53,7 @@ export class ProfesoresViceComponent implements OnInit {
 			next: (resTipoProf: any) => {
 				this.tipoProf = resTipoProf;
 				this.tprofActual = this.tipoProf[0].idTipoProfesor;
-				this.profesorService.listInstitutos().subscribe({
+				this.institutoService.listInstitutos().subscribe({
 					next: (resInstitutos: any) => {
 
 						// Para listado
@@ -60,7 +65,7 @@ export class ProfesoresViceComponent implements OnInit {
 						this.institutosEdit = this.institutos.map(item => {return {...item}});
 						this.instActualEdit = this.institutoActual;
 
-						this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+						this.carreraService.listCarrerasbyInstituto(this.institutoActual)
 						.subscribe({
 							next: (resCarreras: any) => {
 								
@@ -101,7 +106,7 @@ export class ProfesoresViceComponent implements OnInit {
 		this.editaProf = this.profesores[index];
 		this.instActualEdit = this.editaProf.idInstituto;
 		this.tprofActual = this.editaProf.idTipoProfesor;
-		this.profesorService.listCarrerasbyInstituto(this.instActualEdit)
+		this.carreraService.listCarrerasbyInstituto(this.instActualEdit)
 		.subscribe({
 			next: (resCarreras: any) => {
 				this.numCarrActualEdit = resCarreras.length;
@@ -120,7 +125,7 @@ export class ProfesoresViceComponent implements OnInit {
 
 	cambioInstituto(op: any){
 		this.institutoActual = op.value;
-		this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+		this.carreraService.listCarrerasbyInstituto(this.institutoActual)
 		.subscribe({
 			next: (resCarreras: any) => {
 				this.numCarrerasActual = resCarreras.length;
@@ -152,7 +157,7 @@ export class ProfesoresViceComponent implements OnInit {
 
 	cambioInstitutoEdit(op: any){
 		this.instActualEdit = op.value;
-		this.profesorService.listCarrerasbyInstituto(this.instActualEdit)
+		this.carreraService.listCarrerasbyInstituto(this.instActualEdit)
 		.subscribe({
 			next: (resCarreras: any) => {
 				this.numCarrActualEdit = resCarreras.length;
@@ -198,6 +203,32 @@ export class ProfesoresViceComponent implements OnInit {
 					this.cambioCarrera({"value": this.carreraActual});
 				}
 			});
+	}
+
+	eliminarProfesor(index: any, idProfesor: any){
+		Swal.fire({
+			title: '¿Eliminar al profesor?',
+			showDenyButton: true,
+			confirmButtonText: 'Eliminar',
+			denyButtonText: `Cancelar`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this.profesorService.eliminarProfesor(idProfesor)
+				.subscribe({
+					next: (resEliminar: any) => {
+						console.log(resEliminar);
+						Swal.fire({
+							position: "center",
+							icon: "success",
+							title: `Profesor eliminado`,
+						});
+
+						// elimina profesor de array
+						this.profesores.splice(index, 1);
+					}
+				});
+			}
+		});
 	}
 
 	cambioTipoProf(op: any){

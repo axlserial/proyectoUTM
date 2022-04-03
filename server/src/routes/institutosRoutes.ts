@@ -16,6 +16,7 @@ class InstitutosRoutes {
 		this.router.post('/create', institutosController.create);
 		this.router.delete('/delete/:idInstituto', institutosController.delete);
 		this.router.put('/update/:idInstituto', institutosController.update);
+		this.router.get('/num-carreras/:idInstituto', institutosController.numCarreras);
 	}
 }
 

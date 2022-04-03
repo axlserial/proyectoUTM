@@ -9,7 +9,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
 import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
-import { MateriasComponent } from './components/materias/materias.component';
+import { InstitutosViceComponent } from './components/institutos-vice/institutos-vice.component';
+import { CarrerasViceComponent } from './components/carreras-vice/carreras-vice.component';
+// import { MateriasComponent } from './components/materias/materias.component';
 
 const routes: Routes = [
 	{
@@ -41,6 +43,14 @@ const routes: Routes = [
 				path: 'profesores-vice/:idProfesor',
 				component: ProfesoresViceComponent
 			},
+			{
+				path: 'institutos-vice/:idProfesor',
+				component: InstitutosViceComponent
+			},
+			{
+				path: 'carreras-vice/:idProfesor',
+				component: CarrerasViceComponent
+			}
 			// {
 			// 	path: 'materias',
 			// 	component: MateriasComponent

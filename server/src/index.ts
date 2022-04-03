@@ -46,7 +46,6 @@ class Server {
 		// '10.10.2.227',
 		this.app.listen(this.app.get('port'), () => {
 			console.log('Servidor ejecutándose en el puerto ', this.app.get('port'));
-			console.log(__dirname);
 		});
 	}
 }

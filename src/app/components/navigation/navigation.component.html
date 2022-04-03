@@ -20,6 +20,12 @@
 							Agregar<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
+					<li>
+					<!-- <li *ngIf="nivel != undefined && nivel === 1"> -->
+						<a class="dropdown-trigger black-text" data-target="dropdown-listar" href="javascript:void(0);">
+							Listar<i class="material-icons right center-icon">arrow_drop_down</i>
+						</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col s2">
@@ -48,9 +54,18 @@
 <!-- Contenido de los desplegables (Agregar) -->
 <ul id="dropdown-agregar" class="dropdown-content">
 <!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar" class="dropdown-content"> -->
-	<li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li>
 	<li><a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Comisión</a></li>
+	<li><a (click)="agregarInstituto()" class="black-text" href="javascript:void(0);">Instituto</a></li>
+	<li><a (click)="agregarCarrera()" class="black-text" href="javascript:void(0);">Carrera</a></li>
+</ul>
+
+<!-- Contenido de los desplegables (Listar) -->
+<ul id="dropdown-listar" class="dropdown-content">
+<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-listar" class="dropdown-content"> -->
+	<li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Profesores</a></li>
+	<li><a class="black-text" href="/home/institutos-vice/{{idProfesor}}">Institutos</a></li>
+	<li><a class="black-text" href="/home/carreras-vice/{{idProfesor}}">Carreras</a></li>
+	<li><a class="black-text" href="/home/articulos-vice/{{idProfesor}}">Articulos</a></li>
 </ul>
 
 <!-- Para el menú hamburguesa -->
@@ -61,9 +76,16 @@
 				Ver<i class="material-icons right">arrow_drop_down</i>
 			</a>
 		</li>
-		<li *ngIf="nivel != undefined && nivel == 1">
+		<li>
+		<!-- <li *ngIf="nivel != undefined && nivel == 1"> -->
 			<a class="dropdown-trigger black-text" data-target="dropdown-agregar-m" href="javascript:void(0);">
 				Agregar<i class="material-icons right">arrow_drop_down</i>
+			</a>
+		</li>
+		<li>
+		<!-- <li *ngIf="nivel != undefined && nivel === 1"> -->
+			<a class="dropdown-trigger black-text" data-target="dropdown-listar-m" href="javascript:void(0);">
+				Listar<i class="material-icons right center-icon">arrow_drop_down</i>
 			</a>
 		</li>
 		<li>
@@ -83,8 +105,15 @@
 	<ul id="dropdown-agregar-m" class="dropdown-content">
 	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar-m" class="dropdown-content"> -->
 		<li><a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a></li>
-		<!-- <li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Ver profesores</a></li> -->
-		<li><a class="black-text" href="javascript:void(0);">Comisión</a></li>
+		<li><a  class="black-text" href="javascript:void(0);">Instituto</a></li>
+		<li><a  class="black-text" href="javascript:void(0);">Carrera</a></li>
+	</ul>
+	<ul id="dropdown-listar-m" class="dropdown-content">
+	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-listar" class="dropdown-content"> -->
+		<li><a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Profesores</a></li>
+		<li><a class="black-text" href="/home/institutos-vice/{{idProfesor}}">Institutos</a></li>
+		<li><a class="black-text" href="/home/carreras-vice/{{idProfesor}}">Carreras</a></li>
+		<li><a class="black-text" href="/home/articulos-vice/{{idProfesor}}">Articulos</a></li>
 	</ul>
 </div>
 
@@ -191,3 +220,6 @@
 		</div>
 	</div>
 </div>
+
+<app-add-instituto [abrirModal]="abrirModalInst"></app-add-instituto>
+<app-add-carrera [abrirModal]="abrirModalCarr"></app-add-carrera>

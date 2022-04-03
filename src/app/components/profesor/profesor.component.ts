@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Profesor } from 'src/app/models/profesor.model';
-import { ProfesorService } from 'src/app/services/profesor.service';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { InstitutoService } from 'src/app/services/instituto.service';
+import { Instituto } from 'src/app/models/instituto.model';
+import Swal from 'sweetalert2';
+
+declare var $: any;
 
 @Component({
 	selector: 'app-profesor',
@@ -9,39 +12,32 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 })
 export class ProfesorComponent implements OnInit {
 
-	profesor: Profesor;
+	@Input() abrirModal!: EventEmitter<boolean>;
+	institutoCrear: Instituto = new Instituto();
 
-	constructor(private profesorService: ProfesorService) {
-		this.profesor = new Profesor();
-	}
+	constructor(private institutoService: InstitutoService) { }
 
 	ngOnInit(): void {
-
-	}
-
-	existe(): void {
-		this.profesorService.existe(this.profesor.correoProfesor, this.profesor.password).subscribe(resProfesor => {
-			console.log(resProfesor);
-			if (resProfesor) {
-				localStorage.setItem('correo', this.profesor.correoProfesor);
-			}
+		$(document).ready(function () {
+			$('.modal').modal({
+				dismissible: true
+			});
 		});
+
+		if (this.abrirModal){
+			this.abrirModal.subscribe(msg => {
+				this.abrirModalProf();
+			});
+		}
 	}
 
-	guardarProfesor(){
-		this.profesorService.guardarProfesor(this.profesor).subscribe(err => console.error(err));
-	}
-	
-	obtenerProfesores(){
-		this.profesorService.list().subscribe(err => console.error(err));
-	}
-	
-	eliminarProfesor(id: number){
-		this.profesorService.eliminarProfesor(id).subscribe(err => console.error(err));
-	}
-	
-	actualizarProfesor(id: number, profesor: Profesor){
-		this.profesorService.actualizarProfesor(id, profesor).subscribe(err => console.error(err));
+	abrirModalProf(){
+		this.institutoCrear = new Instituto();
+		$('#agregarInstituto').modal();
+		$('#agregarInstituto').modal('open');
 	}
 
+	registrarInst(){
+		console.log("Creado instituto:", this.institutoCrear);
+	}
 }

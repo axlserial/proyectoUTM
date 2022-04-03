@@ -12,26 +12,30 @@ export class GeneralesComponent implements OnInit {
 
 	profesor: Profesor;
 	idProfesor: number;
+	tipoProf: string;
 
 	constructor(private router: ActivatedRoute, private profesorService: ProfesorService) {
 		this.profesor = new Profesor();
 		this.idProfesor = 0;
+		this.tipoProf = '';
 	}
 
 	ngOnInit(): void {
 		this.router.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'));
-			this.profesorService.listOne(this.idProfesor).subscribe((resProfesor: any) => {
-				this.profesor = resProfesor as Profesor;
-			},
-				err => console.error(err));
-			// this.profesorService.listOne(this.idProfesor).subscribe({
-			// 	next: (resProfesor: any) => {
-			// 		this.profesor = resProfesor as Profesor;
-			// 		console.log(this.profesor);
-			// 	},
-			// 	error: (err) => console.error(err)
-			// });
+			this.profesorService.listOne(this.idProfesor).subscribe({
+				next: (resProfesor: any) => {
+					this.profesor = resProfesor;
+					this.profesorService.listTipoProfesor().subscribe({
+						next: (resTipo: any) => {
+							this.tipoProf = resTipo.filter(
+								(item: any) => item.idTipoProfesor === this.profesor.idTipoProfesor)[0].nombreTipo;
+						},
+						error: err => console.log(err)
+					});
+				},
+				error: err => console.log(err)
+			});
 		});
 	}
 

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { InstitutoService } from 'src/app/services/instituto.service';
+import { CarreraService } from 'src/app/services/carrera.service';
 import { Profesor } from 'src/app/models/profesor.model';
 import { ProfesorService } from 'src/app/services/profesor.service';
 
@@ -12,6 +13,12 @@ declare var $: any;
 	styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+
+	// para abrir el modal de registrar instituto
+	abrirModalInst: EventEmitter<boolean> = new EventEmitter();
+
+	// para abrir el modal de registrar carrera
+	abrirModalCarr: EventEmitter<boolean> = new EventEmitter();
 
 	// Profesor
 	registroProfesor: Profesor = new Profesor();
@@ -30,6 +37,8 @@ export class NavigationComponent implements OnInit {
 	carreraActual: any;
 
 	constructor(private router: Router,
+				private carreraService: CarreraService,
+				private institutoService: InstitutoService,
 				private profesorService: ProfesorService) { }
 
 	ngOnInit(): void {
@@ -42,12 +51,12 @@ export class NavigationComponent implements OnInit {
 			$(".dropdown-trigger").dropdown({ coverTrigger: false });
 		});
 
-		this.profesorService.listInstitutos().subscribe({
+		this.institutoService.listInstitutos().subscribe({
 			next: (resInstitutos: any) => {
 				this.institutos = resInstitutos;
 				this.institutos = this.institutos.filter((item: any) => item.idInstituto != 9);
 				this.institutoActual = this.institutos[0].idInstituto;
-				this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+				this.carreraService.listCarrerasbyInstituto(this.institutoActual)
 				.subscribe({
 					next: (resCarreras: any) => {
 						this.carreraActual = resCarreras[0].idCarrera;
@@ -73,9 +82,17 @@ export class NavigationComponent implements OnInit {
 		$('#agregarProfesor').modal('open');
 	}
 
+	agregarInstituto(){
+		this.abrirModalInst.emit(true);
+	}
+
+	agregarCarrera(){
+		this.abrirModalCarr.emit(true);
+	}
+
 	cambioInstituto(op: any){
 		this.institutoActual = op.value;
-		this.profesorService.listCarrerasbyInstituto(this.institutoActual)
+		this.carreraService.listCarrerasbyInstituto(this.institutoActual)
 		.subscribe({
 			next: (resCarreras: any) => {
 				console.log(resCarreras);

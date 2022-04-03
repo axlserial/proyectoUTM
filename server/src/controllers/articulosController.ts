@@ -50,6 +50,20 @@ class ArticulosController {
 		res.json(respuesta);
 	}
 
+	public async listArticulosByInstituto(req: Request, res: Response): Promise<void> {
+		const {idInstituto} = req.params;
+		console.log(idInstituto);
+		const respuesta = await pool.query(
+			`SELECT *
+			 FROM articulos A 
+				INNER JOIN articuloYprofesor AYP 
+					ON A.idArticulo = AYP.idArticulo
+			   	INNER JOIN profesores P
+				   ON AYP.idProfesor = P.idProfesor
+					  AND P.idInstituto = ${idInstituto}`);
+		res.json(respuesta);
+	}
+
 	public async listArticulosByCarrera(req: Request, res: Response): Promise<void> {
 		const {idCarrera} = req.params;
 		console.log(idCarrera);

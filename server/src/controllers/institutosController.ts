@@ -3,7 +3,7 @@ import pool from '../database';
 
 class InstitutosController {
 	public async list(req: Request, res: Response): Promise<void> {
-		const respuesta = await pool.query('SELECT * FROM institutos order by codigoInstituto');
+		const respuesta = await pool.query('SELECT * FROM institutos order by idInstituto');
 		// console.log(respuesta);
 		res.json(respuesta);
 	}
@@ -39,6 +39,13 @@ class InstitutosController {
 		console.log(idInstituto);
 		const respuesta = await pool.query("UPDATE institutos SET ? WHERE idInstituto = ?", [req.body, idInstituto]);
 		res.json(respuesta);
+	}
+
+	public async numCarreras(req: Request, res: Response): Promise<void> {
+		const {idInstituto} = req.params;
+		console.log(idInstituto);
+		const respuesta = await pool.query(`SELECT * FROM carreras WHERE idInstituto = ${idInstituto}`);
+		res.json(respuesta.length);
 	}
 }
 
