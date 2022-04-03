@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { Profesor } from 'src/app/models/profesor.model';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-generales',
@@ -39,4 +40,18 @@ export class GeneralesComponent implements OnInit {
 		});
 	}
 
+	guardarCambios(){
+		console.log("nuevos:", this.profesor);
+		this.profesorService.actualizarProfesor(this.profesor.idProfesor, this.profesor)
+		.subscribe({
+			next: (resEdit: any) => {
+				Swal.fire({
+					position: "center",
+					icon: "success",
+					title: `Datos actualizados correctamente`,
+				});
+			},
+			error: err => console.error(err)
+		});
+	}
 }

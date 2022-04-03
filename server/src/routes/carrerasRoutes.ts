@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { carrerasController } from '../controllers/carrerasController';
+import { validarToken } from '../middleware/auth';
 
 class CarrerasRoutes {
 	public router: Router = Router();
 
 	constructor(){
+		this.router.all("*", validarToken);
 		this.config();
 	}
 

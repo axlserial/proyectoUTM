@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { profesoresController } from '../controllers/profesoresController';
+import { validarToken } from '../middleware/auth';
 
 class ProfesoresRoutes {
 	public router: Router = Router();
+
 	constructor() {
+		this.router.all("*", validarToken);
 		this.config();
 	}
 

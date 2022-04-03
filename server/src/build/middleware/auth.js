@@ -21,10 +21,13 @@ const validarToken = (req, res, next) => {
     if (typeof bearerHeader !== 'undefined') {
         const bearerToken = bearerHeader.split(" ")[1];
         jsonwebtoken_1.default.verify(bearerToken, process.env.TOKEN_SECRET || 'prueba', (error, authData) => __awaiter(void 0, void 0, void 0, function* () {
-            if (error)
+            if (error) {
                 res.sendStatus(403);
-            else
+                return;
+            }
+            else {
                 next();
+            }
         }));
     }
     else

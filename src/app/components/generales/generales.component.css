@@ -1,7 +1,21 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 
 .contenedor-principal {
-	margin-top: 10em;
+	margin-top: 8em;
 	margin-left: 5em;
 	margin-right: 5em;
+}
+
+.center-button {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 50%;
 }

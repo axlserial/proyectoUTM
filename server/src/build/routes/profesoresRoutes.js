@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const profesoresController_1 = require("../controllers/profesoresController");
+const auth_1 = require("../middleware/auth");
 class ProfesoresRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
+        this.router.all("*", auth_1.validarToken);
         this.config();
     }
     config() {

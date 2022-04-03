@@ -6,11 +6,11 @@ class InstitutosRoutes {
 	public router: Router = Router();
 
 	constructor(){
+		this.router.all("*", validarToken);
 		this.config();
 	}
 
 	config(): void {
-		// this.router.get('/', validarToken, institutosController.list);
 		this.router.get('/', institutosController.list);
 		this.router.get('/:idInstituto', institutosController.listOne);
 		this.router.post('/create', institutosController.create);

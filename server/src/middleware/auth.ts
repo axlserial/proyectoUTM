@@ -8,11 +8,12 @@ export const validarToken = (req: Request, res: Response, next: NextFunction) =>
 	if (typeof bearerHeader !== 'undefined') {
 		const bearerToken = bearerHeader.split(" ")[1];
 		jwt.verify(bearerToken, process.env.TOKEN_SECRET || 'prueba', async (error, authData: any) => {
-			if (error)
+			if (error){
 				res.sendStatus(403);
-
-			else
+				return;
+			} else {
 				next();
+			}
 		});
 	}
 	else

@@ -1,4 +1,8 @@
 <div class="contenedor-principal">
+	<img
+		*ngIf="profesor.idProfesor != 0" 
+		src="http://localhost:3000/img/{{profesor.idProfesor}}.jpg"
+	>
 	<table class="highlight">
 		<thead>
 			<tr>
@@ -24,7 +28,9 @@
 			<tr>
 				<td></td>
 				<td><b>Nombre APA</b></td>
-				<td>{{profesor.nombreApa}}</td>
+				<td><input [(ngModel)]="profesor.nombreApa" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
+				<!-- <td>{{profesor.nombreApa}}</td> -->
 			</tr>
 			<tr>
 				<td></td>
@@ -34,7 +40,9 @@
 			<tr>
 				<td></td>
 				<td><b>Correo</b></td>
-				<td>{{profesor.correoProfesor}}</td>
+				<td><input [(ngModel)]="profesor.correoProfesor" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
+				<!-- <td>{{profesor.correoProfesor}}</td> -->
 			</tr>
 			<tr>
 				<td></td>
@@ -44,8 +52,16 @@
 			<tr>
 				<td></td>
 				<td><b>Grado</b></td>
-				<td>{{profesor.grado}}</td>
+				<td><input [(ngModel)]="profesor.grado" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
+				<!-- <td>{{profesor.grado}}</td> -->
 			</tr>
 		</tbody>
 	</table>
+	<br>
+	<button 
+		class="btn waves-effect waves-light center-button blue-grey darken-4"
+		(click)="guardarCambios()"
+	>Guardar cambios<i class="material-icons right">save</i>
+	</button>
 </div>
