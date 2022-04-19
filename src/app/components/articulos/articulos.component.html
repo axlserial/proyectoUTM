@@ -27,6 +27,30 @@
 						(click)="agregarUTM(item.articulo.idArticulo)"
 					>+UTM</a>
 				</td>
+				<td>
+					<a 
+						href="javascript:void(0);"
+						(click)="agregarUTM(item.articulo.idArticulo)"
+					>PRIORIDAD</a>
+				</td>
+				<td>
+					<div class="file-field input-field">
+						<div class="btn light-blue darken-1">
+							<span>Subir</span>
+							<input 
+								(change)="cargarArchivo(item.articulo.idArticulo, $event.target)" 
+								type="file"
+								multiple
+							>
+						</div>
+						<div class="file-path-wrapper">
+							<input	class="file-path validate" 
+									type="text"
+									placeholder="Sube tu comprobable"
+							>
+						</div>
+					</div>
+				</td>
 			</ng-container>
 		</tr>
 	</table>

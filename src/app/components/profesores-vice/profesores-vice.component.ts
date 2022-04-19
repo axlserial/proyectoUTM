@@ -102,7 +102,6 @@ export class ProfesoresViceComponent implements OnInit {
 
 
 	modificarProfesor(index: any){
-		console.log("edit: ", this.profesores[index]);
 		this.editaProf = this.profesores[index];
 		this.instActualEdit = this.editaProf.idInstituto;
 		this.tprofActual = this.editaProf.idTipoProfesor;
@@ -131,25 +130,25 @@ export class ProfesoresViceComponent implements OnInit {
 				this.numCarrerasActual = resCarreras.length;
 				if (this.numCarrerasActual == 0){
 					this.carreraActual = 0;
-					// this.profesores = [];
 					this.profesorService.listProfesoresByInstituto(this.institutoActual).
 					subscribe((resProfi: any) =>{
 						this.profesores = resProfi;
 					});
 				} else {
 					this.carreras = resCarreras;
-					console.log("carrera dentro de cambio:", this.carreras[0].idCarrera);
 					this.cambioCarrera({"value": this.carreras[0].idCarrera});
-					// this.carreraActual = this.carreras[0].idCarrera;
-					// this.profesorService.listProfesoresByCarrera(this.carreraActual)
-					// .subscribe({
-					// 	next: (resProfesores: any) => {
-					// 		this.profesores = resProfesores;
-					// 		console.log("profes:", this.profesores);
-					// 	},
-					// 	error: err => console.log(err)
-					// });
 				}
+			},
+			error: err => console.log(err)
+		});
+	}
+
+	cambioCarrera(op: any){
+		this.carreraActual = op.value;
+		this.profesorService.listProfesoresByCarrera(this.carreraActual)
+		.subscribe({
+			next: (resProfesores: any) => {
+				this.profesores = resProfesores;
 			},
 			error: err => console.log(err)
 		});
@@ -167,17 +166,6 @@ export class ProfesoresViceComponent implements OnInit {
 					this.carrerasEdit = resCarreras;
 					this.carrActualEdit = this.carrerasEdit[0].idCarrera;
 				}
-			},
-			error: err => console.log(err)
-		});
-	}
-
-	cambioCarrera(op: any){
-		this.carreraActual = op.value;
-		this.profesorService.listProfesoresByCarrera(this.carreraActual)
-		.subscribe({
-			next: (resProfesores: any) => {
-				this.profesores = resProfesores;
 			},
 			error: err => console.log(err)
 		});

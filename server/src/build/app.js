@@ -18,6 +18,7 @@ const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = __importDefault(require("./database"));
+const fs_1 = __importDefault(require("fs"));
 const correoAcceso = require('./correoAcceso');
 class Server {
     constructor() {
@@ -66,6 +67,38 @@ class Server {
             catch (err) {
                 res.json(0);
             }
+        }));
+        this.app.post('/guardar-archivo', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            console.log("/guardar-archivo");
+            let type = req.body.type.split("/")[1];
+            let icono = "";
+            switch (type) {
+                case "pdf":
+                    icono = "PDF";
+                    break;
+                case "docx":
+                    icono = "WORD";
+                    break;
+                case "jpg":
+                    icono = "IMG";
+                    break;
+            }
+            let dato = {
+                "idArticulo": req.body.idArticulo,
+                "icono": icono,
+                "extension": type
+            };
+            // agregar lo que falta para poder obtener ID de la consulta para el archivo
+            // await pool.query("INSERT INTO archivoYarticulo SET ?", [dato]);
+            const letras = ['a', 'b', 'c', 'd', 'e', 'f'];
+            const file = req.body.src;
+            const name = req.body.idArticulo;
+            const index = req.body.index;
+            const binaryData = Buffer.from(file.replace(/^data:.*,/, ""), 'base64');
+            fs_1.default.writeFile(`${__dirname}/img/pdf/${name}_${letras[index]}.pdf`, binaryData, "base64", (err) => {
+                console.log(err);
+            });
+            res.json({ fileName: name + '.pdf' });
         }));
     }
     start() {

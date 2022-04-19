@@ -9,6 +9,7 @@ import materiasRoutes from './routes/materiasRoutes';
 import periodosRoutes from './routes/periodosRoutes';
 import planesRoutes from './routes/planesRoutes';
 import articulosRoutes from './routes/articulosRoutes';
+import archivoYarticuloRoutes from './routes/archivoYarticuloRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -40,6 +41,7 @@ class Server {
 		this.app.use('/api/periodos', periodosRoutes);
 		this.app.use('/api/planes', planesRoutes);
 		this.app.use('/api/articulos', articulosRoutes);
+		this.app.use('/api/articuloYarchivo', archivoYarticuloRoutes);
 	}
 
 	start(): void {

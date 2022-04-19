@@ -13,24 +13,26 @@
 			<tr>
 				<td></td>
 				<td><b>Nombre(s)</b></td>
-				<td>{{profesor.nombres}}</td>
+				<td><input [(ngModel)]="profesor.nombres" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Apellido paterno</b></td>
-				<td>{{profesor.apellidoPaterno}}</td>
+				<td><b>Apellido Paterno</b></td>
+				<td><input [(ngModel)]="profesor.apellidoPaterno" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Apellido materno</b></td>
-				<td>{{profesor.apellidoMaterno}}</td>
+				<td><b>Apellido Materno</b></td>
+				<td><input [(ngModel)]="profesor.apellidoMaterno" required type="text"
+					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><b>Nombre APA</b></td>
 				<td><input [(ngModel)]="profesor.nombreApa" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
-				<!-- <td>{{profesor.nombreApa}}</td> -->
 			</tr>
 			<tr>
 				<td></td>
@@ -42,7 +44,6 @@
 				<td><b>Correo</b></td>
 				<td><input [(ngModel)]="profesor.correoProfesor" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
-				<!-- <td>{{profesor.correoProfesor}}</td> -->
 			</tr>
 			<tr>
 				<td></td>
@@ -54,7 +55,6 @@
 				<td><b>Grado</b></td>
 				<td><input [(ngModel)]="profesor.grado" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
-				<!-- <td>{{profesor.grado}}</td> -->
 			</tr>
 		</tbody>
 	</table>
@@ -64,4 +64,5 @@
 		(click)="guardarCambios()"
 	>Guardar cambios<i class="material-icons right">save</i>
 	</button>
+	<br>
 </div>

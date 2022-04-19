@@ -14,6 +14,7 @@ const materiasRoutes_1 = __importDefault(require("./routes/materiasRoutes"));
 const periodosRoutes_1 = __importDefault(require("./routes/periodosRoutes"));
 const planesRoutes_1 = __importDefault(require("./routes/planesRoutes"));
 const articulosRoutes_1 = __importDefault(require("./routes/articulosRoutes"));
+const archivoYarticuloRoutes_1 = __importDefault(require("./routes/archivoYarticuloRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 class Server {
@@ -40,6 +41,7 @@ class Server {
         this.app.use('/api/periodos', periodosRoutes_1.default);
         this.app.use('/api/planes', planesRoutes_1.default);
         this.app.use('/api/articulos', articulosRoutes_1.default);
+        this.app.use('/api/articuloYarchivo', archivoYarticuloRoutes_1.default);
     }
     start() {
         // '10.10.2.227',

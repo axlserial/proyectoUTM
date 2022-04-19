@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
 @Component({
 	selector: 'app-articulos',
@@ -18,10 +19,15 @@ export class ArticulosComponent implements OnInit {
 	ini: string;
 	fin: string;
 
+	fileToUpload: any;
+
 	constructor(private router: ActivatedRoute,
 				private cambioInfoService: CambioInfoService, 
 				private articuloService: ArticuloService,
-				private profesorService: ProfesorService) {
+				private profesorService: ProfesorService,
+				private imagenesService: ImagenesService) {
+
+		this.fileToUpload = null;
 
 		let hoy = new Date();
 		this.ini = `${hoy.getFullYear() - 3}-01-01`;
@@ -76,6 +82,51 @@ export class ArticulosComponent implements OnInit {
 
 	agregarUTM(idArticulo: any){
 		console.log("Articulo:", idArticulo);
+	}
+
+	cargarArchivo(idArticulo: any, files: any){
+		let file: FileList = files.files;
+		// this.fileToUpload = file.item(0);
+
+		for (let i = 0; i < file.length; i++){
+			this.fileToUpload = file.item(i);
+			console.log(this.fileToUpload.type);
+			let imgPromise = this.getFileBlob(this.fileToUpload);
+			console.log(imgPromise);
+			imgPromise.then(blob => {
+				this.imagenesService.guardarArchivo(Number(idArticulo), blob, this.fileToUpload.type, i)
+				.subscribe({
+					next: (resUpl: any) => {
+						console.log(resUpl);
+					}
+				});
+			});
+		}
+
+
+
+		// let imgPromise = this.getFileBlob(this.fileToUpload);
+		// console.log(imgPromise);
+		// imgPromise.then(blob => {
+		// 	this.imagenesService.guardarArchivo(Number(idArticulo), blob)
+		// 	.subscribe({
+		// 		next: (resUpl: any) => {
+		// 			console.log(resUpl);
+		// 		}
+		// 	});
+		// });
+	}
+
+	getFileBlob(file: any){
+		var reader = new FileReader();
+		return new Promise(function (resolve, reject) {
+		  reader.onload = (function (thefile) {
+			return function (e: any) {
+			  resolve(e.target.result);
+			};
+		  })(file);
+		  reader.readAsDataURL(file);
+		});
 	}
 
 }

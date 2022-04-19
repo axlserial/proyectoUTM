@@ -17,7 +17,12 @@
 			</td>
 		</tr>
 		<tr><br><b>Articulos</b></tr>
-		<tr *ngFor="let item of datosArticulos;">
+		<tr *ngFor="let item of datosArticulos | 
+			paginate: {
+				itemsPerPage: pageSize,
+				currentPage: p 
+			};"
+		>
 			<td>{{item.articulo.fechaedicion}}</td>
 			<td><strong>{{item.articulo.titulo}}</strong></td>
 			<td><b>Autor(es)</b></td>
@@ -26,4 +31,14 @@
 			</p>
 		</tr>
 	</table>
+	<br><br>
+	<div class="row center-align">
+		<pagination-controls
+			class="my-pagination"
+			(pageChange)="p = ($event)"
+			previousLabel="Anterior"
+			nextLabel="Siguiente"
+		>
+		</pagination-controls>
+	</div>
 </div>

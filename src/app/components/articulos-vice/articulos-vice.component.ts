@@ -13,6 +13,10 @@ export class ArticulosViceComponent implements OnInit {
 	institutos: any[] = [];
 	institutoActual: any;
 	datosArticulos: any[] = [];
+	
+	// Paginación
+	pageSize = 3;
+	p = 1;
 
 	constructor(private institutoService: InstitutoService,
 				private articuloService: ArticuloService,

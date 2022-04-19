@@ -106,6 +106,20 @@ class ArticulosController {
             res.json(respuesta);
         });
     }
+    listArchivosByArticulo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idArticulo } = req.params;
+            console.log(idArticulo);
+            const respuesta = yield database_1.default.query(`SELECT *
+			 FROM archivoYarticulos A 
+			 	INNER JOIN articuloYprofesor AYP 
+			 		ON A.idArticulo = AYP.idArticulo 
+				   	   AND AYP.idProfesor = ${idArticulo}
+				INNER JOIN profesores P
+					ON AYP.idProfesor = P.idProfesor`);
+            res.json(respuesta);
+        });
+    }
     listArticulosByPeriodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { ini, fin } = req.params;

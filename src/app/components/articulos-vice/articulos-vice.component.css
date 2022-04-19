@@ -5,3 +5,7 @@
 	margin-left: 5em;
 	margin-right: 5em;
 }
+
+.my-pagination /deep/ .ngx-pagination .current {
+	background: #5F1E05;
+}
