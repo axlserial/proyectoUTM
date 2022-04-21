@@ -2,6 +2,7 @@
 
 # user
 *.pdf
+/server/src/keys.ts
 
 # compiled output
 /dist
