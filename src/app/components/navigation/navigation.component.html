@@ -26,6 +26,12 @@
 							Listar<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
+					<li>
+					<!-- <li *ngIf="nivel != undefined && nivel === 1"> -->
+						<a class="dropdown-trigger black-text" data-target="dropdown-migrar" href="javascript:void(0);">
+							Migrar<i class="material-icons right center-icon">arrow_drop_down</i>
+						</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col s2">
@@ -58,6 +64,14 @@
 	<li><a (click)="agregarInstituto()" class="black-text" href="javascript:void(0);">Instituto</a></li>
 	<li><a (click)="agregarCarrera()" class="black-text" href="javascript:void(0);">Carrera</a></li>
 </ul>
+
+<!-- Contenido de los desplegables (Migrar) -->
+<ul id="dropdown-migrar" class="dropdown-content">
+	<!-- <ul *ngIf="nivel != undefined && nivel == 1" id="dropdown-agregar" class="dropdown-content"> -->
+		<li><a (click)="migrarProfesor()" class="black-text" href="javascript:void(0);">Profesores</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Articulos</a></li>
+		<li><a class="black-text" href="javascript:void(0);">Eventos</a></li>
+	</ul>
 
 <!-- Contenido de los desplegables (Listar) -->
 <ul id="dropdown-listar" class="dropdown-content">
@@ -226,3 +240,52 @@
 
 <!-- Modal que muestra el registro de una carrera -->
 <app-add-carrera [abrirModal]="abrirModalCarr"></app-add-carrera>
+
+
+<!-- Modal excel -->
+<div class="container">
+	<div id="migrarProfesor" class="modal">
+		<div class="modal-content">
+			<div class="col s12 m12 l8 offset-12 loginDiv">
+				<div class="row loginContainer">
+					<div class="row" style="margin-bottom: 0px !important;">
+						<div class="col s12">
+							<h5 class="center">Migrar Profesor</h5>
+						</div>
+					</div>
+					<div style="border: .5px solid #78909c; padding: 10px;">
+						<div class="row">
+							<div class="col s12">
+								<div class="file-field input-field">
+									<div class="btn light-blue darken-1">
+										<span>Subir</span>
+										<input 
+											(change)="cargarExcelProfesor($event.target)" 
+											type="file"
+											multiple
+										>
+									</div>
+									<div class="file-path-wrapper">
+										<input	class="file-path validate" 
+												type="text"
+												placeholder="Selecciona tu excel"
+										>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6 center">
+									<a 	(click)="migrarProfesor2DB()" 
+										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+								</div>
+								<div class="col s6 center">
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { Profesor } from 'src/app/models/profesor.model';
 import { ProfesorService } from 'src/app/services/profesor.service';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -35,6 +37,11 @@ export class NavigationComponent implements OnInit {
 	carreras: any[] = [];
 	numCarrerasActual: any;
 	carreraActual: any;
+
+	//excel
+	archivoExcel: any;
+	arrayBuffer: any;
+	exceljsondata: any[] = [];
 
 	constructor(private router: Router,
 				private carreraService: CarreraService,
@@ -124,6 +131,46 @@ export class NavigationComponent implements OnInit {
 
 		this.profesorService.guardarProfesor(this.registroProfesor).subscribe({
 			next: (resNuevo) => console.log(resNuevo)
+		});
+	}
+
+
+	migrarProfesor(){
+		$('#migrarProfesor').modal();
+		$('#migrarProfesor').modal('open');
+	}
+
+	cargarExcelProfesor(event: any){
+		if (event.files.length == 0)
+			return;
+
+		this.archivoExcel = event.files[0];
+		let fileReader = new FileReader();
+		fileReader.readAsArrayBuffer(this.archivoExcel);
+		fileReader.onload = (e) => {
+			this.arrayBuffer = fileReader.result;
+			var data = new Uint8Array(this.arrayBuffer);
+			var arr = new Array();
+			for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+			var bstr = arr.join("");
+			var workbook = XLSX.read(bstr, { type: "binary" });
+			var first_sheet_name = workbook.SheetNames[0];
+			var worksheet = workbook.Sheets[first_sheet_name];
+			this.exceljsondata = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+		}
+	}
+
+	migrarProfesor2DB(){
+		this.exceljsondata.forEach(profesor => {
+			this.profesorService.guardarProfesor(profesor).subscribe({
+				error: err => console.log(err)
+			});
+		});
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Profesores migrados',
+			confirmButtonAriaLabel: 'Thumbs up, great!'
 		});
 	}
 
