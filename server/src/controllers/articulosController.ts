@@ -36,6 +36,26 @@ class ArticulosController {
 		res.json(resArticulo);
 	}
 
+	public async createMigrar(req: Request, res: Response): Promise<void> {
+		const respuesta = await pool.query('INSERT INTO articulos SET ?', [req.body.articulo]);
+
+		let datos = req.body.datosAut;
+
+		let resArticulo: any;
+		for (let i = 0; i < datos.autores.length; i++){
+			let dato = {
+				"idProfesor": datos.autores[i],
+				"idArticulo": respuesta.insertId,
+				"posicion": datos.posicion[i],
+				"validado": datos.validado
+			};
+
+			resArticulo = await pool.query("INSERT INTO articuloYprofesor SET ?", [dato]);
+		}
+		
+		res.json(resArticulo);
+	}
+
 	public async delete(req: Request, res: Response): Promise<void> {
 		const {idArticulo} = req.params;
 		console.log(idArticulo);
@@ -58,6 +78,20 @@ class ArticulosController {
 			 FROM articulos A 
 				INNER JOIN articuloYprofesor AYP 
 					ON A.idArticulo = AYP.idArticulo
+			   	INNER JOIN profesores P
+				   ON AYP.idProfesor = P.idProfesor
+					  AND P.idInstituto = ${idInstituto}`);
+		res.json(respuesta);
+	}
+
+	public async listFirstsArticulosByInstituto(req: Request, res: Response): Promise<void> {
+		const {idInstituto} = req.params;
+		console.log(idInstituto);
+		const respuesta = await pool.query(
+			`SELECT *
+			 FROM articulos A INNER JOIN articuloYprofesor AYP 
+					ON A.idArticulo = AYP.idArticulo
+					  AND AYP.posicion = 1	
 			   	INNER JOIN profesores P
 				   ON AYP.idProfesor = P.idProfesor
 					  AND P.idInstituto = ${idInstituto}`);
@@ -99,7 +133,7 @@ class ArticulosController {
 			 FROM archivoYarticulos A 
 			 	INNER JOIN articuloYprofesor AYP 
 			 		ON A.idArticulo = AYP.idArticulo 
-				   	   AND AYP.idProfesor = ${idArticulo}
+				   	   AND AYP.idArticulo = ${idArticulo}
 				INNER JOIN profesores P
 					ON AYP.idProfesor = P.idProfesor`);
 		

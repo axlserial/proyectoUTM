@@ -77,6 +77,7 @@ export class ArticulosComponent implements OnInit {
 	}
 
 	eliminarProf(idArticulo: any, idProfesor: any){
+		console.log(this.datosArticulo);
 		console.log("idArticulo:", idArticulo, "\tidProfesor:", idProfesor);
 	}
 
@@ -86,7 +87,6 @@ export class ArticulosComponent implements OnInit {
 
 	cargarArchivo(idArticulo: any, files: any){
 		let file: FileList = files.files;
-		// this.fileToUpload = file.item(0);
 
 		for (let i = 0; i < file.length; i++){
 			this.fileToUpload = file.item(i);
@@ -102,19 +102,6 @@ export class ArticulosComponent implements OnInit {
 				});
 			});
 		}
-
-
-
-		// let imgPromise = this.getFileBlob(this.fileToUpload);
-		// console.log(imgPromise);
-		// imgPromise.then(blob => {
-		// 	this.imagenesService.guardarArchivo(Number(idArticulo), blob)
-		// 	.subscribe({
-		// 		next: (resUpl: any) => {
-		// 			console.log(resUpl);
-		// 		}
-		// 	});
-		// });
 	}
 
 	getFileBlob(file: any){

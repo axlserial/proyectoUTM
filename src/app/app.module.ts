@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { DatePipe } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,9 @@ import { InstitutosViceComponent } from './components/institutos-vice/institutos
 import { CarrerasViceComponent } from './components/carreras-vice/carreras-vice.component';
 import { AddInstitutoComponent } from './components/modals/add-instituto/add-instituto.component';
 import { AddCarreraComponent } from './components/modals/add-carrera/add-carrera.component';
+import { ArticulosDirecComponent } from './components/articulos-direc/articulos-direc.component';
+import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
+import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.component';
 
 @NgModule({
 	declarations: [
@@ -40,7 +44,10 @@ import { AddCarreraComponent } from './components/modals/add-carrera/add-carrera
 		InstitutosViceComponent,
 		CarrerasViceComponent,
 		AddInstitutoComponent,
-  AddCarreraComponent
+		AddCarreraComponent,
+  ArticulosDirecComponent,
+  ProfesoresJefeComponent,
+  ArticulosImpComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -50,7 +57,8 @@ import { AddCarreraComponent } from './components/modals/add-carrera/add-carrera
 		NgxPaginationModule
 	],
 	providers: [
-		CambioInfoService
+		CambioInfoService,
+		DatePipe
 	],
 	bootstrap: [AppComponent]
 })

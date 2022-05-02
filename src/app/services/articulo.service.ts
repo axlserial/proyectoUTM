@@ -15,6 +15,10 @@ export class ArticuloService {
 		return this.http.get(`${environment.API_URL}/articulos/articulos-by-instituto/${idInstituto}`, {headers: header});
 	}
 
+	listFirstsArticulosByInstituto(idInstituto: number) {
+		return this.http.get(`${environment.API_URL}/articulos/firsts-articulos-by-instituto/${idInstituto}`, {headers: header});
+	}
+
 	listArticulosByProfesor(idProfesor: number) {
 		return this.http.get(`${environment.API_URL}/articulos/articulos-by-profesor/${idProfesor}`, {headers: header});
 	}
@@ -25,5 +29,9 @@ export class ArticuloService {
 
 	crearArticulo(idProfesor:number, articulo: Articulo){
 		return this.http.post(`${environment.API_URL}/articulos/create/${idProfesor}`, articulo, {headers: header});
+	}
+
+	crearArticuloMigrar(datos: any){
+		return this.http.post(`${environment.API_URL}/articulos/create-migrar/`, datos, {headers: header});
 	}
 }

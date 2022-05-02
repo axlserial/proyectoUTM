@@ -42,3 +42,31 @@
 		</pagination-controls>
 	</div>
 </div>
+
+<div class="hide-on-screen">
+	<table>
+		<ng-container class="bloque" *ngFor="let item of articulosInst">
+			<tr>
+				<td colspan="4"><b>Articulos de: {{item.instituto}}</b></td>
+			</tr>
+			<ng-container *ngIf="item.articulos.length > 0; else sinArticulos">
+				<tr class="hide-line" *ngFor="let articulo of item.articulos">
+					<td>{{articulo.fechaedicion}}</td>
+					<td><strong>{{articulo.titulo}}</strong></td>
+					<td><b>Autor</b></td>
+					<td style="width: 40%;">
+						{{articulo.grado}} {{articulo.nombres}} {{articulo.apellidoPaterno}} {{articulo.apellidoMaterno}}
+					</td>
+				</tr>
+			</ng-container>
+			<ng-template #sinArticulos>
+				<tr class="hide-line">
+					<td colspan="4">
+						Sin articulos principales
+					</td>
+				</tr>
+			</ng-template>
+			<br>
+		</ng-container>
+	</table>
+</div>

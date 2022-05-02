@@ -14,9 +14,11 @@ class ArticulosRoutes {
 		this.router.get('/', articulosController.list);
 		this.router.get('/:idArticulo', articulosController.listOne);
 		this.router.post('/create/:idProfesor', articulosController.create);
+		this.router.post('/create-migrar/', articulosController.createMigrar);
 		this.router.delete('/delete/:idArticulo', articulosController.delete);
 		this.router.put('/update/:idArticulo', articulosController.update);
 		this.router.get('/articulos-by-instituto/:idInstituto', articulosController.listArticulosByInstituto);
+		this.router.get('/firsts-articulos-by-instituto/:idInstituto', articulosController.listFirstsArticulosByInstituto);
 		this.router.get('/articulos-by-carrera/:idCarrera', articulosController.listArticulosByCarrera);
 		this.router.get('/articulos-by-profesor/:idProfesor', articulosController.listArticulosByProfesor);
 		this.router.get('/articulos-by-periodo/:ini/:fin', articulosController.listArticulosByPeriodo);

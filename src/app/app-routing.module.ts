@@ -7,7 +7,10 @@ import { GeneralesComponent } from './components/generales/generales.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { HomeComponent } from './components/home/home.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
+import { ArticulosDirecComponent } from './components/articulos-direc/articulos-direc.component';
+import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.component';
 import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
+import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
 import { InstitutosViceComponent } from './components/institutos-vice/institutos-vice.component';
 import { CarrerasViceComponent } from './components/carreras-vice/carreras-vice.component';
@@ -40,8 +43,20 @@ const routes: Routes = [
 				component: ArticulosViceComponent
 			},
 			{
+				path: 'articulos-direc/:idProfesor',
+				component: ArticulosDirecComponent
+			},
+			{
+				path: 'articulos-imp/:idProfesor',
+				component: ArticulosImpComponent
+			},
+			{
 				path: 'profesores-vice/:idProfesor',
 				component: ProfesoresViceComponent
+			},
+			{
+				path: 'profesores-jefe/:idProfesor',
+				component: ProfesoresJefeComponent
 			},
 			{
 				path: 'institutos-vice/:idProfesor',

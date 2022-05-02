@@ -10,33 +10,13 @@
 	background: #5F1E05;
 }
 
-/* Esconde elemento con valores a imprimir */
-@media screen {
-	.hide-on-screen {
-		display: none;
-	}
-}
-
-/* Valores a imprimir */
 @media print {
 	@page {
 		size: auto;
 		margin: 0;
 	}
 
-	.contenedor-principal {
+	:host pagination-controls {
 		display: none;
-	}
-
-	.hide-on-screen {
-		margin: 2cm;
-	}
-
-	.bloque {
-		page-break-after: always;
-	}
-
-	.hide-line {
-		border-bottom-style: hidden;
 	}
 }

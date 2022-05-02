@@ -10,6 +10,8 @@ import periodosRoutes from './routes/periodosRoutes';
 import planesRoutes from './routes/planesRoutes';
 import articulosRoutes from './routes/articulosRoutes';
 import archivoYarticuloRoutes from './routes/archivoYarticuloRoutes';
+import actividadesRoutes from './routes/actividadesRoutes';
+import eventosRoutes from './routes/eventosRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -42,6 +44,8 @@ class Server {
 		this.app.use('/api/planes', planesRoutes);
 		this.app.use('/api/articulos', articulosRoutes);
 		this.app.use('/api/articuloYarchivo', archivoYarticuloRoutes);
+		this.app.use('/api/actividades', actividadesRoutes);
+		this.app.use('/api/eventos', eventosRoutes);
 	}
 
 	start(): void {

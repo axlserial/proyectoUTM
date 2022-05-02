@@ -10,10 +10,14 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 })
 export class ArticulosViceComponent implements OnInit {
 
+	// Vista web normal
 	institutos: any[] = [];
 	institutoActual: any;
 	datosArticulos: any[] = [];
 	
+	// para PDF impresión
+	articulosInst: any[] = [];
+
 	// Paginación
 	pageSize = 3;
 	p = 1;
@@ -30,6 +34,20 @@ export class ArticulosViceComponent implements OnInit {
 				this.institutos = this.institutos.filter(item => item.idInstituto !== 9);
 				this.institutoActual = this.institutos[0].idInstituto;
 				this.obtenerDatosArticulos();
+
+				// obtiene articulos para impresión
+				this.institutos.forEach(instituto => {
+					this.articuloService.listFirstsArticulosByInstituto(instituto.idInstituto)
+					.subscribe({
+						next: (resArticulos: any) => {
+							this.articulosInst.push({
+								"instituto": instituto.nombreInstituto,
+								"articulos": resArticulos
+							});
+						},
+						error: err => console.error(err)
+					});
+				});
 			}
 		});
 	}

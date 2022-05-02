@@ -50,6 +50,23 @@ class ArticulosController {
             res.json(resArticulo);
         });
     }
+    createMigrar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query('INSERT INTO articulos SET ?', [req.body.articulo]);
+            let datos = req.body.datosAut;
+            let resArticulo;
+            for (let i = 0; i < datos.autores.length; i++) {
+                let dato = {
+                    "idProfesor": datos.autores[i],
+                    "idArticulo": respuesta.insertId,
+                    "posicion": datos.posicion[i],
+                    "validado": datos.validado
+                };
+                resArticulo = yield database_1.default.query("INSERT INTO articuloYprofesor SET ?", [dato]);
+            }
+            res.json(resArticulo);
+        });
+    }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idArticulo } = req.params;
@@ -74,6 +91,20 @@ class ArticulosController {
 			 FROM articulos A 
 				INNER JOIN articuloYprofesor AYP 
 					ON A.idArticulo = AYP.idArticulo
+			   	INNER JOIN profesores P
+				   ON AYP.idProfesor = P.idProfesor
+					  AND P.idInstituto = ${idInstituto}`);
+            res.json(respuesta);
+        });
+    }
+    listFirstsArticulosByInstituto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idInstituto } = req.params;
+            console.log(idInstituto);
+            const respuesta = yield database_1.default.query(`SELECT *
+			 FROM articulos A INNER JOIN articuloYprofesor AYP 
+					ON A.idArticulo = AYP.idArticulo
+					  AND AYP.posicion = 1	
 			   	INNER JOIN profesores P
 				   ON AYP.idProfesor = P.idProfesor
 					  AND P.idInstituto = ${idInstituto}`);
@@ -114,7 +145,7 @@ class ArticulosController {
 			 FROM archivoYarticulos A 
 			 	INNER JOIN articuloYprofesor AYP 
 			 		ON A.idArticulo = AYP.idArticulo 
-				   	   AND AYP.idProfesor = ${idArticulo}
+				   	   AND AYP.idArticulo = ${idArticulo}
 				INNER JOIN profesores P
 					ON AYP.idProfesor = P.idProfesor`);
             res.json(respuesta);

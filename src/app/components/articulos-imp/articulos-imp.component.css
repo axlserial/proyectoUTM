@@ -1,0 +1,29 @@
+.contenedor-principal {
+	margin-top: 10em;
+	margin-left: 5em;
+	margin-right: 5em;
+}
+
+.hide-line {
+	border-bottom-style: hidden;
+}
+
+/* Valores a imprimir */
+@media print {
+	@page {
+		size: auto;
+		margin: 0;
+	}
+
+	.contenedor-principal {
+		margin: 2cm !important;
+	}
+
+	tr {
+		page-break-inside: avoid !important;
+	}
+
+	.esconder-print {
+		display: none;
+	}
+}
