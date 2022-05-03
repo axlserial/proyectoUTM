@@ -5,6 +5,11 @@ import { Articulo } from '../../models/articulo.model';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { CambioInfoService } from '../../services/cambio-info.service';
 
+import { 	Packer, Document, Paragraph, TextRun, AlignmentType, Table, 
+			TableRow, TableCell, VerticalAlign, WidthType, HeightRule, ShadingType	} from 'docx';
+
+import { saveAs } from 'file-saver';
+
 declare var $: any;
 
 @Component({
@@ -19,6 +24,9 @@ export class HomeComponent implements OnInit {
 	articulito: Articulo;
 	tipoCLR: string[] = ['Revista', 'Congreso', 'Libro'];
 	clrActual: string = '';
+
+	indexInstitutoArticulosExportar: number = 0;
+	institutos: any[] = [];
 
 	constructor(private router: Router,
 				private cambioInfoService: CambioInfoService,
@@ -81,4 +89,89 @@ export class HomeComponent implements OnInit {
 		console.log("clrActual:", this.clrActual);
 	}
 
+	// ---------
+
+	arregloALista(elementos: any[]): Paragraph[] { 
+		let lista: Paragraph[] = []; 
+		elementos.forEach(elemento => { 
+			lista.push(new Paragraph({
+				text: `${elemento.nombres} ${elemento.apellidoPaterno} ${elemento.apellidoMaterno}`, 
+				bullet: { 
+					level: 0 
+				}, 
+				alignment: AlignmentType.LEFT 
+			}));
+		 }); 
+		 
+		 return lista;
+		
+	}
+
+	arregloAFilas(articulos: any[]): TableRow[] { 
+		let filas: TableRow[] = []; 
+		articulos.forEach((articulo, i) => {
+			const relleno = (i % 2 == 0 ? rellenoVerdeClaro : rellenoVerdeFuerte);
+			let fila = new TableRow({
+				children: [ 
+					new TableCell({
+						shading: relleno, 
+						margins: margenes, 
+						children: [ 
+							new Paragraph({ 
+								text: `${articulo.fechaEdicion}`, 
+								alignment: AlignmentType.CENTER
+							})
+						], 
+						verticalAlign: VerticalAlign.CENTER }), 
+						new TableCell({ 
+							shading: relleno, 
+							margins: margenes, 
+							children: [ 
+								new Paragraph({ 
+									text: `${articulo.titulo}`, 
+									alignment: AlignmentType.CENTER 
+								}) 
+							], 
+							verticalAlign: VerticalAlign.CENTER 
+						}), 
+						new TableCell({ 
+							shading: relleno, 
+							margins: margenes, 
+							children: [ ...this.arregloALista(articulo.profesores) ], 
+							verticalAlign: VerticalAlign.CENTER 
+						})
+				]
+			}); 
+			
+			filas.push(fila); 
+		}); 
+		
+		return filas;
+	}
+
+
+}
+
+
+/**
+ * Estilos para el word
+ */
+
+const margenes = { 
+	top: 100, 
+	bottom: 100, 
+	left: 100, 
+	right: 100 
+} 
+
+const rellenoVerdeClaro = {
+	type: ShadingType.CLEAR, 
+	color: 'e8f5e9', 
+	fill: 'e8f5e9' 
+} 
+
+const rellenoVerdeFuerte = { 
+	type: ShadingType.CLEAR, 
+	color: 'a5d6a7', 
+	fill: 'a5d6a7'
 }

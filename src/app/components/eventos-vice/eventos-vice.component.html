@@ -1,0 +1,95 @@
+<div class="contenedor-principal">
+
+	<!-- Filtrado por fecha -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s3">
+			<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
+		</div>
+		<div class="col s3">
+			<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
+		</div>
+	</div>
+
+	<!-- Filtrado por instituto -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por instituto</label>
+			<select (change)="cambioInstituto($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let instituto of institutos; let i = index;">
+					<option [value]="i">
+						{{instituto.nombreInstituto}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<!-- Filtrado por profesor -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por profesor</label>
+			<select (change)="cambioProfesor($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let profesor of profesores; let i = index;">
+					<option [value]="i">
+						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<div class="esconder-print">
+		<br>
+		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<br>
+	</div>
+
+	<!-- Muestra articulos -->
+	<table>
+		<ng-container *ngFor="let item of eventos | 
+		paginate: {
+			itemsPerPage: pageSize,
+			currentPage: p 
+		};">
+			<tr>
+				<td colspan="4"><b>Eventos de: {{item.instituto}}</b></td>
+			</tr>
+			<ng-container *ngIf="item.eventos.length > 0; else sinEventos">
+				<ng-container *ngFor="let evento of item.eventos">
+					<tr class="hide-line" *ngIf="evento.inicio >= ini && evento.fin <= fin">
+						<td>Inicio: {{evento.inicio}}</td>
+						<td>Fin: {{evento.fin}}</td>
+						<td><strong>{{evento.nombreEvento}}</strong></td>
+						<td>{{evento.titulo}}</td>
+						<td><b>De</b></td>
+						<td>
+							{{evento.grado}} {{evento.nombres}} {{evento.apellidoPaterno}} {{evento.apellidoMaterno}}
+						</td>
+						<td><b>Como</b></td>
+						<td>{{evento.participacion}}</td>
+					</tr>
+				</ng-container>
+			</ng-container>
+			<ng-template #sinEventos>
+				<tr class="hide-line">
+					<td colspan="4">
+						Sin eventos registrados
+					</td>
+				</tr>
+			</ng-template>
+			<br>
+		</ng-container>
+	</table>
+	<div class="row center-align">
+		<pagination-controls
+			class="my-pagination"
+			(pageChange)="p = ($event)"
+			previousLabel="Anterior"
+			nextLabel="Siguiente"
+		>
+		</pagination-controls>
+	</div>
+
+</div>

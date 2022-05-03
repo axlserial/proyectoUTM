@@ -23,7 +23,9 @@ class EventosController {
 	}
 
 	public async create(req: Request, res: Response): Promise<void> {
+		console.log("create eventos");
 		const respuesta = await pool.query('INSERT INTO eventos SET ?', [req.body]);
+		
 		res.json(respuesta);
 	}
 

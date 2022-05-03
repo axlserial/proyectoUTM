@@ -1,0 +1,80 @@
+<div class="contenedor-principal">
+
+	<!-- Filtrado por fecha -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s3">
+			<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
+		</div>
+		<div class="col s3">
+			<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
+		</div>
+	</div>
+
+	<!-- Filtrado por instituto -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por instituto</label>
+			<select (change)="cambioInstituto($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let instituto of institutos; let i = index;">
+					<option [value]="i">
+						{{instituto.nombreInstituto}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<!-- Filtrado por profesor -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por profesor</label>
+			<select (change)="cambioProfesor($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let profesor of profesores; let i = index;">
+					<option [value]="i">
+						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<div class="esconder-print">
+		<br>
+		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<br>
+	</div>
+
+	<!-- Muestra articulos -->
+	<table>
+		<ng-container *ngFor="let item of actividades">
+			<tr>
+				<td colspan="4"><b>Actividades de: {{item.instituto}}</b></td>
+			</tr>
+			<ng-container *ngIf="item.actividades.length > 0; else sinActividades">
+				<ng-container *ngFor="let actividad of item.actividades">
+					<tr class="hide-line" *ngIf="actividad.inicio >= ini && actividad.fin <= fin">
+						<td>Inicio: {{actividad.inicio}}</td>
+						<td>Fin: {{actividad.fin}}</td>
+						<td><strong>{{actividad.actividad}}</strong></td>
+						<td>{{actividad.descripcion}}</td>
+						<td><b>De</b></td>
+						<td style="width: 40%;">
+							{{actividad.grado}} {{actividad.nombres}} {{actividad.apellidoPaterno}} {{actividad.apellidoMaterno}}
+						</td>
+					</tr>
+				</ng-container>
+			</ng-container>
+			<ng-template #sinActividades>
+				<tr class="hide-line">
+					<td colspan="4">
+						Sin actividades registradas
+					</td>
+				</tr>
+			</ng-template>
+			<br>
+		</ng-container>
+	</table>
+
+</div>

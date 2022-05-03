@@ -26,6 +26,11 @@ import { AddCarreraComponent } from './components/modals/add-carrera/add-carrera
 import { ArticulosDirecComponent } from './components/articulos-direc/articulos-direc.component';
 import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.component';
+import { ActividadesViceComponent } from './components/actividades-vice/actividades-vice.component';
+import { ActividadesDirecComponent } from './components/actividades-direc/actividades-direc.component';
+import { ActividadesViceImpComponent } from './components/actividades-vice-imp/actividades-vice-imp.component';
+import { EventosViceImpComponent } from './components/eventos-vice-imp/eventos-vice-imp.component';
+import { EventosViceComponent } from './components/eventos-vice/eventos-vice.component';
 
 @NgModule({
 	declarations: [
@@ -48,6 +53,11 @@ import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.
   ArticulosDirecComponent,
   ProfesoresJefeComponent,
   ArticulosImpComponent,
+  ActividadesViceComponent,
+  ActividadesDirecComponent,
+  ActividadesViceImpComponent,
+  EventosViceImpComponent,
+  EventosViceComponent,
 	],
 	imports: [
 		BrowserModule,

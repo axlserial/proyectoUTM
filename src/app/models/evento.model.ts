@@ -6,7 +6,7 @@ export class Evento {
 	participacion = 'Ponente Asistente';
 	afectaLinea = 'Sí';
 	tipoParticipacion = 'Nacional';
-	titulo = 'Congreso Internacional';
+	titulo = 'Congreso Nacional';
 	inicio = '2022-05-01';
 	fin = '2022-05-07';
 	comprobante = 'Diploma';

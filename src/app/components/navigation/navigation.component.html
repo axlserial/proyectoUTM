@@ -29,7 +29,12 @@
 							Importar<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
-					<li [hidden]="nivel == 4">
+					<li [hidden]="nivel > 1">
+						<a class="dropdown-trigger black-text" data-target="dropdown-exportar" href="javascript:void(0);">
+							Exportar<i class="material-icons right center-icon">arrow_drop_down</i>
+						</a>
+					</li>
+					<li>
 						<a class="dropdown-trigger black-text" data-target="dropdown-imprimir" href="javascript:void(0);">
 							Imprimir<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
@@ -95,9 +100,12 @@
 		<a class="black-text" href="/home/articulos-direc/{{idProfesor}}">Articulos</a>
 	</li>
 	<li [hidden]="nivel > 2">
-		<a class="black-text" href="javascript:void(0);">Eventos</a>
+		<a class="black-text" href="/home/eventos-vice">Eventos</a>
 	</li>
-	<li [hidden]="nivel > 2">
+	<li [hidden]="nivel != 1">
+		<a class="black-text" href="/home/actividades-vice">Actividades</a>
+	</li>
+	<li [hidden]="nivel != 2">
 		<a class="black-text" href="javascript:void(0);">Actividades</a>
 	</li>
 </ul>
@@ -124,11 +132,27 @@
 	</li>
 </ul>
 
+<ul id="dropdown-exportar" class="dropdown-content">
+	<li [hidden]="nivel != 1">
+		<a class="modal-trigger" href="#exportarArticulos">Articulos</a>
+	</li>
+</ul>
+
 <!-- Contenido de los desplegables (Imprimir) -->
 <ul id="dropdown-imprimir" class="dropdown-content">
 	<li><a class="black-text" href="/home/articulos-imp/{{idProfesor}}">Articulos</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Eventos</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Actividades</a></li>
+	<li [hidden]="nivel != 1">
+		<a class="black-text" href="/home/eventos-vice-imp">Eventos</a>
+	</li>
+	<li [hidden]="nivel != 2">
+		<a class="black-text" href="javascript:void(0);">Eventos</a>
+	</li>
+	<li [hidden]="nivel != 1">
+		<a class="black-text" href="/home/actividades-vice-imp">Actividades</a>
+	</li>
+	<li [hidden]="nivel != 2">
+		<a class="black-text" href="javascript:void(0);">Actividades</a>
+	</li>
 </ul>
 
 <!-- Para el menú hamburguesa -->

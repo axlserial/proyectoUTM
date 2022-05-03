@@ -9,6 +9,10 @@ import { HomeComponent } from './components/home/home.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
 import { ArticulosDirecComponent } from './components/articulos-direc/articulos-direc.component';
 import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.component';
+import { ActividadesViceComponent } from './components/actividades-vice/actividades-vice.component';
+import { ActividadesViceImpComponent } from './components/actividades-vice-imp/actividades-vice-imp.component';
+import { EventosViceImpComponent } from './components/eventos-vice-imp/eventos-vice-imp.component';
+import { EventosViceComponent } from './components/eventos-vice/eventos-vice.component';
 import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
@@ -49,6 +53,22 @@ const routes: Routes = [
 			{
 				path: 'articulos-imp/:idProfesor',
 				component: ArticulosImpComponent
+			},
+			{
+				path: 'actividades-vice',
+				component: ActividadesViceComponent
+			},
+			{
+				path: 'actividades-vice-imp',
+				component: ActividadesViceImpComponent
+			},
+			{
+				path: 'eventos-vice-imp',
+				component: EventosViceImpComponent
+			},
+			{
+				path: 'eventos-vice',
+				component: EventosViceComponent
 			},
 			{
 				path: 'profesores-vice/:idProfesor',

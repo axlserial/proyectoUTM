@@ -6,6 +6,8 @@ import { CarreraService } from 'src/app/services/carrera.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { Profesor } from 'src/app/models/profesor.model';
 import { ProfesorService } from 'src/app/services/profesor.service';
+import { EventoService } from 'src/app/services/evento.service';
+import { ActividadService } from 'src/app/services/actividad.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -51,7 +53,9 @@ export class NavigationComponent implements OnInit {
 				private carreraService: CarreraService,
 				private articuloService: ArticuloService,
 				private institutoService: InstitutoService,
-				private profesorService: ProfesorService) { }
+				private profesorService: ProfesorService,
+				private eventoService: EventoService,
+				private actividadService: ActividadService) { }
 
 	ngOnInit(): void {
 		this.idProfesor = Number(localStorage.getItem('idProfesor'));
@@ -295,9 +299,6 @@ export class NavigationComponent implements OnInit {
 
 			this.articuloService.crearArticuloMigrar(datos)
 			.subscribe({
-				next: (resMigrar: any) => {
-					console.log(resMigrar);
-				},
 				error: err => console.error(err)
 			});
 		});
@@ -322,7 +323,9 @@ export class NavigationComponent implements OnInit {
 
 	migrarActividad2DB(){
 		this.exceljsondata.forEach(actividad => {
-			console.log("Subiendo...");
+			this.actividadService.crearActividad(actividad).subscribe({
+				error: err => console.error(err)
+			})
 		});
 
 		Swal.fire({
@@ -345,7 +348,9 @@ export class NavigationComponent implements OnInit {
 
 	migrarEvento2DB(){
 		this.exceljsondata.forEach(evento => {
-			console.log("Subiendo...");
+			this.eventoService.crearEvento(evento).subscribe({
+				error: err => console.error(err)
+			});
 		});
 
 		Swal.fire({
