@@ -98,6 +98,35 @@ class ArticulosController {
 		res.json(respuesta);
 	}
 
+	public async listFirstsArtWithAutoresByInstituto(req: Request, res: Response): Promise<void> {
+		const {idInstituto} = req.params;
+		const respuesta: any[] = await pool.query(
+			`SELECT *
+			 FROM articulos A INNER JOIN articuloYprofesor AYP 
+					ON A.idArticulo = AYP.idArticulo
+					  AND AYP.posicion = 1	
+			   	INNER JOIN profesores P
+				   ON AYP.idProfesor = P.idProfesor
+					  AND P.idInstituto = ${idInstituto}`);
+		
+		let datos: any[] = [];
+		for (let i = 0; i < respuesta.length; i++){
+			const respuesta2 = await pool.query(
+				`SELECT profesores.*
+				 FROM articuloYprofesor, profesores
+				 WHERE articuloYprofesor.idArticulo = ${respuesta[i].idArticulo}
+				 	AND articuloYprofesor.idProfesor = profesores.idProfesor
+					AND profesores.idProfesor <> ${respuesta[i].idProfesor}`);
+
+			datos.push({
+				"articulo": respuesta[i],
+				"autores": respuesta2
+			});
+		}
+
+		res.json(datos);
+	}
+
 	public async listArticulosByCarrera(req: Request, res: Response): Promise<void> {
 		const {idCarrera} = req.params;
 		console.log(idCarrera);

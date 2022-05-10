@@ -11,7 +11,7 @@
 	</div>
 
 	<!-- Filtrado por instituto -->
-	<div class="row esconder-print">
+	<div class="row esconder-print" *ngIf="nivel == 1">
 		<div class="col offset-s3 s6">
 			<label>Filtrado por instituto</label>
 			<select (change)="cambioInstituto($event.target)" class="browser-default">
@@ -26,7 +26,7 @@
 	</div>
 
 	<!-- Filtrado por profesor -->
-	<div class="row esconder-print">
+	<div class="row esconder-print" *ngIf="nivel < 4">
 		<div class="col offset-s3 s6">
 			<label>Filtrado por profesor</label>
 			<select (change)="cambioProfesor($event.target)" class="browser-default">
@@ -48,28 +48,30 @@
 
 	<!-- Muestra articulos -->
 	<table>
-		<ng-container *ngFor="let item of actividades">
+		<ng-container *ngFor="let item of eventos">
 			<tr>
-				<td colspan="4"><b>Actividades de: {{item.instituto}}</b></td>
+				<td colspan="4"><b>Eventos de: {{item.instituto}}</b></td>
 			</tr>
-			<ng-container *ngIf="item.actividades.length > 0; else sinActividades">
-				<ng-container *ngFor="let actividad of item.actividades">
-					<tr class="hide-line" *ngIf="actividad.inicio >= ini && actividad.fin <= fin">
-						<td>Inicio: {{actividad.inicio}}</td>
-						<td>Fin: {{actividad.fin}}</td>
-						<td><strong>{{actividad.actividad}}</strong></td>
-						<td>{{actividad.descripcion}}</td>
+			<ng-container *ngIf="item.eventos.length > 0; else sinEventos">
+				<ng-container *ngFor="let evento of item.eventos">
+					<tr class="hide-line" *ngIf="evento.inicio >= ini && evento.fin <= fin">
+						<td>Inicio: {{evento.inicio}}</td>
+						<td>Fin: {{evento.fin}}</td>
+						<td><strong>{{evento.nombreEvento}}</strong></td>
+						<td>{{evento.titulo}}</td>
 						<td><b>De</b></td>
-						<td style="width: 40%;">
-							{{actividad.grado}} {{actividad.nombres}} {{actividad.apellidoPaterno}} {{actividad.apellidoMaterno}}
+						<td>
+							{{evento.grado}} {{evento.nombres}} {{evento.apellidoPaterno}} {{evento.apellidoMaterno}}
 						</td>
+						<td><b>Como</b></td>
+						<td>{{evento.participacion}}</td>
 					</tr>
 				</ng-container>
 			</ng-container>
-			<ng-template #sinActividades>
+			<ng-template #sinEventos>
 				<tr class="hide-line">
 					<td colspan="4">
-						Sin actividades registradas
+						Sin eventos registrados
 					</td>
 				</tr>
 			</ng-template>

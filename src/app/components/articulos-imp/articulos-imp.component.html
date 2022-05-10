@@ -11,7 +11,7 @@
 	</div>
 
 	<!-- Filtrado por instituto -->
-	<div class="row esconder-print">
+	<div class="row esconder-print" *ngIf="nivel == 1">
 		<div class="col offset-s3 s6">
 			<label>Filtrado por instituto</label>
 			<select (change)="cambioInstituto($event.target)" class="browser-default">
@@ -26,7 +26,7 @@
 	</div>
 
 	<!-- Filtrado por profesor -->
-	<div class="row esconder-print">
+	<div class="row esconder-print" *ngIf="nivel < 4">
 		<div class="col offset-s3 s6">
 			<label>Filtrado por profesor</label>
 			<select (change)="cambioProfesor($event.target)" class="browser-default">

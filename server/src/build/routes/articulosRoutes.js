@@ -18,6 +18,7 @@ class ArticulosRoutes {
         this.router.put('/update/:idArticulo', articulosController_1.articulosController.update);
         this.router.get('/articulos-by-instituto/:idInstituto', articulosController_1.articulosController.listArticulosByInstituto);
         this.router.get('/firsts-articulos-by-instituto/:idInstituto', articulosController_1.articulosController.listFirstsArticulosByInstituto);
+        this.router.get('/firsts-art-with-autores-by-instituto/:idInstituto', articulosController_1.articulosController.listFirstsArtWithAutoresByInstituto);
         this.router.get('/articulos-by-carrera/:idCarrera', articulosController_1.articulosController.listArticulosByCarrera);
         this.router.get('/articulos-by-profesor/:idProfesor', articulosController_1.articulosController.listArticulosByProfesor);
         this.router.get('/articulos-by-periodo/:ini/:fin', articulosController_1.articulosController.listArticulosByPeriodo);

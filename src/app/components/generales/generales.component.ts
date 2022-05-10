@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { Profesor } from 'src/app/models/profesor.model';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
 	selector: 'app-generales',
@@ -15,7 +16,13 @@ export class GeneralesComponent implements OnInit {
 	idProfesor: number;
 	tipoProf: string;
 
-	constructor(private router: ActivatedRoute, private profesorService: ProfesorService) {
+	constructor(private router: ActivatedRoute,
+				private profesorService: ProfesorService,
+				private translate: TranslateService) {
+		
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+		
 		this.profesor = new Profesor();
 		this.idProfesor = 0;
 		this.tipoProf = '';

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArticulosDirecComponent } from './articulos-direc.component';
+import { ActividadesImpComponent } from './actividades-imp.component';
 
-describe('ArticulosDirecComponent', () => {
-  let component: ArticulosDirecComponent;
-  let fixture: ComponentFixture<ArticulosDirecComponent>;
+describe('ActividadesImpComponent', () => {
+  let component: ActividadesImpComponent;
+  let fixture: ComponentFixture<ActividadesImpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArticulosDirecComponent ]
+      declarations: [ ActividadesImpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArticulosDirecComponent);
+    fixture = TestBed.createComponent(ActividadesImpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

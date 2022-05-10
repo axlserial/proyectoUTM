@@ -5,11 +5,15 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 import { EventoService } from 'src/app/services/evento.service';
 
 @Component({
-	selector: 'app-eventos-vice-imp',
-	templateUrl: './eventos-vice-imp.component.html',
-	styleUrls: ['./eventos-vice-imp.component.css']
+	selector: 'app-eventos',
+	templateUrl: './eventos.component.html',
+	styleUrls: ['./eventos.component.css']
 })
-export class EventosViceImpComponent implements OnInit {
+export class EventosComponent implements OnInit {
+
+	// datos prof
+	nivel = 0;
+	idProfesor = 0;
 
 	// Para datos de institutos
 	institutos: any[] = [];
@@ -39,6 +43,9 @@ export class EventosViceImpComponent implements OnInit {
 		// Obtiene fecha de un mes atrás
 		hoy.setMonth(hoy.getMonth() - 1);
 		this.ini = this.datePipe.transform(hoy, "yyyy-MM-dd");
+
+		this.nivel = Number(localStorage.getItem("nivel"));
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
 	}
 
 	ngOnInit(): void {
@@ -67,6 +74,8 @@ export class EventosViceImpComponent implements OnInit {
 	}
 
 	listarTodoInstitutos(){
+		let inst: number;
+
 		this.institutoService.listInstitutos()
 		.subscribe({
 			next: (resInstitutos: any) => {
@@ -80,20 +89,37 @@ export class EventosViceImpComponent implements OnInit {
 				this.profesores = [];
 				this.profActual = 0;
 
-				// obtiene eventos por instituto
+				// limpia arreglo
 				this.eventos = [];
-				this.institutos.forEach(instituto => {
-					this.eventoService.listEventosByInstituto(instituto.idInstituto)
+
+				// Verifica si es el vice
+				if (this.nivel == 1){
+					this.institutos.forEach(instituto => {
+						this.eventoService.listEventosByInstituto(instituto.idInstituto)
+						.subscribe({
+							next: (resEventos: any) => {
+								this.eventos.push({
+									"instituto": instituto.nombreInstituto,
+									"eventos": resEventos
+								});
+							},
+							error: err => console.error(err)
+						});
+					});
+				}
+				
+				// director de instituto
+				else {
+					this.profesorService.listOne(this.idProfesor)
 					.subscribe({
-						next: (resEventos: any) => {
-							this.eventos.push({
-								"instituto": instituto.nombreInstituto,
-								"eventos": resEventos
-							});
+						next: (resProfesor: any) => {
+							inst = this.institutos.findIndex(instituto => instituto.idInstituto === resProfesor.idInstituto);
+							this.listarUniqueInstituto(inst);
 						},
 						error: err => console.error(err)
 					});
-				});
+				}
+
 			}
 		});
 	}
@@ -156,4 +182,5 @@ export class EventosViceImpComponent implements OnInit {
 			error: err => console.error(err)
 		});
 	}
+
 }

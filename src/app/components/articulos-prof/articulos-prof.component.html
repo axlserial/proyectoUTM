@@ -1,0 +1,57 @@
+<div class="contenedor-principal">
+	<div class="row">
+		<div class="col s6">
+			<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
+		</div>
+		<div class="col s6">
+			<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
+		</div>
+	</div>
+	<table>
+		<tr *ngFor="let item of datosArticulo;">
+			<ng-container *ngIf="item.articulo.fechaedicion >= ini && item.articulo.fechaedicion <= fin">
+				<td>{{item.articulo.fechaedicion}}</td>
+				<td><strong>{{item.articulo.titulo}}</strong></td>
+				<td><b>Autor(es)</b></td>
+				<p *ngFor="let autor of item.autores">
+					{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
+					<a 
+						href="javascript:void(0);"
+						(click)="eliminarProf(item.articulo.idArticulo, autor.idProfesor)"
+						class="material-icons"
+					>delete</a>
+				</p>
+				<td>
+					<a 
+						href="javascript:void(0);"
+						(click)="agregarUTM(item.articulo.idArticulo)"
+					>+UTM</a>
+				</td>
+				<td>
+					<a 
+						href="javascript:void(0);"
+						(click)="agregarUTM(item.articulo.idArticulo)"
+					>PRIORIDAD</a>
+				</td>
+				<td>
+					<div class="file-field input-field">
+						<div class="btn light-blue darken-1">
+							<span>Subir</span>
+							<input 
+								(change)="cargarArchivo(item.articulo.idArticulo, $event.target)" 
+								type="file"
+								multiple
+							>
+						</div>
+						<div class="file-path-wrapper">
+							<input	class="file-path validate" 
+									type="text"
+									placeholder="Sube tu comprobable"
+							>
+						</div>
+					</div>
+				</td>
+			</ng-container>
+		</tr>
+	</table>
+</div>

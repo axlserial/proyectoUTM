@@ -19,6 +19,10 @@ export class ArticuloService {
 		return this.http.get(`${environment.API_URL}/articulos/firsts-articulos-by-instituto/${idInstituto}`, {headers: header});
 	}
 
+	listFirstsArtWithAutoresByInstituto(idInstituto: number) {
+		return this.http.get(`${environment.API_URL}/articulos/firsts-art-with-autores-by-instituto/${idInstituto}`, {headers: header});
+	}
+
 	listArticulosByProfesor(idProfesor: number) {
 		return this.http.get(`${environment.API_URL}/articulos/articulos-by-profesor/${idProfesor}`, {headers: header});
 	}

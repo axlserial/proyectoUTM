@@ -1,57 +1,80 @@
 <div class="contenedor-principal">
-	<div class="row">
-		<div class="col s6">
+
+	<!-- Filtrado por fecha -->
+	<div class="row esconder-print">
+		<div class="col offset-s3 s3">
 			<input (change)="cambioFechaIni()" id="fechaIni" type="date" value="{{ini}}">
 		</div>
-		<div class="col s6">
+		<div class="col s3">
 			<input (change)="cambioFechaFin()" id="fechaFin" type="date" value="{{fin}}">
 		</div>
 	</div>
+
+	<!-- Filtrado por instituto -->
+	<div class="row esconder-print" *ngIf="nivel == 1">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por instituto</label>
+			<select (change)="cambioInstituto($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let instituto of institutos; let i = index;">
+					<option [value]="i">
+						{{instituto.nombreInstituto}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<!-- Filtrado por profesor -->
+	<div class="row esconder-print" *ngIf="nivel < 4">
+		<div class="col offset-s3 s6">
+			<label>Filtrado por profesor</label>
+			<select (change)="cambioProfesor($event.target)" class="browser-default">
+				<option value="-1">Todos</option>
+				<ng-container *ngFor="let profesor of profesores; let i = index;">
+					<option [value]="i">
+						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+					</option>
+				</ng-container>
+			</select>
+		</div>
+	</div>
+
+	<div class="esconder-print">
+		<br>
+		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<br>
+	</div>
+
+	<!-- Muestra articulos -->
 	<table>
-		<tr *ngFor="let item of datosArticulo;">
-			<ng-container *ngIf="item.articulo.fechaedicion >= ini && item.articulo.fechaedicion <= fin">
-				<td>{{item.articulo.fechaedicion}}</td>
-				<td><strong>{{item.articulo.titulo}}</strong></td>
-				<td><b>Autor(es)</b></td>
-				<p *ngFor="let autor of item.autores">
-					{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
-					<a 
-						href="javascript:void(0);"
-						(click)="eliminarProf(item.articulo.idArticulo, autor.idProfesor)"
-						class="material-icons"
-					>delete</a>
-				</p>
-				<td>
-					<a 
-						href="javascript:void(0);"
-						(click)="agregarUTM(item.articulo.idArticulo)"
-					>+UTM</a>
-				</td>
-				<td>
-					<a 
-						href="javascript:void(0);"
-						(click)="agregarUTM(item.articulo.idArticulo)"
-					>PRIORIDAD</a>
-				</td>
-				<td>
-					<div class="file-field input-field">
-						<div class="btn light-blue darken-1">
-							<span>Subir</span>
-							<input 
-								(change)="cargarArchivo(item.articulo.idArticulo, $event.target)" 
-								type="file"
-								multiple
-							>
-						</div>
-						<div class="file-path-wrapper">
-							<input	class="file-path validate" 
-									type="text"
-									placeholder="Sube tu comprobable"
-							>
-						</div>
-					</div>
-				</td>
-			</ng-container>
+		<tr>
+			<td colspan="4"><b>Articulos:</b></td>
 		</tr>
+		<ng-container *ngIf="articulos.length > 0; else sinArticulos">
+			<ng-container *ngFor="let item of articulos">
+				<ng-container *ngIf="item.articulo.fechaedicion >= ini && item.articulo.fechaedicion <= fin">
+					<tr class="hide-line">
+						<td>{{item.articulo.fechaedicion}}</td>
+						<td><strong>{{item.articulo.titulo}}</strong></td>
+						<td>Autor(es)</td>
+						<td>
+							<b>{{item.articulo.grado}} {{item.articulo.nombres}} {{item.articulo.apellidoPaterno}} {{item.articulo.apellidoMaterno}}</b>
+							<ng-container *ngFor="let autor of item.autores">
+							, {{autor.grado}} {{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
+							</ng-container>
+						</td>
+					</tr>
+				</ng-container>
+			</ng-container>
+		</ng-container>
+		<ng-template #sinArticulos>
+			<tr class="hide-line">
+				<td colspan="4">
+					Sin articulos
+				</td>
+			</tr>
+		</ng-template>
 	</table>
+
 </div>

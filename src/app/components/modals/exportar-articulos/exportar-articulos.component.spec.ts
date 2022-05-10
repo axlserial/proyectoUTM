@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActividadesViceImpComponent } from './actividades-vice-imp.component';
+import { ExportarArticulosComponent } from './exportar-articulos.component';
 
-describe('ActividadesViceImpComponent', () => {
-  let component: ActividadesViceImpComponent;
-  let fixture: ComponentFixture<ActividadesViceImpComponent>;
+describe('ExportarArticulosComponent', () => {
+  let component: ExportarArticulosComponent;
+  let fixture: ComponentFixture<ExportarArticulosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActividadesViceImpComponent ]
+      declarations: [ ExportarArticulosComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActividadesViceImpComponent);
+    fixture = TestBed.createComponent(ExportarArticulosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

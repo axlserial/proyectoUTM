@@ -111,6 +111,31 @@ class ArticulosController {
             res.json(respuesta);
         });
     }
+    listFirstsArtWithAutoresByInstituto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idInstituto } = req.params;
+            const respuesta = yield database_1.default.query(`SELECT *
+			 FROM articulos A INNER JOIN articuloYprofesor AYP 
+					ON A.idArticulo = AYP.idArticulo
+					  AND AYP.posicion = 1	
+			   	INNER JOIN profesores P
+				   ON AYP.idProfesor = P.idProfesor
+					  AND P.idInstituto = ${idInstituto}`);
+            let datos = [];
+            for (let i = 0; i < respuesta.length; i++) {
+                const respuesta2 = yield database_1.default.query(`SELECT profesores.*
+				 FROM articuloYprofesor, profesores
+				 WHERE articuloYprofesor.idArticulo = ${respuesta[i].idArticulo}
+				 	AND articuloYprofesor.idProfesor = profesores.idProfesor
+					AND profesores.idProfesor <> ${respuesta[i].idProfesor}`);
+                datos.push({
+                    "articulo": respuesta[i],
+                    "autores": respuesta2
+                });
+            }
+            res.json(datos);
+        });
+    }
     listArticulosByCarrera(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idCarrera } = req.params;

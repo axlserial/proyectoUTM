@@ -5,11 +5,15 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 import { ActividadService } from 'src/app/services/actividad.service';
 
 @Component({
-	selector: 'app-actividades-vice-imp',
-	templateUrl: './actividades-vice-imp.component.html',
-	styleUrls: ['./actividades-vice-imp.component.css']
+	selector: 'app-actividades',
+	templateUrl: './actividades.component.html',
+	styleUrls: ['./actividades.component.css']
 })
-export class ActividadesViceImpComponent implements OnInit {
+export class ActividadesComponent implements OnInit {
+
+	// datos prof
+	nivel = 0;
+	idProfesor = 0;
 
 	// Para datos de institutos
 	institutos: any[] = [];
@@ -39,6 +43,9 @@ export class ActividadesViceImpComponent implements OnInit {
 		// Obtiene fecha de un mes atrás
 		hoy.setMonth(hoy.getMonth() - 1);
 		this.ini = this.datePipe.transform(hoy, "yyyy-MM-dd");
+
+		this.nivel = Number(localStorage.getItem("nivel"));
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
 	}
 
 	ngOnInit(): void {
@@ -67,6 +74,8 @@ export class ActividadesViceImpComponent implements OnInit {
 	}
 
 	listarTodoInstitutos(){
+		let inst: number;
+
 		this.institutoService.listInstitutos()
 		.subscribe({
 			next: (resInstitutos: any) => {
@@ -80,20 +89,36 @@ export class ActividadesViceImpComponent implements OnInit {
 				this.profesores = [];
 				this.profActual = 0;
 
-				// obtiene actividades por instituto
+				// limpia arreglo
 				this.actividades = [];
-				this.institutos.forEach(instituto => {
-					this.actividadService.listActividadesByInstituto(instituto.idInstituto)
+
+				// Verifica si es el vice
+				if (this.nivel == 1){
+					this.institutos.forEach(instituto => {
+						this.actividadService.listActividadesByInstituto(instituto.idInstituto)
+						.subscribe({
+							next: (resActividades: any) => {
+								this.actividades.push({
+									"instituto": instituto.nombreInstituto,
+									"actividades": resActividades
+								});
+							},
+							error: err => console.error(err)
+						});
+					});
+				}
+				
+				// director de instituto
+				else {
+					this.profesorService.listOne(this.idProfesor)
 					.subscribe({
-						next: (resActividades: any) => {
-							this.actividades.push({
-								"instituto": instituto.nombreInstituto,
-								"actividades": resActividades
-							});
+						next: (resProfesor: any) => {
+							inst = this.institutos.findIndex(instituto => instituto.idInstituto === resProfesor.idInstituto);
+							this.listarUniqueInstituto(inst);
 						},
 						error: err => console.error(err)
 					});
-				});
+				}
 
 			}
 		});
@@ -157,4 +182,6 @@ export class ActividadesViceImpComponent implements OnInit {
 			error: err => console.error(err)
 		});
 	}
+
+
 }

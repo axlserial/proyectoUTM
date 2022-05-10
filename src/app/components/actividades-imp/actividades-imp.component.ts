@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
-import { EventoService } from 'src/app/services/evento.service';
+import { ActividadService } from 'src/app/services/actividad.service';
 
 @Component({
-	selector: 'app-eventos-vice',
-	templateUrl: './eventos-vice.component.html',
-	styleUrls: ['./eventos-vice.component.css']
+  selector: 'app-actividades-imp',
+  templateUrl: './actividades-imp.component.html',
+  styleUrls: ['./actividades-imp.component.css']
 })
-export class EventosViceComponent implements OnInit {
+export class ActividadesImpComponent implements OnInit {
+
+	// datos prof
+	nivel = 0;
+	idProfesor = 0;
 
 	// Para datos de institutos
 	institutos: any[] = [];
@@ -19,20 +23,16 @@ export class EventosViceComponent implements OnInit {
 	profesores: any[] = [];
 	profActual: number = 0;
 
-	// Para datos de eventos
-	eventos: any[] = [];
+	// Para datos de actividades
+	actividades: any[] = [];
 
 	// Para filtro por fechas
 	ini: any;
 	fin: any;
 
-	// Paginación
-	pageSize = 2;
-	p = 1;
-
 	constructor(private institutoService: InstitutoService,
 				private profesorService: ProfesorService,
-				private eventoService: EventoService,
+				private actividadService: ActividadService,
 				private datePipe: DatePipe) {
 
 		let hoy = new Date();
@@ -43,6 +43,9 @@ export class EventosViceComponent implements OnInit {
 		// Obtiene fecha de un mes atrás
 		hoy.setMonth(hoy.getMonth() - 1);
 		this.ini = this.datePipe.transform(hoy, "yyyy-MM-dd");
+
+		this.nivel = Number(localStorage.getItem("nivel"));
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
 	}
 
 	ngOnInit(): void {
@@ -71,6 +74,8 @@ export class EventosViceComponent implements OnInit {
 	}
 
 	listarTodoInstitutos(){
+		let inst: number;
+
 		this.institutoService.listInstitutos()
 		.subscribe({
 			next: (resInstitutos: any) => {
@@ -84,20 +89,57 @@ export class EventosViceComponent implements OnInit {
 				this.profesores = [];
 				this.profActual = 0;
 
-				// obtiene eventos por instituto
-				this.eventos = [];
-				this.institutos.forEach(instituto => {
-					this.eventoService.listEventosByInstituto(instituto.idInstituto)
+				// limpia arreglo
+				this.actividades = [];
+
+				// Verifica si es el vice
+				if (this.nivel == 1){
+					this.institutos.forEach(instituto => {
+						this.actividadService.listActividadesByInstituto(instituto.idInstituto)
+						.subscribe({
+							next: (resActividades: any) => {
+								this.actividades.push({
+									"instituto": instituto.nombreInstituto,
+									"actividades": resActividades
+								});
+							},
+							error: err => console.error(err)
+						});
+					});
+				}
+				
+				// director de instituto o jefe de carrera
+				else if (this.nivel == 2 || this.nivel == 3) {
+					this.profesorService.listOne(this.idProfesor)
 					.subscribe({
-						next: (resEventos: any) => {
-							this.eventos.push({
-								"instituto": instituto.nombreInstituto,
-								"eventos": resEventos
+						next: (resProfesor: any) => {
+							inst = this.institutos.findIndex(instituto => instituto.idInstituto === resProfesor.idInstituto);
+							this.listarUniqueInstituto(inst);
+						},
+						error: err => console.error(err)
+					});
+				}
+
+				// profesor normal
+				else {
+					this.profesorService.listOne(this.idProfesor)
+					.subscribe({
+						next: (resProfesor: any) => {
+							this.actividadService.listActividadesByProfesor(resProfesor.idProfesor)
+							.subscribe({
+								next: (resActividades: any) => {
+									this.actividades.push({
+										"instituto": `${resProfesor.nombres} ${resProfesor.apellidoPaterno} ${resProfesor.apellidoMaterno}`,
+										"actividades": resActividades
+									});
+								},
+								error: err => console.error(err)
 							});
 						},
 						error: err => console.error(err)
 					});
-				});
+				}
+
 			}
 		});
 	}
@@ -106,15 +148,15 @@ export class EventosViceComponent implements OnInit {
 		this.instActual = index;
 		let instituto = this.institutos[this.instActual];
 
-		this.eventos = [];
-		this.eventoService.listEventosByInstituto(instituto.idInstituto)
-		.subscribe({
-			next: (resEventos: any) => {
+		this.actividades = [];
+		this.actividadService.listActividadesByInstituto(instituto.idInstituto).
+		subscribe({
+			next: (resActividades: any) => {
 
 				// Guarda datos
-				this.eventos.push({
+				this.actividades.push({
 					"instituto": instituto.nombreInstituto,
-					"eventos": resEventos
+					"actividades": resActividades
 				});
 
 				// Lista sus profesores
@@ -148,13 +190,13 @@ export class EventosViceComponent implements OnInit {
 		let profesor = this.profesores[this.profActual];
 		let instituto = this.institutos[this.instActual];
 
-		this.eventos = [];
-		this.eventoService.listEventosByProfesor(profesor.idProfesor)
+		this.actividades = [];
+		this.actividadService.listActividadesByProfesor(profesor.idProfesor)
 		.subscribe({
-			next: (resEventos: any) => {
-				this.eventos.push({
+			next: (resActividades: any) => {
+				this.actividades.push({
 					"instituto": instituto.nombreInstituto,
-					"eventos": resEventos
+					"actividades": resActividades
 				});
 			},
 			error: err => console.error(err)

@@ -57,8 +57,8 @@
 <ul id="dropdown-ver" class="dropdown-content">
 	<li><a class="black-text" href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
 	<li><a class="black-text" href="javascript:void(0);">Materias</a></li>
-	<li [hidden]="nivel < 2">
-		<a class="black-text" href="/home/articulos/{{idProfesor}}">Articulos</a>
+	<li [hidden]="nivel == 1">
+		<a class="black-text" href="/home/articulos-prof/{{idProfesor}}">Articulos</a>
 	</li>
 	<li><a class="black-text" href="javascript:void(0);">Proyectos</a></li>
 	<li><a class="black-text" href="javascript:void(0);">Comisiones</a></li>
@@ -93,20 +93,14 @@
 	<li [hidden]="nivel != 1">
 		<a class="black-text" href="/home/carreras-vice/{{idProfesor}}">Carreras</a>
 	</li>
-	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/articulos-vice/{{idProfesor}}">Articulos</a>
-	</li>
-	<li [hidden]="nivel != 2">
-		<a class="black-text" href="/home/articulos-direc/{{idProfesor}}">Articulos</a>
+	<li [hidden]="nivel > 2">
+		<a class="black-text" href="/home/articulos">Articulos</a>
 	</li>
 	<li [hidden]="nivel > 2">
-		<a class="black-text" href="/home/eventos-vice">Eventos</a>
+		<a class="black-text" href="/home/eventos">Eventos</a>
 	</li>
-	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/actividades-vice">Actividades</a>
-	</li>
-	<li [hidden]="nivel != 2">
-		<a class="black-text" href="javascript:void(0);">Actividades</a>
+	<li [hidden]="nivel > 2">
+		<a class="black-text" href="/home/actividades">Actividades</a>
 	</li>
 </ul>
 
@@ -132,27 +126,18 @@
 	</li>
 </ul>
 
+<!-- Contenido de los desplegables (Exportar) -->
 <ul id="dropdown-exportar" class="dropdown-content">
 	<li [hidden]="nivel != 1">
-		<a class="modal-trigger" href="#exportarArticulos">Articulos</a>
+		<a (click)="exportarArticulos()" class="black-text">Articulos</a>
 	</li>
 </ul>
 
 <!-- Contenido de los desplegables (Imprimir) -->
 <ul id="dropdown-imprimir" class="dropdown-content">
 	<li><a class="black-text" href="/home/articulos-imp/{{idProfesor}}">Articulos</a></li>
-	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/eventos-vice-imp">Eventos</a>
-	</li>
-	<li [hidden]="nivel != 2">
-		<a class="black-text" href="javascript:void(0);">Eventos</a>
-	</li>
-	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/actividades-vice-imp">Actividades</a>
-	</li>
-	<li [hidden]="nivel != 2">
-		<a class="black-text" href="javascript:void(0);">Actividades</a>
-	</li>
+	<li><a class="black-text" href="/home/eventos-imp">Eventos</a></li>
+	<li><a class="black-text" href="/home/actividades-imp">Actividades</a></li>
 </ul>
 
 <!-- Para el menú hamburguesa -->
@@ -311,6 +296,9 @@
 
 <!-- Modal que muestra el registro de una carrera -->
 <app-add-carrera [abrirModal]="abrirModalCarr"></app-add-carrera>
+
+<!-- Muestra modal para exportar artículos -->
+<app-exportar-articulos [abrirModal]="abrirModalExpA"></app-exportar-articulos>
 
 
 <!-- Modal excel Profesor -->
@@ -559,48 +547,38 @@
 </div>
 
 <!-- Modal excel Actividades -->
-<div class="container">
-	<div id="migrarActividad" class="modal">
-		<div class="modal-content">
-			<div class="col s12 m12 l8 offset-12 loginDiv">
-				<div class="row loginContainer">
-					<div class="row" style="margin-bottom: 0px !important;">
-						<div class="col s12">
-							<h5 class="center">Migrar Actividades</h5>
-						</div>
+<div id="migrarActividad" class="modal">
+	<div class="modal-content">
+		<div class="row" style="margin-bottom: 0px !important;">
+				<h5 class="center">Migrar Actividades</h5>
+		</div>
+		<div style="border: .5px solid #78909c; padding: 10px;">
+			<div class="row">
+				<div class="file-field input-field">
+					<div class="btn light-blue darken-1">
+						<span>Subir</span>
+						<input
+							id="subida-act" 
+							(change)="cargarExcel($event.target)" 
+							type="file"
+						>
 					</div>
-					<div style="border: .5px solid #78909c; padding: 10px;">
-						<div class="row">
-							<div class="col s12">
-								<div class="file-field input-field">
-									<div class="btn light-blue darken-1">
-										<span>Subir</span>
-										<input
-											id="subida-act" 
-											(change)="cargarExcel($event.target)" 
-											type="file"
-										>
-									</div>
-									<div class="file-path-wrapper">
-										<input	id="subida-act-n"
-												class="file-path validate" 
-												type="text"
-												placeholder="Selecciona tu excel"
-										>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col s6 center">
-									<a 	(click)="migrarActividad2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
-								</div>
-								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-								</div>
-							</div>
-						</div>
+					<div class="file-path-wrapper">
+						<input	id="subida-act-n"
+								class="file-path validate" 
+								type="text"
+								placeholder="Selecciona tu excel"
+						>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6 center">
+					<a 	(click)="migrarActividad2DB()" 
+						class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+				</div>
+				<div class="col s6 center">
+					<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
 				</div>
 			</div>
 		</div>

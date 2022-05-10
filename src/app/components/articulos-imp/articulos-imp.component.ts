@@ -11,6 +11,10 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 })
 export class ArticulosImpComponent implements OnInit {
 
+	// datos prof
+	nivel = 0;
+	idProfesor = 0;
+
 	// Para datos de institutos
 	institutos: any[] = [];
 	instActual: number = 0;
@@ -40,6 +44,8 @@ export class ArticulosImpComponent implements OnInit {
 		hoy.setMonth(hoy.getMonth() - 1);
 		this.ini = this.datePipe.transform(hoy, "yyyy-MM-dd");
 
+		this.nivel = Number(localStorage.getItem("nivel"));
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
 	}
 
 	ngOnInit(): void {
@@ -68,6 +74,8 @@ export class ArticulosImpComponent implements OnInit {
 	}
 
 	listarTodoInstitutos(){
+		let inst: number;
+
 		this.institutoService.listInstitutos()
 		.subscribe({
 			next: (resInstitutos: any) => {
@@ -81,21 +89,56 @@ export class ArticulosImpComponent implements OnInit {
 				this.profesores = [];
 				this.profActual = 0;
 
-				// obtiene articulos por instituto
+				// limpia arreglo
 				this.articulos = [];
-				this.institutos.forEach(instituto => {
-					this.articuloService.listFirstsArticulosByInstituto(instituto.idInstituto)
+
+				// Verifica si es el vice
+				if (this.nivel == 1){
+					this.institutos.forEach(instituto => {
+						this.articuloService.listFirstsArticulosByInstituto(instituto.idInstituto)
+						.subscribe({
+							next: (resArticulos: any) => {
+								this.articulos.push({
+									"instituto": instituto.nombreInstituto,
+									"articulos": resArticulos
+								});
+							},
+							error: err => console.error(err)
+						});
+					});
+				} 
+				
+				// director de instituto o jefe de carrera
+				else if (this.nivel == 2 || this.nivel == 3) {
+					this.profesorService.listOne(this.idProfesor)
 					.subscribe({
-						next: (resArticulos: any) => {
-							this.articulos.push({
-								"instituto": instituto.nombreInstituto,
-								"articulos": resArticulos
+						next: (resProfesor: any) => {
+							inst = this.institutos.findIndex(instituto => instituto.idInstituto === resProfesor.idInstituto);
+							this.listarUniqueInstituto(inst);
+						},
+						error: err => console.error(err)
+					});
+				}
+
+				// profesor normal
+				else {
+					this.profesorService.listOne(this.idProfesor)
+					.subscribe({
+						next: (resProfesor: any) => {
+							this.articuloService.listArticulosByProfesor(resProfesor.idProfesor)
+							.subscribe({
+								next: (resArticulos: any) => {
+									this.articulos.push({
+										"instituto": `${resProfesor.nombres} ${resProfesor.apellidoPaterno} ${resProfesor.apellidoMaterno}`,
+										"articulos": resArticulos
+									});
+								},
+								error: err => console.log(err)
 							});
 						},
 						error: err => console.error(err)
 					});
-				});
-
+				}
 			}
 		});
 	}
@@ -155,8 +198,6 @@ export class ArticulosImpComponent implements OnInit {
 					"instituto": instituto.nombreInstituto,
 					"articulos": resArticulos
 				});
-
-				console.log(this.articulos);
 
 			},
 			error: err => console.log(err)

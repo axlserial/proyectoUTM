@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventosViceImpComponent } from './eventos-vice-imp.component';
+import { EventosComponent } from './eventos.component';
 
-describe('EventosViceImpComponent', () => {
-  let component: EventosViceImpComponent;
-  let fixture: ComponentFixture<EventosViceImpComponent>;
+describe('EventosComponent', () => {
+  let component: EventosComponent;
+  let fixture: ComponentFixture<EventosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EventosViceImpComponent ]
+      declarations: [ EventosComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventosViceImpComponent);
+    fixture = TestBed.createComponent(EventosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

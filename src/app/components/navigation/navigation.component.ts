@@ -25,6 +25,9 @@ export class NavigationComponent implements OnInit {
 	// para abrir el modal de registrar carrera
 	abrirModalCarr: EventEmitter<boolean> = new EventEmitter();
 
+	// para abrir el modal de exportar articulos
+	abrirModalExpA: EventEmitter<boolean> = new EventEmitter();
+
 	// Profesor
 	registroProfesor: Profesor = new Profesor();
 	tipoProf: any[] = [];
@@ -112,6 +115,10 @@ export class NavigationComponent implements OnInit {
 
 	agregarCarrera(){
 		this.abrirModalCarr.emit(true);
+	}
+
+	exportarArticulos(){
+		this.abrirModalExpA.emit(true);
 	}
 
 	cambioInstituto(op: any){

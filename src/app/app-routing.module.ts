@@ -4,15 +4,15 @@ import { LoginComponent } from './components/login/login.component';
 // import { ProfesorComponent } from './components/profesor/profesor.component';
 // import { NavigationComponent } from './components/navigation/navigation.component';
 import { GeneralesComponent } from './components/generales/generales.component';
-import { ArticulosComponent } from './components/articulos/articulos.component';
 import { HomeComponent } from './components/home/home.component';
+import { ArticulosComponent } from './components/articulos/articulos.component';
 import { ArticulosViceComponent } from './components/articulos-vice/articulos-vice.component';
-import { ArticulosDirecComponent } from './components/articulos-direc/articulos-direc.component';
+import { ArticulosProfComponent } from './components/articulos-prof/articulos-prof.component';
+import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.component';
-import { ActividadesViceComponent } from './components/actividades-vice/actividades-vice.component';
-import { ActividadesViceImpComponent } from './components/actividades-vice-imp/actividades-vice-imp.component';
-import { EventosViceImpComponent } from './components/eventos-vice-imp/eventos-vice-imp.component';
-import { EventosViceComponent } from './components/eventos-vice/eventos-vice.component';
+import { ActividadesImpComponent } from './components/actividades-imp/actividades-imp.component';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { EventosImpComponent } from './components/eventos-imp/eventos-imp.component';
 import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
@@ -39,36 +39,36 @@ const routes: Routes = [
 				component: GeneralesComponent
 			},
 			{
-				path: 'articulos/:idProfesor',
+				path: 'articulos',
 				component: ArticulosComponent
+			},
+			{
+				path: 'articulos-prof/:idProfesor',
+				component: ArticulosProfComponent
 			},
 			{
 				path: 'articulos-vice/:idProfesor',
 				component: ArticulosViceComponent
 			},
 			{
-				path: 'articulos-direc/:idProfesor',
-				component: ArticulosDirecComponent
-			},
-			{
 				path: 'articulos-imp/:idProfesor',
 				component: ArticulosImpComponent
 			},
 			{
-				path: 'actividades-vice',
-				component: ActividadesViceComponent
+				path: 'actividades',
+				component: ActividadesComponent
 			},
 			{
-				path: 'actividades-vice-imp',
-				component: ActividadesViceImpComponent
+				path: 'actividades-imp',
+				component: ActividadesImpComponent
 			},
 			{
-				path: 'eventos-vice-imp',
-				component: EventosViceImpComponent
+				path: 'eventos',
+				component: EventosComponent
 			},
 			{
-				path: 'eventos-vice',
-				component: EventosViceComponent
+				path: 'eventos-imp',
+				component: EventosImpComponent
 			},
 			{
 				path: 'profesores-vice/:idProfesor',
