@@ -13,9 +13,9 @@
 	<!-- Filtrado por instituto -->
 	<div class="row esconder-print" *ngIf="nivel == 1">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por instituto</label>
+			<label>{{"Filtrado por instituto" | translate}}</label>
 			<select (change)="cambioInstituto($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let instituto of institutos; let i = index;">
 					<option [value]="i">
 						{{instituto.nombreInstituto}}
@@ -28,9 +28,9 @@
 	<!-- Filtrado por profesor -->
 	<div class="row esconder-print" *ngIf="nivel < 4">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por profesor</label>
+			<label>{{"Filtrado por profesor" | translate}}</label>
 			<select (change)="cambioProfesor($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let profesor of profesores; let i = index;">
 					<option [value]="i">
 						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
@@ -42,22 +42,27 @@
 
 	<div class="esconder-print">
 		<br>
-		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<p>*{{"Recordar que el filtrado por fecha siempre está activo" | translate}}</p>
 		<br>
 	</div>
 
 	<!-- Muestra articulos -->
 	<table>
 		<tr>
-			<td colspan="4"><b>Articulos:</b></td>
+			<td colspan="4"><b>{{"Articulos" | translate}}:</b></td>
 		</tr>
 		<ng-container *ngIf="articulos.length > 0; else sinArticulos">
-			<ng-container *ngFor="let item of articulos">
+			<ng-container *ngFor="let item of articulos  | 
+				paginate: {
+					itemsPerPage: pageSize,
+					currentPage: p 
+				};"
+			>
 				<ng-container *ngIf="item.articulo.fechaedicion >= ini && item.articulo.fechaedicion <= fin">
 					<tr class="hide-line">
 						<td>{{item.articulo.fechaedicion}}</td>
 						<td><strong>{{item.articulo.titulo}}</strong></td>
-						<td>Autor(es)</td>
+						<td>{{"Autor(es)" | translate}}</td>
 						<td>
 							<b>{{item.articulo.grado}} {{item.articulo.nombres}} {{item.articulo.apellidoPaterno}} {{item.articulo.apellidoMaterno}}</b>
 							<ng-container *ngFor="let autor of item.autores">
@@ -71,10 +76,20 @@
 		<ng-template #sinArticulos>
 			<tr class="hide-line">
 				<td colspan="4">
-					Sin articulos
+					{{"Sin articulos" | translate}}
 				</td>
 			</tr>
 		</ng-template>
 	</table>
+	<br><br>
+	<div class="row center-align">
+		<pagination-controls
+			class="my-pagination"
+			(pageChange)="p = ($event)"
+			previousLabel="Anterior"
+			nextLabel="Siguiente"
+		>
+		</pagination-controls>
+	</div>
 
 </div>

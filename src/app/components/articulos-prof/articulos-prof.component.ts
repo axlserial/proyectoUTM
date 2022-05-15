@@ -4,6 +4,8 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 
 @Component({
 	selector: 'app-articulos-prof',
@@ -25,7 +27,9 @@ export class ArticulosProfComponent implements OnInit {
 				private cambioInfoService: CambioInfoService, 
 				private articuloService: ArticuloService,
 				private profesorService: ProfesorService,
-				private imagenesService: ImagenesService) {
+				private imagenesService: ImagenesService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
 
 		this.fileToUpload = null;
 
@@ -34,6 +38,14 @@ export class ArticulosProfComponent implements OnInit {
 		this.fin = `${hoy.getFullYear()}-${
 					  hoy.getMonth() + 1 < 10 ? '0' + (hoy.getMonth() + 1) : hoy.getMonth() + 1}-${
 					  hoy.getDate() < 10 ? '0' + hoy.getDate() : hoy.getDate()}`;
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			  
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+		  this.translate.use(idioma);
+		});
 
 		this.router.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'));

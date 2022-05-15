@@ -12,7 +12,7 @@
 		<tbody>
 			<tr>
 				<td></td>
-				<td><b>{{"Nombre" | translate}}</b></td>
+				<td><b>{{"Nombre(s)" | translate}}</b></td>
 				<td><input [(ngModel)]="profesor.nombres" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
 			</tr>
@@ -24,35 +24,35 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Apellido Materno</b></td>
+				<td><b>{{"Apellido Materno" | translate}}</b></td>
 				<td><input [(ngModel)]="profesor.apellidoMaterno" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Nombre APA</b></td>
+				<td><b>{{"Nombre APA" | translate}}</b></td>
 				<td><input [(ngModel)]="profesor.nombreApa" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Tipo de profesor</b></td>
+				<td><b>{{"Tipo de profesor" | translate}}</b></td>
 				<td>{{tipoProf}}</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Correo</b></td>
+				<td><b>{{"Correo" | translate}}</b></td>
 				<td><input [(ngModel)]="profesor.correoProfesor" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Nivel</b></td>
+				<td><b>{{"Nivel" | translate}}</b></td>
 				<td>{{profesor.nivel}}</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><b>Grado</b></td>
+				<td><b>{{"Grado" | translate}}</b></td>
 				<td><input [(ngModel)]="profesor.grado" required type="text"
 					autocomplete="off" style="width: 50%;"></td>
 			</tr>
@@ -62,7 +62,7 @@
 	<button 
 		class="btn waves-effect waves-light center-button blue-grey darken-4"
 		(click)="guardarCambios()"
-	>Guardar cambios<i class="material-icons right">save</i>
+	>{{"Guardar cambios" | translate}}<i class="material-icons right">save</i>
 	</button>
 	<br>
 </div>

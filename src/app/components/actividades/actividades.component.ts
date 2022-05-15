@@ -3,6 +3,8 @@ import { DatePipe } from '@angular/common';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { ActividadService } from 'src/app/services/actividad.service';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 
 @Component({
 	selector: 'app-actividades',
@@ -33,6 +35,8 @@ export class ActividadesComponent implements OnInit {
 	constructor(private institutoService: InstitutoService,
 				private profesorService: ProfesorService,
 				private actividadService: ActividadService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService,
 				private datePipe: DatePipe) {
 
 		let hoy = new Date();
@@ -46,6 +50,14 @@ export class ActividadesComponent implements OnInit {
 
 		this.nivel = Number(localStorage.getItem("nivel"));
 		this.idProfesor = Number(localStorage.getItem("idProfesor"));
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
 	}
 
 	ngOnInit(): void {

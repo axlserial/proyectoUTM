@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { InstitutoService } from 'src/app/services/instituto.service';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import { 	Packer, Document, Paragraph, TextRun, AlignmentType, Table, 
 	TableRow, TableCell, VerticalAlign, WidthType, HeightRule, ShadingType	} from 'docx';
 import { saveAs } from 'file-saver';
@@ -21,7 +23,19 @@ export class ExportarArticulosComponent implements OnInit {
 	institutos: any[] = [];
 
 	constructor(private institutoService: InstitutoService,
-				private articuloService: ArticuloService) { }
+				private articuloService: ArticuloService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
+
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
+	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {

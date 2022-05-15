@@ -8,11 +8,14 @@ import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
-	selector: 'app-profesores-vice',
-	templateUrl: './profesores-vice.component.html',
-	styleUrls: ['./profesores-vice.component.css']
+	selector: 'app-profesores',
+	templateUrl: './profesores.component.html',
+	styleUrls: ['./profesores.component.css']
 })
-export class ProfesoresViceComponent implements OnInit {
+export class ProfesoresComponent implements OnInit {
+
+	nivel: number = 0;
+	idProfesor: number = 0;
 
 	profesores: any[] = [];
 	editaProf: Profesor = new Profesor();
@@ -35,7 +38,11 @@ export class ProfesoresViceComponent implements OnInit {
 
 	constructor(private institutoService: InstitutoService,
 				private carreraService: CarreraService,
-				private profesorService: ProfesorService) { }
+				private profesorService: ProfesorService) {
+
+		this.nivel = Number(localStorage.getItem("nivel"));
+		this.idProfesor = Number(localStorage.getItem("idProfesor"));
+	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {
@@ -53,46 +60,59 @@ export class ProfesoresViceComponent implements OnInit {
 			next: (resTipoProf: any) => {
 				this.tipoProf = resTipoProf;
 				this.tprofActual = this.tipoProf[0].idTipoProfesor;
-				this.institutoService.listInstitutos().subscribe({
-					next: (resInstitutos: any) => {
 
-						// Para listado
-						this.institutos = resInstitutos;
-						this.institutos = this.institutos.filter((item: any) => item.idInstituto != 9);
-						this.institutoActual = this.institutos[0].idInstituto;
-
-						// Para modal
-						this.institutosEdit = this.institutos.map(item => {return {...item}});
-						this.instActualEdit = this.institutoActual;
-
-						this.carreraService.listCarrerasbyInstituto(this.institutoActual)
-						.subscribe({
-							next: (resCarreras: any) => {
-								
+				this.profesorService.listOne(this.idProfesor).subscribe({
+					next: (resProfesor: any) => {
+						this.institutoService.listInstitutos().subscribe({
+							next: (resInstitutos: any) => {
+		
 								// Para listado
-								this.carreras = resCarreras;
-								this.carreraActual = this.carreras[0].idCarrera;
-								this.numCarrerasActual = this.carreras.length;
+								this.institutos = resInstitutos;
+								this.institutos = this.institutos.filter((item: any) => item.idInstituto != 9);
+								
+								if (this.nivel != 1){
+									this.institutoActual = this.institutos.filter(item => item.idInstituto === resProfesor.idInstituto)[0].idInstituto;
+								} else {
+									this.institutoActual = this.institutos[0].idInstituto;
+								}
+		
+								console.log("Inst:", this.institutoActual);
 
 								// Para modal
-								this.carrerasEdit = this.carreras.map(item => {return {...item}});
-								this.carrActualEdit = this.carreraActual;
-								this.numCarrActualEdit = this.numCarrerasActual;
-
-								this.profesorService.listProfesoresByCarrera(this.carreraActual)
+								this.institutosEdit = this.institutos.map(item => {return {...item}});
+								this.instActualEdit = this.institutoActual;
+		
+								this.carreraService.listCarrerasbyInstituto(this.institutoActual)
 								.subscribe({
-									next: (resProfesores: any) => {
-										this.profesores = resProfesores;
-										console.log("carreras:", this.carreras);
-										console.log("Listo:", this.profesores);
+									next: (resCarreras: any) => {
+										
+										// Para listado
+										this.carreras = resCarreras;
+										this.carreraActual = this.carreras[0].idCarrera;
+										this.numCarrerasActual = this.carreras.length;
+		
+										// Para modal
+										this.carrerasEdit = this.carreras.map(item => {return {...item}});
+										this.carrActualEdit = this.carreraActual;
+										this.numCarrActualEdit = this.numCarrerasActual;
+		
+										this.profesorService.listProfesoresByCarrera(this.carreraActual)
+										.subscribe({
+											next: (resProfesores: any) => {
+												this.profesores = resProfesores;
+												console.log("carreras:", this.carreras);
+												console.log("Listo:", this.profesores);
+											},
+											error: err => console.log(err)
+										});
 									},
 									error: err => console.log(err)
 								});
 							},
-							error: err => console.log(err)
+							error: (err) => console.log(err)
 						});
 					},
-					error: (err) => console.log(err)
+					error: err => console.error(err)
 				});
 			},
 			error: err => console.log(err)

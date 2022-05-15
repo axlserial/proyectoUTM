@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import { Articulo } from '../../models/articulo.model';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { CambioInfoService } from '../../services/cambio-info.service';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 
 declare var $: any;
 
@@ -20,9 +22,20 @@ export class HomeComponent implements OnInit {
 	clrActual: string = '';
 
 	constructor(private cambioInfoService: CambioInfoService,
-				private articuloService: ArticuloService) {
+				private articuloService: ArticuloService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
+
 		this.articulito = new Articulo();
 		this.idProfesor = Number(localStorage.getItem("idProfesor"));
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
 
 		console.log("idprofesor:", this.idProfesor);
 	}

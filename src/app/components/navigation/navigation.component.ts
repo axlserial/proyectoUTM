@@ -8,6 +8,8 @@ import { Profesor } from 'src/app/models/profesor.model';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { EventoService } from 'src/app/services/evento.service';
 import { ActividadService } from 'src/app/services/actividad.service';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
+import { TranslateService } from "@ngx-translate/core";
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -58,7 +60,19 @@ export class NavigationComponent implements OnInit {
 				private institutoService: InstitutoService,
 				private profesorService: ProfesorService,
 				private eventoService: EventoService,
-				private actividadService: ActividadService) { }
+				private actividadService: ActividadService,
+				private cambioIdiomaService: CambioIdiomaService,
+				private translate: TranslateService) {
+
+	
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
+	}
 
 	ngOnInit(): void {
 		this.idProfesor = Number(localStorage.getItem('idProfesor'));
@@ -366,6 +380,11 @@ export class NavigationComponent implements OnInit {
 			title: 'Eventos migrados',
 			confirmButtonAriaLabel: 'Thumbs up, great!'
 		});
+	}
+
+	cambiarIdioma(op: any){
+		let idioma: string = op.name;
+		this.cambioIdiomaService.enviar(idioma);
 	}
 
 	logout() {

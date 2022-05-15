@@ -11,38 +11,42 @@
 				<ul class="left hide-on-med-and-down">
 					<li>
 						<a class="dropdown-trigger black-text" data-target="dropdown-ver" href="#">
-							Ver<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Ver" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 					<li [hidden]="nivel != 1 && nivel != 3">
 						<a class="dropdown-trigger black-text" data-target="dropdown-agregar" href="javascript:void(0);">
-							Agregar<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Agregar" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 					<li [hidden]="nivel == 4">
 						<a class="dropdown-trigger black-text" data-target="dropdown-listar" href="javascript:void(0);">
-							Listar<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Listar" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 					<li [hidden]="nivel == 4">
 						<a class="dropdown-trigger black-text" data-target="dropdown-migrar" href="javascript:void(0);">
-							Importar<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Importar" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 					<li [hidden]="nivel > 1">
 						<a class="dropdown-trigger black-text" data-target="dropdown-exportar" href="javascript:void(0);">
-							Exportar<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Exportar" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 					<li>
 						<a class="dropdown-trigger black-text" data-target="dropdown-imprimir" href="javascript:void(0);">
-							Imprimir<i class="material-icons right center-icon">arrow_drop_down</i>
+							{{"Imprimir" | translate}}<i class="material-icons right center-icon">arrow_drop_down</i>
 						</a>
 					</li>
 				</ul>
 			</div>
 			<div class="col s2">
 				<ul class="right hide-on-med-and-down">
+					<li class="left center-flags">
+						<input (click)="cambiarIdioma($event.target)" type="image" src="../../../assets/img/en.png" name="en"/>
+						<input (click)="cambiarIdioma($event.target)" type="image" src="../../../assets/img/es.png" name="es"/>
+					</li>
 					<li>
 						<a class="right black-text" (click)="logout()"><i class="material-icons right center-icon
 						vertical-align-middle">exit_to_app</i></a>
@@ -55,89 +59,86 @@
 
 <!-- Contenido de los desplegables (Ver) -->
 <ul id="dropdown-ver" class="dropdown-content">
-	<li><a class="black-text" href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Materias</a></li>
+	<li><a class="black-text" href="/home/generales/{{idProfesor}}">{{"Datos Generales" | translate}}</a></li>
+	<li><a class="black-text" href="javascript:void(0);">{{"Materias" | translate}}</a></li>
 	<li [hidden]="nivel == 1">
-		<a class="black-text" href="/home/articulos-prof/{{idProfesor}}">Articulos</a>
+		<a class="black-text" href="/home/articulos-prof/{{idProfesor}}">{{"Articulos" | translate}}</a>
 	</li>
-	<li><a class="black-text" href="javascript:void(0);">Proyectos</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Comisiones</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Eventos</a></li>
-	<li><a class="black-text" href="javascript:void(0);">Tesistas</a></li>
+	<li><a class="black-text" href="javascript:void(0);">{{"Proyectos" | translate}}</a></li>
+	<li><a class="black-text" href="javascript:void(0);">{{"Comisiones" | translate}}</a></li>
+	<li><a class="black-text" href="javascript:void(0);">{{"Eventos" | translate}}</a></li>
+	<li><a class="black-text" href="javascript:void(0);">{{"Tesistas" | translate}}</a></li>
 </ul>
 
 <!-- Contenido de los desplegables (Agregar) -->
 <ul id="dropdown-agregar" class="dropdown-content">
 	<li>
-		<a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">Profesor</a>
+		<a (click)="agregarProfesor()" class="black-text" href="javascript:void(0);">{{"Profesor" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a (click)="agregarInstituto()" class="black-text" href="javascript:void(0);">Instituto</a>
+		<a (click)="agregarInstituto()" class="black-text" href="javascript:void(0);">{{"Instituto" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a (click)="agregarCarrera()" class="black-text" href="javascript:void(0);">Carrera</a>
+		<a (click)="agregarCarrera()" class="black-text" href="javascript:void(0);">{{"Carrera" | translate}}</a>
 	</li>
 </ul>
 
 <!-- Contenido de los desplegables (Listar) -->
 <ul id="dropdown-listar" class="dropdown-content">
-	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/profesores-vice/{{idProfesor}}">Profesores</a>
-	</li>
-	<li [hidden]="nivel != 3">
-		<a class="black-text" href="/home/profesores-jefe/{{idProfesor}}">Profesores</a>
+	<li [hidden]="nivel != 1 && nivel != 3">
+		<a class="black-text" href="/home/profesores/">{{"Profesores" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/institutos-vice/{{idProfesor}}">Institutos</a>
+		<a class="black-text" href="/home/institutos-vice/{{idProfesor}}">{{"Institutos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a class="black-text" href="/home/carreras-vice/{{idProfesor}}">Carreras</a>
+		<a class="black-text" href="/home/carreras-vice/{{idProfesor}}">{{"Carreras" | translate}}</a>
 	</li>
 	<li [hidden]="nivel > 2">
-		<a class="black-text" href="/home/articulos">Articulos</a>
+		<a class="black-text" href="/home/articulos">{{"Articulos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel > 2">
-		<a class="black-text" href="/home/eventos">Eventos</a>
+		<a class="black-text" href="/home/eventos">{{"Eventos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel > 2">
-		<a class="black-text" href="/home/actividades">Actividades</a>
+		<a class="black-text" href="/home/actividades">{{"Actividades" | translate}}</a>
 	</li>
 </ul>
 
 <!-- Contenido de los desplegables (Importar) -->
 <ul id="dropdown-migrar" class="dropdown-content">
 	<li [hidden]="nivel != 1 && nivel != 3">
-		<a (click)="migrarProfesor()" class="black-text" href="javascript:void(0);">Profesores</a>
+		<a (click)="migrarProfesor()" class="black-text" href="javascript:void(0);">{{"Profesores" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a (click)="migrarInstituto()" class="black-text" href="javascript:void(0);">Institutos</a>
+		<a (click)="migrarInstituto()" class="black-text" href="javascript:void(0);">{{"Institutos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 1">
-		<a (click)="migrarCarrera()" class="black-text" href="javascript:void(0);">Carreras</a>
+		<a (click)="migrarCarrera()" class="black-text" href="javascript:void(0);">{{"Carreras" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 2">
-		<a (click)="migrarArticulo()" class="black-text" href="javascript:void(0);">Articulos</a>
+		<a (click)="migrarArticulo()" class="black-text" href="javascript:void(0);">{{"Articulos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 2">
-		<a (click)="migrarEvento()" class="black-text" href="javascript:void(0);">Eventos</a>
+		<a (click)="migrarEvento()" class="black-text" href="javascript:void(0);">{{"Eventos" | translate}}</a>
 	</li>
 	<li [hidden]="nivel != 2">
-		<a (click)="migrarActividad()" class="black-text" href="javascript:void(0);">Actividades</a>
+		<a (click)="migrarActividad()" class="black-text" href="javascript:void(0);">{{"Actividades" | translate}}</a>
 	</li>
 </ul>
 
 <!-- Contenido de los desplegables (Exportar) -->
 <ul id="dropdown-exportar" class="dropdown-content">
 	<li [hidden]="nivel != 1">
-		<a (click)="exportarArticulos()" class="black-text">Articulos</a>
+		<a (click)="exportarArticulos()" class="black-text">{{"Articulos" | translate}}</a>
 	</li>
 </ul>
 
 <!-- Contenido de los desplegables (Imprimir) -->
 <ul id="dropdown-imprimir" class="dropdown-content">
-	<li><a class="black-text" href="/home/articulos-imp/{{idProfesor}}">Articulos</a></li>
-	<li><a class="black-text" href="/home/eventos-imp">Eventos</a></li>
-	<li><a class="black-text" href="/home/actividades-imp">Actividades</a></li>
+	<li><a class="black-text" href="/home/articulos-imp/{{idProfesor}}">{{"Articulos" | translate}}</a></li>
+	<li><a class="black-text" href="/home/eventos-imp">{{"Eventos" | translate}}</a></li>
+	<li><a class="black-text" href="/home/actividades-imp">{{"Actividades" | translate}}</a></li>
 </ul>
 
 <!-- Para el menú hamburguesa -->
@@ -193,41 +194,41 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Ingresa Profesor</h5>
+							<h5 class="center">{{"Agregar Profesor" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
 						<div class="row">
 							<div class="col s12">
-								<label>Nombre(s)</label>
+								<label>{{"Nombre(s)" | translate}}</label>
 								<input [(ngModel)]="registroProfesor.nombres" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Apellido materno</label>
-								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
-										autocomplete="off">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<label>Apellido paterno</label>
+								<label>{{"Apellido Paterno" | translate}}</label>
 								<input [(ngModel)]="registroProfesor.apellidoPaterno" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Correo</label>
+								<label>{{"Apellido Materno" | translate}}</label>
+								<input [(ngModel)]="registroProfesor.apellidoMaterno" required type="text"
+										autocomplete="off">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<label>{{"Correo" | translate}}</label>
 								<input [(ngModel)]="registroProfesor.correoProfesor" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Nombre APA</label>
+								<label>{{"Nombre APA" | translate}}</label>
 								<input [(ngModel)]="registroProfesor.nombreApa" required type="text"
 										autocomplete="off">
 							</div>
@@ -235,7 +236,7 @@
 						<div [hidden]="nivel == 3">
 							<div class="row">
 								<div class="col s12">
-									<label>Institutos</label>
+									<label>{{"Institutos" | translate}}</label>
 									<select (change)="cambioInstituto($event.target)" class="browser-default">
 										<ng-container *ngFor="let item of institutos;">
 											<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
@@ -247,7 +248,7 @@
 							</div>
 							<div class="row" *ngIf="numCarrerasActual != 0">
 								<div class="col s12">
-									<label>Carreras</label>
+									<label>{{"Carreras" | translate}}</label>
 									<select (change)="cambioCarrera($event.target)" class="browser-default">
 										<ng-container *ngFor="let item of carreras;">
 											<option [value]="item.idCarrera" [selected]="item.idCarrera == carreraActual">
@@ -260,12 +261,12 @@
 						</div>
 						<div class="row">
 							<div class="col s6">
-								<label>Grado</label>
+								<label>{{"Grado" | translate}}</label>
 								<input [(ngModel)]="registroProfesor.grado" required type="text"
 										autocomplete="off">
 							</div>
 							<div class="col s6">
-								<label>Tipo de profesor</label>
+								<label>{{"Tipo de profesor" | translate}}</label>
 								<select (change)="cambioTipoProf($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of tipoProf;">
 										<option [value]="item.idTipoProfesor" [selected]="item == tprofActual">
@@ -278,10 +279,10 @@
 						<div class="row">
 							<div class="col s6 center">
 								<a 	(click)="darAltaProfesor()" 
-									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+									class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 							</div>
 							<div class="col s6 center">
-								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 							</div>
 						</div>
 					</div>
@@ -309,7 +310,7 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Migrar Profesor</h5>
+							<h5 class="center">{{"Importar Profesores" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
@@ -317,7 +318,7 @@
 							<div class="col s12">
 								<div class="file-field input-field">
 									<div class="btn light-blue darken-1">
-										<span>Subir</span>
+										<span>{{"Subir" | translate}}</span>
 										<input
 											id="subida-prof" 
 											(change)="cargarExcel($event.target)" 
@@ -328,7 +329,7 @@
 										<input	id="subida-prof-n"
 												class="file-path validate" 
 												type="text"
-												placeholder="Selecciona tu excel"
+												placeholder="Sel excel"
 										>
 									</div>
 								</div>
@@ -336,10 +337,10 @@
 							<div class="row">
 								<div class="col s6 center">
 									<a 	(click)="migrarProfesor2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+										class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 								</div>
 								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 								</div>
 							</div>
 						</div>
@@ -358,7 +359,7 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Migrar Institutos</h5>
+							<h5 class="center">{{"Importar Institutos" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
@@ -366,7 +367,7 @@
 							<div class="col s12">
 								<div class="file-field input-field">
 									<div class="btn light-blue darken-1">
-										<span>Subir</span>
+										<span>{{"Subir" | translate}}</span>
 										<input
 											id="subida-inst" 
 											(change)="cargarExcel($event.target)" 
@@ -377,7 +378,7 @@
 										<input	id="subida-inst-n"
 												class="file-path validate" 
 												type="text"
-												placeholder="Selecciona tu excel"
+												placeholder="Sel excel"
 										>
 									</div>
 								</div>
@@ -385,10 +386,10 @@
 							<div class="row">
 								<div class="col s6 center">
 									<a 	(click)="migrarInstituto2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+										class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 								</div>
 								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 								</div>
 							</div>
 						</div>
@@ -407,7 +408,7 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Migrar Carreras</h5>
+							<h5 class="center">{{"Importar Carreras" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
@@ -415,7 +416,7 @@
 							<div class="col s12">
 								<div class="file-field input-field">
 									<div class="btn light-blue darken-1">
-										<span>Subir</span>
+										<span>{{"Subir" | translate}}</span>
 										<input
 											id="subida-carr" 
 											(change)="cargarExcel($event.target)" 
@@ -426,7 +427,7 @@
 										<input	id="subida-carr-n"
 												class="file-path validate" 
 												type="text"
-												placeholder="Selecciona tu excel"
+												placeholder="Sel excel"
 										>
 									</div>
 								</div>
@@ -434,10 +435,10 @@
 							<div class="row">
 								<div class="col s6 center">
 									<a 	(click)="migrarCarrera2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+										class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 								</div>
 								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 								</div>
 							</div>
 						</div>
@@ -456,7 +457,7 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Migrar Articulos</h5>
+							<h5 class="center">{{"Importar Articulos" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
@@ -464,7 +465,7 @@
 							<div class="col s12">
 								<div class="file-field input-field">
 									<div class="btn light-blue darken-1">
-										<span>Subir</span>
+										<span>{{"Subir" | translate}}</span>
 										<input
 											id="subida-art" 
 											(change)="cargarExcel($event.target)" 
@@ -475,7 +476,7 @@
 										<input	id="subida-art-n"
 												class="file-path validate" 
 												type="text"
-												placeholder="Selecciona tu excel"
+												placeholder="Sel excel"
 										>
 									</div>
 								</div>
@@ -483,10 +484,10 @@
 							<div class="row">
 								<div class="col s6 center">
 									<a 	(click)="migrarArticulo2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+										class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 								</div>
 								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 								</div>
 							</div>
 						</div>
@@ -505,7 +506,7 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Migrar Eventos</h5>
+							<h5 class="center">{{"Importar Eventos" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
@@ -513,7 +514,7 @@
 							<div class="col s12">
 								<div class="file-field input-field">
 									<div class="btn light-blue darken-1">
-										<span>Subir</span>
+										<span>{{"Subir" | translate}}</span>
 										<input
 											id="subida-evn" 
 											(change)="cargarExcel($event.target)" 
@@ -524,7 +525,7 @@
 										<input	id="subida-evn-n"
 												class="file-path validate" 
 												type="text"
-												placeholder="Selecciona tu excel"
+												placeholder="Sel excel"
 										>
 									</div>
 								</div>
@@ -532,10 +533,10 @@
 							<div class="row">
 								<div class="col s6 center">
 									<a 	(click)="migrarEvento2DB()" 
-										class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+										class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 								</div>
 								<div class="col s6 center">
-									<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+									<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 								</div>
 							</div>
 						</div>
@@ -550,13 +551,13 @@
 <div id="migrarActividad" class="modal">
 	<div class="modal-content">
 		<div class="row" style="margin-bottom: 0px !important;">
-				<h5 class="center">Migrar Actividades</h5>
+				<h5 class="center">{{"Importar Actividades" | translate}}</h5>
 		</div>
 		<div style="border: .5px solid #78909c; padding: 10px;">
 			<div class="row">
 				<div class="file-field input-field">
 					<div class="btn light-blue darken-1">
-						<span>Subir</span>
+						<span>{{"Subir" | translate}}</span>
 						<input
 							id="subida-act" 
 							(change)="cargarExcel($event.target)" 
@@ -567,7 +568,7 @@
 						<input	id="subida-act-n"
 								class="file-path validate" 
 								type="text"
-								placeholder="Selecciona tu excel"
+								placeholder="Sel excel"
 						>
 					</div>
 				</div>
@@ -575,10 +576,10 @@
 			<div class="row">
 				<div class="col s6 center">
 					<a 	(click)="migrarActividad2DB()" 
-						class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+						class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 				</div>
 				<div class="col s6 center">
-					<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+					<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 				</div>
 			</div>
 		</div>

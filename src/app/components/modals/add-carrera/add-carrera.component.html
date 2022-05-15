@@ -5,34 +5,34 @@
 				<div class="row loginContainer">
 					<div class="row" style="margin-bottom: 0px !important;">
 						<div class="col s12">
-							<h5 class="center">Agregar Carrera</h5>
+							<h5 class="center">{{"Agregar Carrera" | translate}}</h5>
 						</div>
 					</div>
 					<div style="border: .5px solid #78909c; padding: 10px;">
 						<div class="row">
 							<div class="col s12">
-								<label>Nombre de la carrera</label>
+								<label>{{"Nombre" | translate}}</label>
 								<input [(ngModel)]="carreraCrear.nombreCarrera" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Código de la carrera</label>
+								<label>{{"Código" | translate}}</label>
 								<input [(ngModel)]="carreraCrear.codigoCarrera" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Siglas</label>
+								<label>{{"Siglas" | translate}}</label>
 								<input [(ngModel)]="carreraCrear.siglas" required type="text"
 										autocomplete="off">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s12">
-								<label>Instituto</label>
+								<label>{{"Instituto" | translate}}</label>
 								<select (change)="cambioInstituto($event.target)" class="browser-default">
 									<ng-container *ngFor="let item of institutos;">
 										<option [value]="item.idInstituto" [selected]="item.idInstituto == institutoActual">
@@ -45,10 +45,10 @@
 						<div class="row">
 							<div class="col s6 center">
 								<a 	(click)="registrarCarrera()" 
-									class="modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+									class="modal-action modal-close waves-effect waves-green btn-flat">{{"Enviar" | translate}}</a>
 							</div>
 							<div class="col s6 center">
-								<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+								<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{"Cancelar" | translate}}</a>
 							</div>
 						</div>
 					</div>

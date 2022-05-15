@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { Carrera } from 'src/app/models/carrera.model';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -23,8 +25,27 @@ export class CarrerasViceComponent implements OnInit {
 	institutosEdit: any[] = [];
 	instActualEdit: any;
 
+	tituloAlerta: string = "¿Eliminar la carrera?";
+
 	constructor(private institutoService: InstitutoService,
-				private carreraService: CarreraService) { }
+				private carreraService: CarreraService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
+
+		this.translate.get("¿Eliminar la carrera?").subscribe({
+			next: (resTrad) => {
+				console.log(resTrad);
+			}
+		});
+	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {

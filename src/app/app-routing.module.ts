@@ -13,8 +13,9 @@ import { ArticulosImpComponent } from './components/articulos-imp/articulos-imp.
 import { ActividadesImpComponent } from './components/actividades-imp/actividades-imp.component';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { EventosImpComponent } from './components/eventos-imp/eventos-imp.component';
-import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
-import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
+import { ProfesoresComponent } from './components/profesores/profesores.component';
+// import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
+// import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
 import { InstitutosViceComponent } from './components/institutos-vice/institutos-vice.component';
 import { CarrerasViceComponent } from './components/carreras-vice/carreras-vice.component';
@@ -71,12 +72,8 @@ const routes: Routes = [
 				component: EventosImpComponent
 			},
 			{
-				path: 'profesores-vice/:idProfesor',
-				component: ProfesoresViceComponent
-			},
-			{
-				path: 'profesores-jefe/:idProfesor',
-				component: ProfesoresJefeComponent
+				path: 'profesores',
+				component: ProfesoresComponent
 			},
 			{
 				path: 'institutos-vice/:idProfesor',
@@ -86,10 +83,6 @@ const routes: Routes = [
 				path: 'carreras-vice/:idProfesor',
 				component: CarrerasViceComponent
 			}
-			// {
-			// 	path: 'materias',
-			// 	component: MateriasComponent
-			// }
 		]
 	},
 	{

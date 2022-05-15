@@ -13,9 +13,9 @@
 	<!-- Filtrado por instituto -->
 	<div class="row esconder-print" *ngIf="nivel == 1">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por instituto</label>
+			<label>{{"Filtrado por instituto" | translate}}</label>
 			<select (change)="cambioInstituto($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let instituto of institutos; let i = index;">
 					<option [value]="i">
 						{{instituto.nombreInstituto}}
@@ -28,9 +28,9 @@
 	<!-- Filtrado por profesor -->
 	<div class="row esconder-print" *ngIf="nivel < 4">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por profesor</label>
+			<label>{{"Filtrado por profesor" | translate}}</label>
 			<select (change)="cambioProfesor($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let profesor of profesores; let i = index;">
 					<option [value]="i">
 						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
@@ -42,7 +42,7 @@
 
 	<div class="esconder-print">
 		<br>
-		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<p>*{{"Recordar que el filtrado por fecha siempre está activo" | translate}}</p>
 		<br>
 	</div>
 
@@ -50,20 +50,20 @@
 	<table>
 		<ng-container *ngFor="let item of eventos">
 			<tr>
-				<td colspan="4"><b>Eventos de: {{item.instituto}}</b></td>
+				<td colspan="4"><b>{{"Eventos de" | translate}}: {{item.instituto}}</b></td>
 			</tr>
 			<ng-container *ngIf="item.eventos.length > 0; else sinEventos">
 				<ng-container *ngFor="let evento of item.eventos">
 					<tr class="hide-line" *ngIf="evento.inicio >= ini && evento.fin <= fin">
-						<td>Inicio: {{evento.inicio}}</td>
-						<td>Fin: {{evento.fin}}</td>
+						<td>{{"Inicio" | translate}}: {{evento.inicio}}</td>
+						<td>{{"Fin" | translate}}: {{evento.fin}}</td>
 						<td><strong>{{evento.nombreEvento}}</strong></td>
 						<td>{{evento.titulo}}</td>
-						<td><b>De</b></td>
+						<td><b>{{"De" | translate}}</b></td>
 						<td>
 							{{evento.grado}} {{evento.nombres}} {{evento.apellidoPaterno}} {{evento.apellidoMaterno}}
 						</td>
-						<td><b>Como</b></td>
+						<td><b>{{"Como" | translate}}</b></td>
 						<td>{{evento.participacion}}</td>
 					</tr>
 				</ng-container>
@@ -71,7 +71,7 @@
 			<ng-template #sinEventos>
 				<tr class="hide-line">
 					<td colspan="4">
-						Sin eventos registrados
+						{{"Sin eventos registrados" | translate}}
 					</td>
 				</tr>
 			</ng-template>

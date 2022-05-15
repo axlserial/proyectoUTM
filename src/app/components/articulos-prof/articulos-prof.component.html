@@ -12,7 +12,7 @@
 			<ng-container *ngIf="item.articulo.fechaedicion >= ini && item.articulo.fechaedicion <= fin">
 				<td>{{item.articulo.fechaedicion}}</td>
 				<td><strong>{{item.articulo.titulo}}</strong></td>
-				<td><b>Autor(es)</b></td>
+				<td><b>{{"Autor(es)" | translate}}</b></td>
 				<p *ngFor="let autor of item.autores">
 					{{autor.nombres}} {{autor.apellidoPaterno}} {{autor.apellidoMaterno}}
 					<a 
@@ -31,12 +31,12 @@
 					<a 
 						href="javascript:void(0);"
 						(click)="agregarUTM(item.articulo.idArticulo)"
-					>PRIORIDAD</a>
+					>{{"PRIORIDAD" | translate}}</a>
 				</td>
 				<td>
 					<div class="file-field input-field">
 						<div class="btn light-blue darken-1">
-							<span>Subir</span>
+							<span>{{"Subir" | translate}}</span>
 							<input 
 								(change)="cargarArchivo(item.articulo.idArticulo, $event.target)" 
 								type="file"
@@ -46,7 +46,7 @@
 						<div class="file-path-wrapper">
 							<input	class="file-path validate" 
 									type="text"
-									placeholder="Sube tu comprobable"
+									placeholder="Comprobable"
 							>
 						</div>
 					</div>

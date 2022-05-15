@@ -2,13 +2,13 @@
 <div id="exportarArticulos" class="modal">
 	<div class="modal-content">
 		<div class="row" style="margin-bottom: 0px !important;">
-				<h5 class="center">Exportar Artículos a WORD</h5>
+				<h5 class="center">{{"Exportar Artículos a WORD" | translate}}</h5>
 		</div>
 		<br>
 		<div style="border: .5px solid #78909c; padding: 50px;">
 			<div class="row">
 				<div class="col offset-s2 s8">
-					<label>Instituto</label>
+					<label>{{"Instituto" | translate}}</label>
 					<select [(ngModel)]="indexInstitutoArticulosExportar" class="browser-default">
 						<option *ngFor="let instituto of institutos; let i = index;" [value]="i">
 							{{instituto.nombreInstituto}}
@@ -21,11 +21,11 @@
 				<div class="col s6 center">
 					<a 	(click)="exportarArticulosWord()"
 						class="modal-action modal-close waves-effect waves-green btn-flat"
-					>Exportar</a>
+					>{{"Exportar" | translate}}</a>
 				</div>
 				<div class="col s6 center">
 					<a 	class=" modal-action modal-close waves-effect waves-green btn-flat"
-					>Cancelar</a>
+					>{{"Cancelar" | translate}}</a>
 				</div>
 			</div>
 		</div>

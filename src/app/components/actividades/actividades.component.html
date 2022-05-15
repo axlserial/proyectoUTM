@@ -13,9 +13,9 @@
 	<!-- Filtrado por instituto -->
 	<div class="row esconder-print" *ngIf="nivel == 1">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por instituto</label>
+			<label>{{"Filtrado por instituto" | translate}}</label>
 			<select (change)="cambioInstituto($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let instituto of institutos; let i = index;">
 					<option [value]="i">
 						{{instituto.nombreInstituto}}
@@ -28,9 +28,9 @@
 	<!-- Filtrado por profesor -->
 	<div class="row esconder-print" *ngIf="nivel < 4">
 		<div class="col offset-s3 s6">
-			<label>Filtrado por profesor</label>
+			<label>{{"Filtrado por profesor" | translate}}</label>
 			<select (change)="cambioProfesor($event.target)" class="browser-default">
-				<option value="-1">Todos</option>
+				<option value="-1">{{"Todos" | translate}}</option>
 				<ng-container *ngFor="let profesor of profesores; let i = index;">
 					<option [value]="i">
 						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
@@ -42,7 +42,7 @@
 
 	<div class="esconder-print">
 		<br>
-		<p>*Recordar que el filtrado por fecha siempre está activo</p>
+		<p>*{{"Recordar que el filtrado por fecha siempre está activo" | translate}}</p>
 		<br>
 	</div>
 
@@ -50,16 +50,16 @@
 	<table>
 		<ng-container *ngFor="let item of actividades">
 			<tr>
-				<td colspan="4"><b>Actividades de: {{item.instituto}}</b></td>
+				<td colspan="4"><b>{{"Actividades de" | translate}}: {{item.instituto}}</b></td>
 			</tr>
 			<ng-container *ngIf="item.actividades.length > 0; else sinActividades">
 				<ng-container *ngFor="let actividad of item.actividades">
 					<tr class="hide-line" *ngIf="actividad.inicio >= ini && actividad.fin <= fin">
-						<td>Inicio: {{actividad.inicio}}</td>
-						<td>Fin: {{actividad.fin}}</td>
+						<td>{{"Inicio" | translate}}: {{actividad.inicio}}</td>
+						<td>{{"Fin" | translate}}: {{actividad.fin}}</td>
 						<td><strong>{{actividad.actividad}}</strong></td>
 						<td>{{actividad.descripcion}}</td>
-						<td><b>De</b></td>
+						<td><b>{{"De" | translate}}</b></td>
 						<td style="width: 40%;">
 							{{actividad.grado}} {{actividad.nombres}} {{actividad.apellidoPaterno}} {{actividad.apellidoMaterno}}
 						</td>
@@ -69,7 +69,7 @@
 			<ng-template #sinActividades>
 				<tr class="hide-line">
 					<td colspan="4">
-						Sin actividades registradas
+						{{"Sin actividades registradas" | translate}}
 					</td>
 				</tr>
 			</ng-template>

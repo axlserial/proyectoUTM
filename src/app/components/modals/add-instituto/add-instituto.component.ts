@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { Instituto } from 'src/app/models/instituto.model';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -18,7 +20,18 @@ export class AddInstitutoComponent implements OnInit {
 	// Datos del instituto a crear
 	institutoCrear: Instituto = new Instituto();
 
-	constructor(private institutoService: InstitutoService) { }
+	constructor(private institutoService: InstitutoService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
+	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { Instituto } from 'src/app/models/instituto.model';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -15,7 +17,18 @@ export class InstitutosViceComponent implements OnInit {
 	institutos: any[] = [];
 	institutoActual: Instituto = new Instituto();
 
-	constructor(private institutoService: InstitutoService) { }
+	constructor(private institutoService: InstitutoService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService) {
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+			
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
+	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {
@@ -46,9 +59,9 @@ export class InstitutosViceComponent implements OnInit {
 	cambiarDatosInst() {
 		console.log("Editado:", this.institutoActual);
 		this.institutoService.actualizarInstituto(this.institutoActual)
-		.subscribe({
-			next: (resEdit: any) => this.obtenerInstitutos()
-		});
+			.subscribe({
+				next: (resEdit: any) => this.obtenerInstitutos()
+			});
 	}
 
 	eliminarInstituto(index: any, idInstituto: any) {
@@ -60,31 +73,31 @@ export class InstitutosViceComponent implements OnInit {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this.institutoService.numCarreras(idInstituto)
-				.subscribe({
-					next: (resNum: any) => {
-						if (resNum === 0){
-							this.institutoService.eliminaInstituto(idInstituto)
-							.subscribe({
-								next: (resEliminar: any) => {
-									Swal.fire({
-										position: "center",
-										icon: "success",
-										title: `Instituto eliminado`,
-									});
+					.subscribe({
+						next: (resNum: any) => {
+							if (resNum === 0) {
+								this.institutoService.eliminaInstituto(idInstituto)
+									.subscribe({
+										next: (resEliminar: any) => {
+											Swal.fire({
+												position: "center",
+												icon: "success",
+												title: `Instituto eliminado`,
+											});
 
-									// elimina instituto de array
-									this.institutos.splice(index, 1);
-								}
-							});
-						} else {
-							Swal.fire({
-								position: "center",
-								icon: "error",
-								title: `Instituto con carreras registradas`,
-							});					
+											// elimina instituto de array
+											this.institutos.splice(index, 1);
+										}
+									});
+							} else {
+								Swal.fire({
+									position: "center",
+									icon: "error",
+									title: `Instituto con carreras registradas`,
+								});
+							}
 						}
-					}
-				});
+					});
 			}
 		});
 	}

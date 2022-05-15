@@ -3,6 +3,8 @@ import { DatePipe } from '@angular/common';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
+import { TranslateService } from "@ngx-translate/core";
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 
 @Component({
 	selector: 'app-articulos',
@@ -30,9 +32,15 @@ export class ArticulosComponent implements OnInit {
 	ini: any;
 	fin: any;
 
+	// Paginación
+	pageSize = 5;
+	p = 1;
+
 	constructor(private institutoService: InstitutoService,
 				private profesorService: ProfesorService,
 				private articuloService: ArticuloService,
+				private translate: TranslateService,
+				private cambioIdiomaService: CambioIdiomaService,
 				private datePipe: DatePipe) {
 
 		let hoy = new Date();
@@ -46,6 +54,14 @@ export class ArticulosComponent implements OnInit {
 
 		this.nivel = Number(localStorage.getItem("nivel"));
 		this.idProfesor = Number(localStorage.getItem("idProfesor"));
+
+		this.translate.addLangs(["es", "en"]);
+		this.translate.setDefaultLang("es");
+
+		this.cambioIdiomaService.currentMsg$
+		.subscribe(idioma => {
+			this.translate.use(idioma);
+		});
 	}
 
 	ngOnInit(): void {

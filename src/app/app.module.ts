@@ -21,18 +21,20 @@ import { ArticulosViceComponent } from './components/articulos-vice/articulos-vi
 import { RecuperarContraComponent } from './components/recuperar-contra/recuperar-contra.component';
 import { MateriasComponent } from './components/materias/materias.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
+// import { ProfesoresViceComponent } from './components/profesores-vice/profesores-vice.component';
 import { CambioInfoService } from './services/cambio-info.service';
+import { CambioIdiomaService } from './services/cambio-idioma.service';
 import { InstitutosViceComponent } from './components/institutos-vice/institutos-vice.component';
 import { CarrerasViceComponent } from './components/carreras-vice/carreras-vice.component';
 import { AddInstitutoComponent } from './components/modals/add-instituto/add-instituto.component';
 import { AddCarreraComponent } from './components/modals/add-carrera/add-carrera.component';
-import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
+// import { ProfesoresJefeComponent } from './components/profesores-jefe/profesores-jefe.component';
 import { ActividadesImpComponent } from './components/actividades-imp/actividades-imp.component';
 import { EventosImpComponent } from './components/eventos-imp/eventos-imp.component';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ExportarArticulosComponent } from './components/modals/exportar-articulos/exportar-articulos.component';
+import { ProfesoresComponent } from './components/profesores/profesores.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -53,17 +55,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 		RecuperarContraComponent,
 		MateriasComponent,
 		FooterComponent,
-		ProfesoresViceComponent,
 		InstitutosViceComponent,
 		CarrerasViceComponent,
 		AddInstitutoComponent,
 		AddCarreraComponent,
-		ProfesoresJefeComponent,
 		ActividadesImpComponent,
 		EventosImpComponent,
   EventosComponent,
   ActividadesComponent,
   ExportarArticulosComponent,
+  ProfesoresComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -81,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 	],
 	providers: [
 		CambioInfoService,
+		CambioIdiomaService,
 		DatePipe
 	],
 	bootstrap: [AppComponent]

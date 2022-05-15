@@ -14,6 +14,18 @@ nav {
 	display: flex;
 	align-items: center;
 }
+
+.center-flags {
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	padding-top: 7%;
+}
+
+.center-flags > input {
+	margin-right: 5%;
+}
+
 /* .contenedor-principal {
 	margin-top: 10em;	
 } */
