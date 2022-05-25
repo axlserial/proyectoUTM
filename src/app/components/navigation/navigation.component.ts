@@ -185,17 +185,6 @@ export class NavigationComponent implements OnInit {
 		});
 	}
 
-
-	migrarProfesor(){
-		let entrada = document.getElementById("subida-prof") as any;
-		entrada.value = "";
-		entrada = document.getElementById("subida-prof-n") as any;
-		entrada.value = "";
-
-		$('#migrarProfesor').modal();
-		$('#migrarProfesor').modal('open');
-	}
-
 	cargarExcel(event: any){
 		if (event.files.length == 0)
 			return;
@@ -216,6 +205,16 @@ export class NavigationComponent implements OnInit {
 			this.exceljsondata = XLSX.utils.sheet_to_json(worksheet, { raw: true });
 			console.log(this.exceljsondata);
 		}
+	}
+
+	migrarProfesor(){
+		let entrada = document.getElementById("subida-prof") as any;
+		entrada.value = "";
+		entrada = document.getElementById("subida-prof-n") as any;
+		entrada.value = "";
+
+		$('#migrarProfesor').modal();
+		$('#migrarProfesor').modal('open');
 	}
 
 	migrarProfesor2DB(){

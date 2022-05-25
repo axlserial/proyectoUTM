@@ -36,8 +36,6 @@ export class HomeComponent implements OnInit {
 		.subscribe(idioma => {
 			this.translate.use(idioma);
 		});
-
-		console.log("idprofesor:", this.idProfesor);
 	}
 
 	ngOnInit(): void {

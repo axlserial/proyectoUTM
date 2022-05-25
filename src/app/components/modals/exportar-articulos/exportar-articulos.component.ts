@@ -240,12 +240,12 @@ export class ExportarArticulosComponent implements OnInit {
 
 const rellenoVerdeClaro = {
 	type: ShadingType.CLEAR, 
-	color: 'e8f5e9', 
-	fill: 'e8f5e9' 
+	color: 'DDDDDD', 
+	fill: 'DDDDDD' 
 } 
 
 const rellenoVerdeFuerte = { 
 	type: ShadingType.CLEAR, 
-	color: 'a5d6a7', 
-	fill: 'a5d6a7'
+	color: '939393', 
+	fill: '939393'
 }

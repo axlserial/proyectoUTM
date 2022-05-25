@@ -1,5 +1,6 @@
 <div class="contenedor-principal">
 	<table>
+
 		<tr *ngIf="nivel == 1">
 			<td colspan="5">
 				<div class="row">
@@ -28,6 +29,7 @@
 				</div>
 			</td>
 		</tr>
+		
 		<tr><br><b>Profesores</b></tr>
 		<tr *ngFor="let profesor of profesores; let i = index;">
 			<td style="width: 10%;">{{i + 1}}</td>
